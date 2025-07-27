@@ -29,7 +29,6 @@ const nextConfig = {
   // Experimental optimizasyonlar
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
     scrollRestoration: true,
   },
@@ -169,16 +168,16 @@ const nextConfig = {
     ]
   },
   
-  // Rewrites (iç yönlendirmeler)
-  async rewrites() {
-    return [
-      // API proxy örnekleri (gerekirse)
-      {
-        source: '/api/:path*',
-        destination: 'https://api.ismailcavus.av.tr/:path*',
-      }
-    ]
-  },
+  // Rewrites (iç yönlendirmeler) - şimdilik devre dışı
+  // async rewrites() {
+  //   return [
+  //     // API proxy örnekleri (gerekirse)
+  //     {
+  //       source: '/api/:path*',
+  //       destination: 'https://api.ismailcavus.av.tr/:path*',
+  //     }
+  //   ]
+  // },
   
   // Webpack optimizasyonları
   webpack: (config, { dev, isServer }) => {
