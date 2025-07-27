@@ -6,10 +6,10 @@ import { ArrowLeft, Save, X, Image as ImageIcon } from 'lucide-react';
 import { supabase, uploadImage } from '@/lib/supabase';
 import { Kategori, BlogYazisi } from '@/types/admin';
 import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
 
 // React Quill'i dinamik olarak import et (SSR sorunlarını önlemek için)
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
 
 // Quill modülleri ve formatları
 const quillModules = {
@@ -117,8 +117,6 @@ const BlogDuzenlePage = () => {
     setPendingImageUrl('');
     setAltText('');
   };
-
-
 
   // Nofollow link ekleme fonksiyonu
   const nofollowLinkHandler = () => {
@@ -257,13 +255,6 @@ const BlogDuzenlePage = () => {
     setLoading(true);
 
     try {
-      // Görsel yükleme işlemi
-      let imageUrl = formData.image;
-      if (imageFile) {
-        const fileName = `${Date.now()}-${imageFile.name}`;
-        imageUrl = await uploadImage(imageFile, fileName);
-      }
-
       // Blog yazısını güncelle
       const { error } = await supabase
         .from('blog_yazilari')
@@ -273,7 +264,7 @@ const BlogDuzenlePage = () => {
           author: formData.author,
           date: formData.date,
           categories: formData.categories,
-          image: imageUrl,
+          image: formData.image,
           image_alt: formData.image_alt,
           slug: formData.slug,
           meta_title: formData.meta_title,
@@ -418,7 +409,7 @@ const BlogDuzenlePage = () => {
               required
             />
             <p className="text-xs text-gray-500 mt-1">URL'de kullanılacak kısa isim (otomatik oluşturulur)</p>
-            </div>
+          </div>
 
           <div>
             <label htmlFor="categories" className="block text-sm font-medium text-gray-700 mb-2">
@@ -471,77 +462,80 @@ const BlogDuzenlePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-2">
+            <div>
+              <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-2">
                 Yazar
-            </label>
-            <input
-              type="text"
-              id="author"
-              value={formData.author}
-              onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-            />
-          </div>
+              </label>
+              <input
+                type="text"
+                id="author"
+                value={formData.author}
+                onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+            <div>
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
                 Tarih
-            </label>
-            <input
-              type="date"
-              id="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-            />
+              </label>
+              <input
+                type="date"
+                id="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">
+                Görsel URL
+              </label>
+              <input
+                type="url"
+                id="image"
+                value={formData.image}
+                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">
-              Görsel URL
-            </label>
-            <input
-              type="url"
-              id="image"
-              value={formData.image}
-              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="https://example.com/image.jpg"
-            />
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="imageAlt" className="block text-sm font-medium text-gray-700 mb-2">
+                Görsel Alt Metni (SEO için)
+              </label>
+              <input
+                type="text"
+                id="imageAlt"
+                value={formData.image_alt}
+                onChange={(e) => setFormData({ ...formData, image_alt: e.target.value })}
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                placeholder="Görselin açıklaması (örn: Ankara avukat ofisi)"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Arama motorları ve görme engelli kullanıcılar için görsel açıklaması
+              </p>
+            </div>
 
-          <div>
-            <label htmlFor="imageAlt" className="block text-sm font-medium text-gray-700 mb-2">
-              Görsel Alt Metni (SEO için)
-            </label>
-            <input
-              type="text"
-              id="imageAlt"
-              value={formData.image_alt}
-              onChange={(e) => setFormData({ ...formData, image_alt: e.target.value })}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="Görselin açıklaması (örn: Ankara avukat ofisi)"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Arama motorları ve görme engelli kullanıcılar için görsel açıklaması
-            </p>
-          </div>
-
-          <div>
-            <label htmlFor="show_on_homepage" className="block text-sm font-medium text-gray-700 mb-2">
-              Ana Sayfada Göster
-            </label>
-            <input
-              type="checkbox"
-              id="show_on_homepage"
-              checked={formData.show_on_homepage}
-              onChange={(e) => setFormData({ ...formData, show_on_homepage: e.target.checked })}
-              className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Bu blog yazısını ana sayfada göstermek istiyorsanız işaretleyin.
-            </p>
+            <div>
+              <label htmlFor="show_on_homepage" className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="show_on_homepage"
+                  checked={formData.show_on_homepage}
+                  onChange={(e) => setFormData({ ...formData, show_on_homepage: e.target.checked })}
+                  className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                />
+                <span className="text-sm font-medium text-gray-700">Ana Sayfada Göster</span>
+              </label>
+              <p className="text-xs text-gray-500 mt-1">
+                Bu blog yazısını ana sayfada göstermek istiyorsanız işaretleyin.
+              </p>
+            </div>
           </div>
 
           <div>
@@ -559,70 +553,70 @@ const BlogDuzenlePage = () => {
               />
             </div>
             
-                          {/* Editör Butonları */}
-              <div className="mt-2 relative z-10">
-                <details className="group">
-                  <summary className="flex items-center justify-between cursor-pointer p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
-                    <span className="font-medium text-gray-700">📝 Özel Alanlar Ekle</span>
-                    <svg className="w-5 h-5 text-gray-500 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                  </summary>
-                  <div className="mt-3 p-4 bg-white border border-gray-200 rounded-lg space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      <button
-                        type="button"
-                        onClick={imageHandler}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-                      >
-                        <ImageIcon size={16} className="mr-2" />
-                        Görsel Ekle
-                      </button>
-                      
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
-                          if (quill) {
-                            const range = quill.getSelection(true);
-                            const infoText = '[info title="Önemli Bilgi"]Buraya içeriği yazın...[/info]';
-                            quill.insertText(range.index, infoText);
-                          }
-                        }}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
-                      >
-                        📝 Bilgi Kutusu
-                      </button>
-                      
-                                  <button
-                        type="button"
-                        onClick={() => {
-                          const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
-                          if (quill) {
-                            const range = quill.getSelection(true);
-                            const accordionText = '[accordion title="Soru Başlığı"]Buraya cevap içeriği yazın...[/accordion]';
-                            quill.insertText(range.index, accordionText);
-                          }
-                        }}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors"
-                      >
-                        📋 Accordion (FAQ)
-                      </button>
-                      
-                                  <button
-                        type="button"
-                        onClick={nofollowLinkHandler}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors"
-                      >
-                        🔗 Nofollow Link
-                      </button>
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
-                    </p>
+            {/* Editör Butonları */}
+            <div className="mt-2 relative z-10">
+              <details className="group">
+                <summary className="flex items-center justify-between cursor-pointer p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                  <span className="font-medium text-gray-700">📝 Özel Alanlar Ekle</span>
+                  <svg className="w-5 h-5 text-gray-500 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </summary>
+                <div className="mt-3 p-4 bg-white border border-gray-200 rounded-lg space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <button
+                      type="button"
+                      onClick={imageHandler}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                    >
+                      <ImageIcon size={16} className="mr-2" />
+                      Görsel Ekle
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                        if (quill) {
+                          const range = quill.getSelection(true);
+                          const infoText = '[info title="Önemli Bilgi"]Buraya içeriği yazın...[/info]';
+                          quill.insertText(range.index, infoText);
+                        }
+                      }}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                    >
+                      📝 Bilgi Kutusu
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                        if (quill) {
+                          const range = quill.getSelection(true);
+                          const accordionText = '[accordion title="Soru Başlığı"]Buraya cevap içeriği yazın...[/accordion]';
+                          quill.insertText(range.index, accordionText);
+                        }
+                      }}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors"
+                    >
+                      📋 Accordion (FAQ)
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={nofollowLinkHandler}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors"
+                    >
+                      🔗 Nofollow Link
+                    </button>
                   </div>
-                </details>
-              </div>
+                  <p className="text-xs text-gray-500">
+                    Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
+                  </p>
+                </div>
+              </details>
+            </div>
           </div>
         </form>
       </div>

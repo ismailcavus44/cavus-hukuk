@@ -357,7 +357,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           datePublished={blogYazisi.date}
           dateModified={blogYazisi.date}
           articleSection={blogYazisi.categories}
-          keywords={blogYazisi.categories.split(',').map(cat => cat.trim())}
+          keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((cat: string) => cat.trim()) : []}
           wordCount={blogYazisi.content.split(' ').length}
           readingTime={5}
         />

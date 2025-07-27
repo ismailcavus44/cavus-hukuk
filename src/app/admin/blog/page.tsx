@@ -13,6 +13,7 @@ interface Blog {
   date: string;
   categories: string;
   slug: string;
+  image?: string;
   show_on_homepage: boolean;
 }
 
