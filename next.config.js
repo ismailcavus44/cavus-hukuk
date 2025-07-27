@@ -1,13 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Build traces'i devre dışı bırak
-  experimental: {
-    outputFileTracingRoot: false,
-    serverComponentsExternalPackages: ['sharp'],
-    optimizePackageImports: ['lucide-react'],
-    scrollRestoration: true,
-  },
-  
   // Image optimizasyonu
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -42,32 +34,6 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: "frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com"
-          }
-        ]
-      },
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/xml'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
-          }
-        ]
-      },
-      {
-        source: '/robots.txt',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'text/plain'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
           }
         ]
       }
