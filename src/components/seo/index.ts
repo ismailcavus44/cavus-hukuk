@@ -13,6 +13,7 @@ export { default as ContactPageSchema } from './ContactPageSchema'
 export { default as AboutPageSchema } from './AboutPageSchema'
 export { default as BlogSchema } from './BlogSchema'
 export { default as PersonSchema } from './PersonSchema'
+export { default as SearchActionSchema } from './SearchActionSchema'
 
 // Type exports
 export type { FAQItem } from './FAQSchema'

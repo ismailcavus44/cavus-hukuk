@@ -248,14 +248,14 @@ const HizmetlerPage = () => {
                     {/* Header */}
                     <header className="flex items-start justify-between mb-6">
                       <div className="flex items-center space-x-4">
-                        <div className="w-20 h-20 bg-red-100 rounded-xl flex items-center justify-center group-hover:bg-red-200 transition-colors shadow-sm" aria-hidden="true">
+                        <div className="w-20 h-20 rounded-xl flex items-center justify-center shadow-sm" aria-hidden="true">
                           <IconComponent size={36} className="text-red-600" />
                         </div>
                         <div>
                           <h3 className="text-2xl font-bold text-gray-900 mb-2">{hizmet.baslik}</h3>
                           <p className="text-gray-600 leading-relaxed">{hizmet.aciklama}</p>
                         </div>
-        </div>
+                      </div>
                     </header>
 
                     {/* Detaylar */}
@@ -306,7 +306,7 @@ const HizmetlerPage = () => {
           </section>
 
           {/* Neden Biz Section */}
-          <section aria-labelledby="neden-biz-baslik" className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-gradient-to-r from-red-50 via-white to-red-50 rounded-none p-0 mb-16 py-16">
+          <section aria-labelledby="neden-biz-baslik" className="bg-gradient-to-r from-red-50 via-white to-red-50 rounded-none p-0 mb-16 py-16">
             <div className="max-w-6xl mx-auto px-4">
               <header className="text-center mb-8">
                 <h2 id="neden-biz-baslik" className="text-3xl font-bold text-gray-900 mb-4">Neden Çavuş Hukuk Bürosu?</h2>

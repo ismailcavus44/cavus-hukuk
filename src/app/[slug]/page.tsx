@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { 
   Calendar, 
   User, 
@@ -142,26 +143,6 @@ const processAccordionTitles = (content: string) => {
     return null;
   }).filter((item): item is { id: string; title: string; level: number } => item !== null);
 };
-
-// Error component - React.memo ile optimize edilmiş
-const ErrorComponent = React.memo(() => (
-  <div className="min-h-screen bg-white flex items-center justify-center">
-    <div className="text-center">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4">Blog Yazısı Bulunamadı</h1>
-      <p className="text-gray-600 mb-6">Aradığınız blog yazısı mevcut değil.</p>
-      <Link 
-        href="/blog"
-        className="inline-flex items-center text-red-600 hover:text-red-700 font-semibold"
-        aria-label="Blog ana sayfasına dön"
-      >
-        <ArrowLeft size={16} className="mr-2" aria-hidden="true" />
-        Blog'a Dön
-      </Link>
-    </div>
-  </div>
-));
-
-ErrorComponent.displayName = 'ErrorComponent';
 
 // Header component - React.memo ile optimize edilmiş
 const BlogHeader = React.memo(({ blogYazisi }: { blogYazisi: BlogYazisi }) => (
@@ -321,11 +302,11 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 
     if (error) {
       console.error('Blog yazısı yüklenirken hata:', error);
-      return <ErrorComponent />;
+      notFound();
     }
 
     if (!blogYazisi) {
-      return <ErrorComponent />;
+      notFound();
     }
 
     // İçeriği işle - useMemo benzeri optimizasyon
@@ -388,7 +369,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
     );
   } catch (error) {
     console.error('Blog post sayfası yüklenirken beklenmeyen hata:', error);
-    return <ErrorComponent />;
+    notFound();
   }
 };
 

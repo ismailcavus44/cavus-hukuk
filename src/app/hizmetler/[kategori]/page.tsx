@@ -53,7 +53,7 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
   return (
     <main className="bg-white min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-white py-4">
+      <div className="bg-white py-4 relative z-10">
         <div className="max-w-6xl mx-auto px-6">
           <Breadcrumb 
             items={[
@@ -106,29 +106,38 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
           )}
           
           {currentYazilar.length > 0 ? (
-            <div className={`grid gap-8 ${
+            <div className={`grid gap-6 ${
               isHesaplamaAraclari 
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
                 : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             }`}>
               {currentYazilar.map((yazi) => (
                 isHesaplamaAraclari ? (
-                  // Kare kart tasarımı
+                  // Modern hesaplama araçları kart tasarımı
                   <Link key={yazi.id} href={`/${yazi.slug || yazi.id}`} className="group">
-                    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-red-200 p-6 h-64 w-64 flex flex-col items-center justify-center text-center">
+                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 p-6 h-full flex flex-col items-center justify-center text-center min-h-[280px]">
                       {/* İkon */}
-                      <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors duration-300 mb-4">
-                        <Calculator size={24} className="text-red-600" />
+                      <div className="w-20 h-20 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center group-hover:from-red-100 group-hover:to-red-200 transition-all duration-300 mb-6 shadow-sm">
+                        <Calculator size={28} className="text-red-600" />
                       </div>
                       
                       {/* Başlık */}
-                      <h3 className="text-lg font-medium text-gray-900 group-hover:text-red-600 transition-colors duration-300 mb-6 line-clamp-3">
+                      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-red-600 transition-colors duration-300 mb-4 line-clamp-2 leading-tight">
                         {yazi.title}
                       </h3>
                       
+                      {/* Açıklama */}
+                      {yazi.excerpt && (
+                        <p className="text-sm text-gray-600 mb-6 line-clamp-2 leading-relaxed">
+                          {yazi.excerpt.replace(/<[^>]*>/g, '').substring(0, 80)}...
+                        </p>
+                      )}
+                      
                       {/* Buton */}
-                      <div className="bg-red-600 text-white px-6 py-3 rounded-lg text-sm font-medium group-hover:bg-red-700 transition-colors duration-300">
-                        Hesapla
+                      <div className="mt-auto w-full">
+                        <div className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg text-sm font-medium group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 shadow-md group-hover:shadow-lg transform group-hover:scale-105">
+                          Hesapla
+                        </div>
                       </div>
                     </div>
                   </Link>
@@ -151,34 +160,31 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                      <div className="absolute top-4 left-4 flex flex-wrap gap-1">
-                        {yazi.categories.split(',').map((category: string, index: number) => (
-                          <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
-                            {category.trim()}
-                      </span>
-                        ))}
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-1">
+                      {yazi.categories && yazi.categories.split(',').map((category: string, index: number) => (
+                        <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
+                          {category.trim()}
+                        </span>
+                      ))}
                     </div>
                   </div>
                   
                   {/* Blog İçeriği */}
                   <div className="p-6">
-                      <Link href={`/${yazi.slug || yazi.id}`}>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2 cursor-pointer">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2">
                       {yazi.title}
                     </h3>
-                      </Link>
-                      
-                      {/* Blog Özeti */}
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        {yazi.excerpt ? 
-                          yazi.excerpt.replace(/&nbsp;/g, ' ').substring(0, 100) + (yazi.excerpt.length > 100 ? '...' : '') :
-                          yazi.content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').substring(0, 100) + '...'
-                        }
-                      </p>
+                    
+                    {/* Blog Özeti */}
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {yazi.excerpt ? 
+                        yazi.excerpt.replace(/&nbsp;/g, ' ').substring(0, 100) + (yazi.excerpt.length > 100 ? '...' : '') :
+                        yazi.content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').substring(0, 100) + '...'
+                      }
+                    </p>
                     
                     {/* Meta Bilgileri */}
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500">
                         <span className="flex items-center">
                           <User size={14} className="mr-1" />
                           {yazi.author}
@@ -187,23 +193,20 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
                           <Calendar size={14} className="mr-1" />
                           {new Date(yazi.date).toLocaleDateString('tr-TR')}
                         </span>
-                      </div>
                     </div>
                     
                     {/* Okuma Butonu */}
-                    <div className="flex items-center justify-between">
-                        <Link 
-                          href={`/${yazi.slug || yazi.id}`}
-                          className="flex items-center text-red-600 hover:text-red-700 font-semibold group-hover:translate-x-1 transition-transform"
-                        >
-                        <span>Devamını Oku</span>
-                        <ChevronRight size={16} className="ml-2" />
-                        </Link>
-                    </div>
+                    <Link 
+                      href={`/${yazi.slug || yazi.id}`}
+                      className="inline-flex items-center text-red-600 hover:text-red-700 font-semibold group-hover:translate-x-1 transition-transform mt-4"
+                      aria-label={`${yazi.title} blog yazısının devamını oku`}
+                    >
+                      Devamını Oku
+                      <ChevronRight size={16} className="ml-2" aria-hidden="true" />
+                    </Link>
                   </div>
                 </article>
-                )
-              ))}
+              )))}
             </div>
           ) : (
             <div className="text-center py-12">

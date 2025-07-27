@@ -166,14 +166,14 @@ const Footer = () => {
             <p className="text-slate-400 text-sm">
               © {currentYear} Ankara Avukat. Tüm hakları saklıdır.
             </p>
-            <div className="flex items-center space-x-6 text-sm">
-              <Link href="/gizlilik-politikasi" className="text-slate-400 hover:text-white transition-colors" aria-label="Gizlilik politikası sayfasına git">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm">
+              <Link href="/gizlilik-politikasi" className="text-slate-400 hover:text-white transition-colors whitespace-nowrap" aria-label="Gizlilik politikası sayfasına git">
                 Gizlilik Politikası
               </Link>
-              <Link href="/kullanim-kosullari" className="text-slate-400 hover:text-white transition-colors" aria-label="Kullanım koşulları sayfasına git">
+              <Link href="/kullanim-kosullari" className="text-slate-400 hover:text-white transition-colors whitespace-nowrap" aria-label="Kullanım koşulları sayfasına git">
                 Kullanım Koşulları
               </Link>
-              <Link href="/cerez-politikasi" className="text-slate-400 hover:text-white transition-colors" aria-label="Çerez politikası sayfasına git">
+              <Link href="/cerez-politikasi" className="text-slate-400 hover:text-white transition-colors whitespace-nowrap" aria-label="Çerez politikası sayfasına git">
                 Çerez Politikası
               </Link>
             </div>

@@ -1,18 +1,41 @@
 "use client";
 
 import React from 'react';
-import { Linkedin, Instagram, ExternalLink } from 'lucide-react';
+import { 
+  Award, 
+  Users, 
+  Clock, 
+  Shield, 
+  CheckCircle,
+  Star,
+  Target,
+  Heart,
+  Scale,
+  BookOpen,
+  Phone,
+  Mail,
+  Building,
+  Eye,
+  MessageSquare,
+  Briefcase,
+  Linkedin,
+  Instagram,
+  ExternalLink
+} from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import { PersonSchema, OrganizationSchema } from '@/components/seo';
 
 const EkipPage = React.memo(() => {
+
   const ekipUyeleri = React.useMemo(() => [
     {
-      id: 1,
+      id: '1',
       ad: 'Av. İsmail Çavuş',
       unvan: 'Kurucu Avukat',
-      linkedin: 'ismail-cavus',
+      uzmanlik: 'İş Hukuku, Trafik Kazaları, Boşanma Davaları',
+      deneyim: '4+ yıl',
+      linkedin: 'ismailcavus',
       instagram: 'ismailcavus',
       medium: 'ismailcavus'
     }
@@ -20,7 +43,26 @@ const EkipPage = React.memo(() => {
 
   return (
     <>
-      {/* Organization ve Person Schema */}
+      {/* Person ve Organization Schema */}
+      <PersonSchema
+        name="Av. İsmail Çavuş"
+        jobTitle="Kurucu Avukat"
+        worksFor={{
+          name: "Çavuş Hukuk Bürosu",
+          type: "LegalService"
+        }}
+        address={{
+          addressLocality: "Ankara",
+          addressCountry: "TR"
+        }}
+        knowsAbout={[
+          "İş Hukuku",
+          "Trafik Kazaları", 
+          "Boşanma Davaları",
+          "Ceza Hukuku",
+          "Askeri Davalar"
+        ]}
+      />
       <OrganizationSchema
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Ceza, boşanma, iş ve ticaret hukuku alanlarında profesyonel destek."
@@ -41,31 +83,10 @@ const EkipPage = React.memo(() => {
         openingHours="Mo-Sa 09:00-18:00"
         priceRange="$$"
       />
-      <PersonSchema
-        name="Av. İsmail Çavuş"
-        jobTitle="Kurucu Avukat"
-        worksFor={{ name: "Çavuş Hukuk Bürosu" }}
-        alumniOf={{ name: "Gazi Üniversitesi Hukuk Fakültesi" }}
-        address={{ addressLocality: "Ankara", addressCountry: "TR" }}
-        knowsAbout={[
-          "İş Hukuku",
-          "Trafik Kazaları",
-          "Boşanma Davaları",
-          "Askeri Davalar",
-          "Ceza Hukuku",
-          "Aile Hukuku"
-        ]}
-      />
-      <main className="bg-white min-h-screen py-16 px-4 md:px-0">
-        {/* Critical Preload - Profil fotoğrafı için LCP optimizasyonu */}
-        <link 
-          rel="preload" 
-          as="image" 
-          href="/images/ismail-cavus.jpg" 
-          type="image/jpeg"
-        />
-        
-        <div className="max-w-6xl mx-auto">
+
+      {/* Hero Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
           {/* Breadcrumb */}
           <div className="mb-8">
             <Breadcrumb 
@@ -78,72 +99,72 @@ const EkipPage = React.memo(() => {
           <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-8 text-center leading-tight">Ekibimiz</h1>
           <p className="text-base text-gray-800 mb-12 text-center max-w-3xl mx-auto">
             Her biri kendi alanında uzmanlaşmış avukatlarımızla tanışın. Deneyimli ve güvenilir ekibimiz hukuki sorunlarınıza çözüm üretiyor.
-              </p>
+          </p>
             
           <div className="flex justify-center mb-16">
             <div className="w-full max-w-2xl">
-            {ekipUyeleri.map((avukat) => (
-              <div key={avukat.id} className="bg-white rounded-2xl p-8 hover:bg-red-50 transition-all duration-300 border border-gray-100 hover:border-red-200 shadow-lg hover:shadow-xl">
-                <div className="text-center mb-6">
-                  <div className="w-32 h-32 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-red-200 transition-colors overflow-hidden shadow-lg">
-                    {avukat.ad === 'Av. İsmail Çavuş' ? (
-                      <OptimizedImage
-                        src="/images/ismail-cavus.jpg" 
-                        alt="Av. İsmail Çavuş" 
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-cover"
-                        priority={true}
-                        sizes="128px"
-                        quality={90}
-                      />
-                    ) : null}
-                    <span 
-                      className="text-red-600 text-3xl font-bold" 
-                      style={{ display: 'none' }}
-                    >
-                      {avukat.ad.charAt(0)}
-                    </span>
-                  </div>
-                  
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
+              {ekipUyeleri.map((avukat) => (
+                <div key={avukat.id} className="bg-white rounded-2xl p-8 hover:bg-red-50 transition-all duration-300 border border-gray-100 hover:border-red-200 shadow-lg hover:shadow-xl">
+                  <div className="text-center mb-6">
+                    <div className="w-32 h-32 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-red-200 transition-colors overflow-hidden shadow-lg">
+                      {avukat.ad === 'Av. İsmail Çavuş' ? (
+                        <OptimizedImage
+                          src="/images/ismail-cavus.jpg" 
+                          alt="Av. İsmail Çavuş" 
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                          priority={true}
+                          sizes="128px"
+                          quality={90}
+                        />
+                      ) : null}
+                      <span 
+                        className="text-red-600 text-3xl font-bold" 
+                        style={{ display: 'none' }}
+                      >
+                        {avukat.ad.charAt(0)}
+                      </span>
+                    </div>
+                    
+                    <h2 className="text-xl font-bold text-gray-900 mb-2">
                       {avukat.ad}
                     </h2>
-                  <p className="text-red-600 font-semibold mb-2">
+                    <p className="text-red-600 font-semibold mb-2">
                       {avukat.unvan}
                     </p>
                   </div>
                   
-                <div className="flex items-center justify-center space-x-4">
-                  <a 
-                    href={`https://linkedin.com/in/${avukat.linkedin}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
+                  <div className="flex items-center justify-center space-x-4">
+                    <a 
+                      href={`https://linkedin.com/in/${avukat.linkedin}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
                     >
-                    <Linkedin size={20} className="text-red-600 group-hover:text-red-700" />
-                  </a>
-                  
-                  <a 
-                    href={`https://instagram.com/${avukat.instagram}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
-                  >
-                    <Instagram size={20} className="text-red-600 group-hover:text-red-700" />
-                  </a>
-                  
-                  <a 
-                    href={`https://medium.com/@${avukat.medium}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
-                  >
-                    <ExternalLink size={20} className="text-red-600 group-hover:text-red-700" />
-                  </a>
+                      <Linkedin size={20} className="text-red-600 group-hover:text-red-700" />
+                    </a>
+                    
+                    <a 
+                      href={`https://instagram.com/${avukat.instagram}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
+                    >
+                      <Instagram size={20} className="text-red-600 group-hover:text-red-700" />
+                    </a>
+                    
+                    <a 
+                      href={`https://medium.com/@${avukat.medium}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center hover:bg-red-200 transition-all duration-300 group hover:scale-110"
+                    >
+                      <ExternalLink size={20} className="text-red-600 group-hover:text-red-700" />
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
 
@@ -241,8 +262,8 @@ const EkipPage = React.memo(() => {
               </div>
             </div>
           </div>
-            </div>
-      </main>
+        </div>
+      </section>
     </>
   );
 });

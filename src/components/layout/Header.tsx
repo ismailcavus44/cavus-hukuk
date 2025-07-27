@@ -89,7 +89,7 @@ const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" aria-label="Ana sayfaya dön - Çavuş Hukuk Bürosu">
+          <Link href="/" aria-label="Ana sayfaya dön - Çavuş Hukuk Bürosu" className="lg:pl-0 -ml-6">
             <OptimizedImage 
               src="/logo-header.png" 
               alt="Çavuş Hukuk Bürosu" 

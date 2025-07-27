@@ -128,11 +128,11 @@ const HomePage = React.memo(() => {
       link: '/hizmetler/miras-hukuku'
     },
     {
-      id: 'trafik-kazasi',
-      baslik: 'Trafik Kazası',
-      aciklama: 'Trafik kazası davaları, tazminat hesaplamaları ve sigorta şirketleri ile uyuşmazlık çözümü.',
-      icon: 'CarFront',
-      link: '/hizmetler/trafik-kazasi'
+      id: 'gayrimenkul-hukuku',
+      baslik: 'Gayrimenkul Hukuku',
+      aciklama: 'Tapu işlemleri, kat mülkiyeti, kentsel dönüşüm ve gayrimenkul uyuşmazlıkları konularında hukuki danışmanlık.',
+      icon: 'Building',
+      link: '/hizmetler/gayrimenkul-hukuku'
     }
   ], []);
 
@@ -203,7 +203,7 @@ const HomePage = React.memo(() => {
     Shield: Shield,
     Building2: Building2,
     Scale: Scale,
-    CarFront: CarFront,
+    Building: Building,
     Users: Users,
     Award: Award,
     Clock: Clock,
@@ -322,30 +322,42 @@ const HomePage = React.memo(() => {
             </p>
           </header>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {yeniHizmetler.map((hizmet, index) => {
               const IconComponent = iconMap[hizmet.icon as keyof typeof iconMap];
               
               return (
                 <article key={hizmet.id} className="group">
-                  <div className="bg-gray-50 rounded-lg p-4 md:p-8 hover:bg-red-50 transition-all duration-300 border border-gray-100 hover:border-red-200">
-                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-red-200 transition-colors">
+                  <div className="bg-white rounded-xl p-6 md:p-8 hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 transition-all duration-300 border border-gray-100 hover:border-red-200 shadow-md hover:shadow-lg h-full flex flex-col">
+                    {/* İkon Container */}
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center mb-4 group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300 shadow-sm group-hover:scale-105">
                       <IconComponent size={24} className="text-red-600" />
-                        </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                          {hizmet.baslik}
-                        </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                          {hizmet.aciklama}
-                        </p>
-                        <Link
-                      href={hizmet.link}
-                      className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-colors group"
-                      aria-label={`${hizmet.baslik} hakkında detaylı bilgi`}
-                        >
+                    </div>
+                    
+                    {/* Başlık */}
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-700 transition-colors duration-300">
+                      {hizmet.baslik}
+                    </h3>
+                    
+                    {/* Açıklama */}
+                    <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3 flex-grow">
+                      {hizmet.aciklama}
+                    </p>
+                    
+                    {/* Link */}
+                    <div className="mt-auto">
+                      <Link
+                        href={hizmet.link}
+                        className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-all duration-300 group/link"
+                        aria-label={`${hizmet.baslik} hakkında detaylı bilgi`}
+                      >
+                        <span className="relative">
                           Detaylı Bilgi
-                          <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 group-hover/link:w-full transition-all duration-300"></span>
+                        </span>
+                        <ChevronRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform duration-300" />
+                      </Link>
+                    </div>
                   </div>
                 </article>
               );
@@ -355,11 +367,11 @@ const HomePage = React.memo(() => {
           <div className="text-center mt-8 md:mt-12">
             <Link
               href="/hizmetler"
-              className="inline-flex items-center px-8 py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
               aria-label="Tüm hizmet alanlarımızı görüntüle"
             >
               Tüm Hizmetlerimiz
-              <ChevronRight size={20} className="ml-2" />
+              <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
         </div>

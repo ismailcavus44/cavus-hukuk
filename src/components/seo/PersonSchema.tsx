@@ -7,7 +7,7 @@ import StructuredData from './StructuredData'
 interface PersonSchemaProps {
   name: string
   jobTitle: string
-  worksFor: {
+  worksFor?: {
     name: string
     type?: string
   }
@@ -28,10 +28,12 @@ export default function PersonSchema({ name, jobTitle, worksFor, alumniOf, addre
     '@type': 'Person',
     name,
     jobTitle,
-    worksFor: {
-      '@type': worksFor.type || 'LegalService',
-      name: worksFor.name
-    },
+    ...(worksFor && {
+      worksFor: {
+        '@type': worksFor.type || 'LegalService',
+        name: worksFor.name
+      }
+    }),
     ...(alumniOf && {
       alumniOf: {
         '@type': alumniOf.type || 'CollegeOrUniversity',

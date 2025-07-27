@@ -1,27 +1,26 @@
 'use client';
 
-import React from 'react';
+import { useEffect } from 'react';
 
-interface FontOptimizerProps {
-  children: React.ReactNode;
-}
-
-const FontOptimizer = React.memo(({ children }: FontOptimizerProps) => {
-  // Font loading optimizasyonu
-  React.useEffect(() => {
-    // Font loading API kullanımı
+const FontOptimizer = () => {
+  useEffect(() => {
+    // Font loading optimizasyonu
     if ('fonts' in document) {
-      // Font yükleme durumunu izle
+      // Font loading API kullan
       document.fonts.ready.then(() => {
-        // Fontlar yüklendiğinde yapılacak işlemler
         document.documentElement.classList.add('fonts-loaded');
+        document.documentElement.classList.remove('fonts-loading');
       });
+    } else {
+      // Fallback: 3 saniye sonra fontların yüklendiğini varsay
+      setTimeout(() => {
+        document.documentElement.classList.add('fonts-loaded');
+        document.documentElement.classList.remove('fonts-loading');
+      }, 3000);
     }
   }, []);
 
-  return <>{children}</>;
-});
-
-FontOptimizer.displayName = 'FontOptimizer';
+  return null;
+};
 
 export default FontOptimizer; 

@@ -21,6 +21,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: false, // WebP dönüştürme için gerekli
   },
   
   // Font optimizasyonu
@@ -28,7 +29,6 @@ const nextConfig = {
   
   // Experimental optimizasyonlar
   experimental: {
-    serverComponentsExternalPackages: ['sharp'],
     optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
     scrollRestoration: true,
@@ -67,6 +67,10 @@ const nextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()'
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self';"
           }
         ]
       },
@@ -80,7 +84,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com;"
           }
         ]
       },

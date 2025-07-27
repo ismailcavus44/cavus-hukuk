@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { Calendar, Clock, ChevronRight, FileText, ChevronLeft, User } from 'lucide-react';
+import { Calendar, Clock, ChevronRight, FileText, ChevronLeft, User, Search, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
-import { BlogSchema } from '@/components/seo';
+import { BlogSchema, SearchActionSchema } from '@/components/seo';
 
 // ISR ayarları - 1 saatte bir güncelleme
 export const revalidate = 3600;
@@ -13,24 +13,33 @@ export const revalidate = 3600;
 interface BlogPageProps {
   searchParams: {
     page?: string;
+    search?: string;
   };
 }
 
 const BlogPage = async ({ searchParams }: BlogPageProps) => {
   const currentPage = parseInt(searchParams.page || '1');
+  const searchQuery = searchParams.search || '';
   const postsPerPage = 6;
   const offset = (currentPage - 1) * postsPerPage;
 
   // Blog yazılarını getir
-        const { count } = await supabase
-          .from('blog_yazilari')
-          .select('*', { count: 'exact', head: true });
+  let query = supabase
+    .from('blog_yazilari')
+    .select('*');
 
-        const { data: blogYazilari } = await supabase
-          .from('blog_yazilari')
-          .select('*')
-          .order('date', { ascending: false })
-          .range(offset, offset + postsPerPage - 1);
+  // Arama filtresi ekle
+  if (searchQuery) {
+    query = query.or(`title.ilike.%${searchQuery}%,content.ilike.%${searchQuery}%,excerpt.ilike.%${searchQuery}%`);
+  }
+
+  const { count } = await supabase
+    .from('blog_yazilari')
+    .select('*', { count: 'exact', head: true });
+
+  const { data: blogYazilari } = await query
+    .order('date', { ascending: false })
+    .range(offset, offset + postsPerPage - 1);
 
   const yazilar = blogYazilari || [];
   const totalPosts = count || 0;
@@ -83,6 +92,13 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
           name: "Çavuş Hukuk Bürosu",
           url: "https://ismailcavus.av.tr"
         }}
+      />
+      {/* SearchAction Schema - Arama özelliği için */}
+      <SearchActionSchema
+        url="https://ismailcavus.av.tr/blog"
+        name="Çavuş Hukuk Bürosu Blog Arama"
+        description="Blog yazılarında arama yapın"
+        target="https://ismailcavus.av.tr/blog"
       />
       {/* ItemList Schema - Blog yazıları listesi için */}
       <script
@@ -145,8 +161,55 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
             Deneyimli avukatlarımızın kaleminden önemli bilgiler ve rehberler.
           </p>
           
+          {/* Arama Formu */}
+          <div className="mb-8">
+            <div className="max-w-md mx-auto flex items-center gap-3">
+              {/* Bloga Geri Dön Butonu */}
+              {searchQuery && (
+                <Link
+                  href="/blog"
+                  className="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium whitespace-nowrap flex items-center"
+                  aria-label="Tüm blog yazılarına geri dön"
+                >
+                  <ArrowLeft size={16} className="mr-1" />
+                  Bloga Geri Dön
+                </Link>
+              )}
+              
+              <form method="GET" className="flex-1">
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="search"
+                    placeholder="Blog yazılarında ara..."
+                    defaultValue={searchQuery}
+                    className="w-full px-4 py-3 pl-12 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
+                    aria-label="Blog yazılarında arama yap"
+                  />
+                  <Search size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <button
+                    type="submit"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm"
+                    aria-label="Arama yap"
+                  >
+                    Ara
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
           {yazilar.length > 0 ? (
             <>
+              {/* Arama Sonuçları Mesajı */}
+              {searchQuery && (
+                <div className="mb-6 text-center">
+                  <p className="text-gray-600">
+                    <span className="font-semibold">"{searchQuery}"</span> için <span className="font-semibold text-red-600">{totalPosts}</span> sonuç bulundu.
+                  </p>
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 {yazilar.map((yazi) => (
                   <article key={yazi.id} className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-red-200 group">
@@ -227,7 +290,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                   {/* Önceki Sayfa */}
                   {currentPage > 1 && (
                     <Link
-                      href={`/blog?page=${currentPage - 1}`}
+                      href={`/blog?page=${currentPage - 1}${searchQuery ? `&search=${searchQuery}` : ''}`}
                       className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700"
                       aria-label={`Önceki sayfa - Sayfa ${currentPage - 1}`}
                     >
@@ -243,7 +306,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                         <span className="px-3 py-2 text-sm text-gray-500">...</span>
                       ) : (
                         <Link
-                          href={page === 1 ? '/blog' : `/blog?page=${page}`}
+                          href={page === 1 ? `/blog${searchQuery ? `?search=${searchQuery}` : ''}` : `/blog?page=${page}${searchQuery ? `&search=${searchQuery}` : ''}`}
                           className={`px-3 py-2 text-sm font-medium rounded-md ${
                             page === currentPage
                               ? 'bg-red-600 text-white'
@@ -261,7 +324,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                   {/* Sonraki Sayfa */}
                   {currentPage < totalPages && (
                     <Link
-                      href={`/blog?page=${currentPage + 1}`}
+                      href={`/blog?page=${currentPage + 1}${searchQuery ? `&search=${searchQuery}` : ''}`}
                       className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700"
                       aria-label={`Sonraki sayfa - Sayfa ${currentPage + 1}`}
                     >

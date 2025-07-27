@@ -83,16 +83,14 @@ export default function RootLayout({
   return (
     <html lang="tr" className={manrope.variable}>
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self';" />
+        <FontOptimizer />
       </head>
-      <body className={`${manrope.className} antialiased bg-white text-slate-900 font-manrope`}>
-        <FontOptimizer>
-          <Header />
-          <main className="pt-20 md:pt-32">{children}</main>
-          <Footer />
-          <MobileCTA />
-          <AIChatbot />
-        </FontOptimizer>
+      <body className="font-manrope antialiased">
+        <Header />
+        <main className="pt-32">{children}</main>
+        <Footer />
+        <MobileCTA />
+        <AIChatbot />
       </body>
     </html>
   );
