@@ -3,7 +3,7 @@
 import React from 'react'
 import StructuredData from './StructuredData'
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   name: string
   url: string
 }
