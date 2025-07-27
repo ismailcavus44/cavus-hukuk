@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Production optimizasyonları
-  output: 'standalone', // Docker için
+  output: 'standalone',
   compress: true,
   poweredByHeader: false,
   
@@ -37,40 +37,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ]
-      },
-      // İletişim sayfası için iframe izni
-      {
         source: '/iletisim',
         headers: [
           {
@@ -83,7 +49,6 @@ const nextConfig = {
           }
         ]
       },
-      // Sitemap için özel header
       {
         source: '/sitemap.xml',
         headers: [
@@ -97,7 +62,6 @@ const nextConfig = {
           }
         ]
       },
-      // Robots.txt için özel header
       {
         source: '/robots.txt',
         headers: [
@@ -152,21 +116,9 @@ const nextConfig = {
         source: '/idare-avukati',
         destination: '/ankara-idare-avukati',
         permanent: true,
-      },
-
+      }
     ]
   },
-  
-  // Rewrites (iç yönlendirmeler) - şimdilik devre dışı
-  // async rewrites() {
-  //   return [
-  //     // API proxy örnekleri (gerekirse)
-  //     {
-  //       source: '/api/:path*',
-  //       destination: 'https://api.ismailcavus.av.tr/:path*',
-  //     }
-  //   ]
-  // },
   
   // Webpack optimizasyonları
   webpack: (config, { dev, isServer }) => {
@@ -189,24 +141,16 @@ const nextConfig = {
   
   // TypeScript ayarları
   typescript: {
-    // Production'da type checking'i atla (build hızını artırır)
     ignoreBuildErrors: false,
   },
   
   // ESLint ayarları
   eslint: {
-    // Production'da ESLint'i atla (build hızını artırır)
     ignoreDuringBuilds: false,
   },
   
   // Trailing slash ayarları
   trailingSlash: false,
-  
-  // Base path (eğer subdirectory'de host ediliyorsa)
-  // basePath: '',
-  
-  // Asset prefix (CDN için)
-  // assetPrefix: 'https://cdn.ismailcavus.av.tr',
   
   // Output directory
   distDir: '.next',
