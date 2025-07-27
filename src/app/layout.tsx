@@ -6,7 +6,6 @@ import Footer from '@/components/layout/Footer';
 import MobileCTA from '@/components/layout/MobileCTA';
 import FontOptimizer from '@/components/ui/FontOptimizer';
 import AIChatbot from '@/components/ui/AIChatbot';
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const manrope = Manrope({ 
   subsets: ['latin'],
@@ -94,7 +93,6 @@ export default function RootLayout({
           <MobileCTA />
           <AIChatbot />
         </FontOptimizer>
-        <SpeedInsights />
       </body>
     </html>
   );

@@ -22,15 +22,15 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
   const offset = (currentPage - 1) * postsPerPage;
 
   // Blog yazılarını getir
-  const { count } = await supabase
-    .from('blog_yazilari')
-    .select('*', { count: 'exact', head: true });
+        const { count } = await supabase
+          .from('blog_yazilari')
+          .select('*', { count: 'exact', head: true });
 
-  const { data: blogYazilari } = await supabase
-    .from('blog_yazilari')
-    .select('*')
-    .order('date', { ascending: false })
-    .range(offset, offset + postsPerPage - 1);
+        const { data: blogYazilari } = await supabase
+          .from('blog_yazilari')
+          .select('*')
+          .order('date', { ascending: false })
+          .range(offset, offset + postsPerPage - 1);
 
   const yazilar = blogYazilari || [];
   const totalPosts = count || 0;
@@ -203,7 +203,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                             <Calendar size={14} className="mr-1" />
                             {new Date(yazi.date).toLocaleDateString('tr-TR')}
                           </span>
-                        </div>
+                      </div>
                       
 
                       

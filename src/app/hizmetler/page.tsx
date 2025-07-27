@@ -255,7 +255,7 @@ const HizmetlerPage = () => {
                           <h3 className="text-2xl font-bold text-gray-900 mb-2">{hizmet.baslik}</h3>
                           <p className="text-gray-600 leading-relaxed">{hizmet.aciklama}</p>
                         </div>
-                      </div>
+        </div>
                     </header>
 
                     {/* Detaylar */}

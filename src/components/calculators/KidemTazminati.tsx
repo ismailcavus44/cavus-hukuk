@@ -227,10 +227,10 @@ Kıdem Tazminatı: ${sonuc.kidemTazminati.toLocaleString('tr-TR')} TL`;
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="text-center">
-              <p className="text-3xl font-bold text-green-600">
+            <p className="text-3xl font-bold text-green-600">
                 {sonuc.kidemTazminati.toLocaleString('tr-TR')} TL
-              </p>
-              <p className="text-sm text-green-600 mt-2">Kıdem Tazminatı</p>
+            </p>
+            <p className="text-sm text-green-600 mt-2">Kıdem Tazminatı</p>
             </div>
             
             <div className="text-center">
