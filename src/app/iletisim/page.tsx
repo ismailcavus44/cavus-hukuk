@@ -357,7 +357,10 @@ const IletisimPage = React.memo(() => {
                         onError={(e) => {
                           // Fallback if image doesn't exist
                           e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                          const nextSibling = e.currentTarget.nextElementSibling;
+                          if (nextSibling) {
+                            (nextSibling as HTMLElement).style.display = 'flex';
+                          }
                         }}
                       />
                       
