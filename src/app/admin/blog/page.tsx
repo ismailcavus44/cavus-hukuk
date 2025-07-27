@@ -14,6 +14,7 @@ interface Blog {
   categories: string;
   slug: string;
   image?: string;
+  content: string;
   show_on_homepage: boolean;
 }
 
