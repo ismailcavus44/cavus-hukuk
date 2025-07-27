@@ -153,18 +153,7 @@ const nextConfig = {
         destination: '/ankara-idare-avukati',
         permanent: true,
       },
-      // www olmadan gelen istekleri www'lu versiyona yönlendir
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'ismailcavus.av.tr',
-          },
-        ],
-        destination: 'https://www.ismailcavus.av.tr/:path*',
-        permanent: true,
-      }
+
     ]
   },
   
