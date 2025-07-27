@@ -11,6 +11,28 @@ import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
+// Quill modülleri ve formatları
+const quillModules = {
+  toolbar: [
+    [{ 'header': [1, 2, 3, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'align': [] }],
+    ['link', 'image'],
+    ['clean']
+  ],
+};
+
+const quillFormats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike',
+  'list', 'bullet',
+  'color', 'background',
+  'align',
+  'link', 'image'
+];
+
 const BlogDuzenlePage = () => {
   const router = useRouter();
   const params = useParams();
@@ -124,31 +146,6 @@ const BlogDuzenlePage = () => {
     const nofollowLink = `<a href="${url}#nofollow">${selectedText}</a>`;
     quill.clipboard.dangerouslyPasteHTML(range.index, nofollowLink);
   };
-
-  // Quill editör konfigürasyonu
-  const quillModules = {
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'align': [] }],
-      ['link', 'image', 'blockquote', 'code-block'],
-      ['clean']
-    ],
-    clipboard: {
-      matchVisual: false
-    }
-  };
-
-  const quillFormats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike',
-    'list', 'bullet',
-    'color', 'background',
-    'align',
-    'link', 'image', 'blockquote', 'code-block'
-  ];
 
   useEffect(() => {
     fetchKategoriler();
@@ -612,13 +609,13 @@ const BlogDuzenlePage = () => {
                         📋 Accordion (FAQ)
                       </button>
                       
-            <button
+                                  <button
                         type="button"
                         onClick={nofollowLinkHandler}
                         className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors"
-            >
+                      >
                         🔗 Nofollow Link
-            </button>
+                      </button>
                     </div>
                     <p className="text-xs text-gray-500">
                       Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
