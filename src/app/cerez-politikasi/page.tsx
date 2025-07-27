@@ -84,10 +84,10 @@ const CerezPolitikasiPage = () => {
             Çerez tercihlerinizi yönetmek için tarayıcınızın ayarlar bölümünü ziyaret edebilirsiniz. Yaygın tarayıcılar için çerez yönetimi bilgileri aşağıdaki gibidir:
           </p>
           <ul className="list-disc pl-6 mb-6 space-y-2">
-            <li><strong>Google Chrome:</strong> Ayarlar {'>'}> Gizlilik ve Güvenlik {'>'}> Site Ayarları {'>'}> Çerezler ve Site Verileri</li>
-            <li><strong>Mozilla Firefox:</strong> Seçenekler {'>'}> Gizlilik ve Güvenlik {'>'}> Çerezler ve Site Verileri</li>
-            <li><strong>Microsoft Edge:</strong> Ayarlar {'>'}> Gizlilik, Arama ve Hizmetler {'>'}> Çerezler ve Site İzinleri</li>
-            <li><strong>Safari:</strong> Tercihler {'>'}> Gizlilik {'>'}> Çerezler ve Web Sitesi Verileri</li>
+            <li><strong>Google Chrome:</strong> Ayarlar &gt; Gizlilik ve Güvenlik &gt; Site Ayarları &gt; Çerezler ve Site Verileri</li>
+            <li><strong>Mozilla Firefox:</strong> Seçenekler &gt; Gizlilik ve Güvenlik &gt; Çerezler ve Site Verileri</li>
+            <li><strong>Microsoft Edge:</strong> Ayarlar &gt; Gizlilik, Arama ve Hizmetler &gt; Çerezler ve Site İzinleri</li>
+            <li><strong>Safari:</strong> Tercihler &gt; Gizlilik &gt; Çerezler ve Web Sitesi Verileri</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">5. Üçüncü Taraf Çerezleri</h2>
