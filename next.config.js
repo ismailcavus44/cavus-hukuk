@@ -33,7 +33,7 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   
-  // Security headers
+  // Security headers - sadeleştirildi
   async headers() {
     return [
       {
@@ -68,53 +68,11 @@ const nextConfig = {
             value: 'camera=(), microphone=(), geolocation=()'
           }
         ]
-      },
-      // İletişim sayfası için iframe izni
-      {
-        source: '/iletisim',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
-          },
-          {
-            key: 'Content-Security-Policy',
-            value: "frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com"
-          }
-        ]
-      },
-      // Sitemap için özel header
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/xml'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
-          }
-        ]
-      },
-      // Robots.txt için özel header
-      {
-        source: '/robots.txt',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'text/plain'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
-          }
-        ]
       }
     ]
   },
   
-  // Redirects
+  // Redirects - sadeleştirildi
   async redirects() {
     return [
       // Eski URL'lerden yeni URL'lere yönlendirme
@@ -152,19 +110,7 @@ const nextConfig = {
         source: '/idare-avukati',
         destination: '/ankara-idare-avukati',
         permanent: true,
-      },
-      // www olmadan gelen istekleri www'lu versiyona yönlendir - şimdilik devre dışı
-      // {
-      //   source: '/:path*',
-      //   has: [
-      //     {
-      //       type: 'host',
-      //       value: 'ismailcavus.av.tr',
-      //     },
-      //   ],
-      //   destination: 'https://www.ismailcavus.av.tr/:path*',
-      //   permanent: true,
-      // }
+      }
     ]
   },
   
@@ -179,57 +125,29 @@ const nextConfig = {
   //   ]
   // },
   
-  // Webpack optimizasyonları
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizasyonları
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      }
-    }
-    
+  // Webpack optimizasyonları - sadeleştirildi
+  webpack: (config) => {
     return config
   },
   
   // TypeScript ayarları
   typescript: {
-    // Production'da type checking'i atla (build hızını artırır)
     ignoreBuildErrors: false,
   },
   
   // ESLint ayarları
   eslint: {
-    // Production'da ESLint'i atla (build hızını artırır)
     ignoreDuringBuilds: false,
   },
   
   // Trailing slash ayarları
   trailingSlash: false,
   
-  // Base path (eğer subdirectory'de host ediliyorsa)
-  // basePath: '',
-  
-  // Asset prefix (CDN için)
-  // assetPrefix: 'https://cdn.ismailcavus.av.tr',
-  
   // Output directory
   distDir: '.next',
   
   // Source maps (development için)
   productionBrowserSourceMaps: false,
-  
-  // Compression
-  compress: true,
-  
-  // Powered by header'ı kaldır
-  poweredByHeader: false,
   
   // React strict mode
   reactStrictMode: true,
