@@ -26,10 +26,11 @@ const nextConfig = {
   // Font optimizasyonu
   optimizeFonts: true,
   
-  // Experimental optimizasyonlar - minimal
-  experimental: {
-    serverComponentsExternalPackages: ['sharp'],
-  },
+  // Experimental optimizasyonlar - devre dışı
+  // experimental: {
+  //   serverComponentsExternalPackages: ['sharp'],
+  //   optimizePackageImports: ['lucide-react'],
+  // },
   
   // TypeScript ayarları
   typescript: {
