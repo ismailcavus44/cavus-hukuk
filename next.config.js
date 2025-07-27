@@ -26,12 +26,6 @@ const nextConfig = {
   // Font optimizasyonu
   optimizeFonts: true,
   
-  // Experimental optimizasyonlar - devre dışı
-  // experimental: {
-  //   serverComponentsExternalPackages: ['sharp'],
-  //   optimizePackageImports: ['lucide-react'],
-  // },
-  
   // TypeScript ayarları
   typescript: {
     ignoreBuildErrors: false,
