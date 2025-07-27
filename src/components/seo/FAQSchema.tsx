@@ -3,7 +3,7 @@
 import React from 'react'
 import StructuredData from './StructuredData'
 
-interface FAQItem {
+export interface FAQItem {
   question: string
   answer: string
 }
