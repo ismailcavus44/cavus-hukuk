@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Production optimizasyonları
+  // Minimal config - micromatch hatası için
   output: 'standalone',
   compress: true,
   poweredByHeader: false,
@@ -26,108 +26,9 @@ const nextConfig = {
   // Font optimizasyonu
   optimizeFonts: true,
   
-  // Experimental optimizasyonlar - sadeleştirildi
+  // Experimental optimizasyonlar - minimal
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
-    optimizeCss: true,
-    optimizePackageImports: ['lucide-react'],
-  },
-  
-  // Security headers - sadeleştirildi
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ]
-      }
-    ]
-  },
-  
-  // Redirects - sadeleştirildi
-  async redirects() {
-    return [
-      // Eski URL'lerden yeni URL'lere yönlendirme
-      {
-        source: '/ceza-avukati',
-        destination: '/ankara-ceza-avukati',
-        permanent: true,
-      },
-      {
-        source: '/is-avukati',
-        destination: '/ankara-is-avukati',
-        permanent: true,
-      },
-      {
-        source: '/bosanma-avukati',
-        destination: '/ankara-bosanma-avukati',
-        permanent: true,
-      },
-      {
-        source: '/trafik-kazasi-avukati',
-        destination: '/ankara-trafik-kazasi-avukati',
-        permanent: true,
-      },
-      {
-        source: '/icra-avukati',
-        destination: '/ankara-icra-avukati',
-        permanent: true,
-      },
-      {
-        source: '/miras-avukati',
-        destination: '/ankara-miras-avukati',
-        permanent: true,
-      },
-      {
-        source: '/idare-avukati',
-        destination: '/ankara-idare-avukati',
-        permanent: true,
-      }
-    ]
-  },
-  
-  // Rewrites (iç yönlendirmeler) - şimdilik devre dışı
-  // async rewrites() {
-  //   return [
-  //     // API proxy örnekleri (gerekirse)
-  //     {
-  //       source: '/api/:path*',
-  //       destination: 'https://api.ismailcavus.av.tr/:path*',
-  //     }
-  //   ]
-  // },
-  
-  // Webpack optimizasyonları - sadeleştirildi
-  webpack: (config) => {
-    return config
   },
   
   // TypeScript ayarları
