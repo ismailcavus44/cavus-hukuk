@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import sharp from 'sharp';
 
 // Basit rate limiting için Map
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -82,11 +81,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Geçersiz dosya adı' }, { status: 400 });
     }
 
-    // Sharp ile WebP'ye dönüştür
-    const webpBuffer = await sharp(buffer)
-      .webp({ quality: 85 }) // %85 kalite
-      .toBuffer();
-
     // Dosya adını temizle (Türkçe karakterler ve boşlukları kaldır)
     const cleanFileName = file.name
       .replace(/ğ/g, 'g')
@@ -105,12 +99,12 @@ export async function POST(request: NextRequest) {
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-    const webpPath = `${Date.now()}-${cleanFileName.replace(/\.[^/.]+$/, '.webp')}`;
+    const filePath = `${Date.now()}-${cleanFileName}`;
 
-    // WebP dosyasını yükle
+    // Dosyayı yükle
     const { data, error } = await supabase.storage
       .from('blog-images')
-      .upload(webpPath, new Blob([webpBuffer], { type: 'image/webp' }), {
+      .upload(filePath, file, {
         cacheControl: '3600',
         upsert: false
       });
@@ -122,7 +116,7 @@ export async function POST(request: NextRequest) {
     // Public URL'i döndür
     const { data: { publicUrl } } = supabase.storage
       .from('blog-images')
-      .getPublicUrl(webpPath);
+      .getPublicUrl(filePath);
 
     return NextResponse.json({ url: publicUrl });
   } catch (error) {
