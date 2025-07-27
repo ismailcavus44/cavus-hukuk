@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Build traces'i tamamen devre dışı bırak
+  output: 'standalone',
+  
   // Image optimizasyonu
   images: {
+    unoptimized: true,
     formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
@@ -20,76 +24,6 @@ const nextConfig = {
   
   // Font optimizasyonu
   optimizeFonts: true,
-  
-  // Security headers
-  async headers() {
-    return [
-      {
-        source: '/iletisim',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
-          },
-          {
-            key: 'Content-Security-Policy',
-            value: "frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com"
-          }
-        ]
-      }
-    ]
-  },
-  
-  // Redirects
-  async redirects() {
-    return [
-      {
-        source: '/ceza-avukati',
-        destination: '/ankara-ceza-avukati',
-        permanent: true,
-      },
-      {
-        source: '/is-avukati',
-        destination: '/ankara-is-avukati',
-        permanent: true,
-      },
-      {
-        source: '/bosanma-avukati',
-        destination: '/ankara-bosanma-avukati',
-        permanent: true,
-      },
-      {
-        source: '/trafik-kazasi-avukati',
-        destination: '/ankara-trafik-kazasi-avukati',
-        permanent: true,
-      },
-      {
-        source: '/icra-avukati',
-        destination: '/ankara-icra-avukati',
-        permanent: true,
-      },
-      {
-        source: '/miras-avukati',
-        destination: '/ankara-miras-avukati',
-        permanent: true,
-      },
-      {
-        source: '/idare-avukati',
-        destination: '/ankara-idare-avukati',
-        permanent: true,
-      }
-    ]
-  },
-  
-  // TypeScript ayarları
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  
-  // ESLint ayarları
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
   
   // Trailing slash ayarları
   trailingSlash: false,
