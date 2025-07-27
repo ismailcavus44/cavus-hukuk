@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Production optimizasyonları
-  output: 'standalone', // Docker için
+  output: 'standalone',
   compress: true,
   poweredByHeader: false,
   
@@ -26,12 +26,11 @@ const nextConfig = {
   // Font optimizasyonu
   optimizeFonts: true,
   
-  // Experimental optimizasyonlar
+  // Experimental optimizasyonlar - sadeleştirildi
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
     optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
-    scrollRestoration: true,
   },
   
   // Security headers
