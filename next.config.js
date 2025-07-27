@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Production optimizasyonları
-  output: 'standalone',
-  compress: true,
-  poweredByHeader: false,
+  // Build traces'i devre dışı bırak
+  experimental: {
+    outputFileTracingRoot: false,
+    serverComponentsExternalPackages: ['sharp'],
+    optimizePackageImports: ['lucide-react'],
+    scrollRestoration: true,
+  },
   
   // Image optimizasyonu
   images: {
@@ -25,13 +28,6 @@ const nextConfig = {
   
   // Font optimizasyonu
   optimizeFonts: true,
-  
-  // Experimental optimizasyonlar
-  experimental: {
-    serverComponentsExternalPackages: ['sharp'],
-    optimizePackageImports: ['lucide-react'],
-    scrollRestoration: true,
-  },
   
   // Security headers
   async headers() {
@@ -81,7 +77,6 @@ const nextConfig = {
   // Redirects
   async redirects() {
     return [
-      // Eski URL'lerden yeni URL'lere yönlendirme
       {
         source: '/ceza-avukati',
         destination: '/ankara-ceza-avukati',
@@ -118,25 +113,6 @@ const nextConfig = {
         permanent: true,
       }
     ]
-  },
-  
-  // Webpack optimizasyonları
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizasyonları
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      }
-    }
-    
-    return config
   },
   
   // TypeScript ayarları
