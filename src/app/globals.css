@@ -1,15 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +14,57 @@
   }
 }
 
+/* Font loading optimizasyonları */
+.fonts-loading {
+  font-display: swap;
+}
+
+.fonts-loaded {
+  font-display: block;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), 'Manrope', sans-serif;
+  font-display: swap;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+/* Font fallback optimizasyonu */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: 'Manrope';
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Manrope';
+    font-display: swap;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Manrope';
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+/* Scroll margin for headers - Table of Contents için */
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-top: 120px;
+}
+
+/* Accordion headers için de scroll margin */
+[data-accordion-id] {
+  scroll-margin-top: 120px;
 }

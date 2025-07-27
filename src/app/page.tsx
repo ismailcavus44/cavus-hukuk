@@ -1,103 +1,463 @@
-import Image from "next/image";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import React, { useMemo } from 'react';
+import HeroSection from '@/components/sections/HeroSection';
+import BlogGrid from '@/components/ui/BlogGrid';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { 
+  Building2, 
+  Heart, 
+  Briefcase, 
+  Shield, 
+  Users, 
+  Award, 
+  Clock,
+  CheckCircle,
+  Star,
+  Phone,
+  Mail,
+  Scale,
+  Gavel,
+  FileText,
+  ChevronRight,
+  Play,
+  Home,
+  UserCheck,
+  Building,
+  CarFront
+} from 'lucide-react';
+import { hizmetler } from '@/data';
+import { 
+  OrganizationSchema, 
+  LocalBusinessSchema, 
+  ServiceCatalogSchema, 
+  WebPageSchema 
+} from '@/components/seo';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Av. İsmail Çavuş - Ankara Avukat',
+  description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
+  keywords: ['ankara avukat', 'ankara hukuk bürosu', 'avukat ankara', 'hukuki danışmanlık ankara', 'iş hukuku ankara', 'aile hukuku ankara', 'ceza hukuku ankara', 'idare hukuku ankara', 'gayrimenkul hukuku ankara', 'tazminat hukuku ankara'],
+  authors: [{ name: 'Av. İsmail Çavuş' }],
+  creator: 'Çavuş Hukuk Bürosu',
+  publisher: 'Çavuş Hukuk Bürosu',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://ankaraavukat.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'tr_TR',
+    url: 'https://ankaraavukat.com',
+    siteName: 'Çavuş Hukuk Bürosu',
+    title: 'Ankara Avukat - Güvenilir Hukuki Danışmanlık',
+    description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Ankara Avukat - Çavuş Hukuk Bürosu',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ankara Avukat - Güvenilir Hukuki Danışmanlık',
+    description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+  },
+};
+
+const HomePage = React.memo(() => {
+  // Hizmetler verilerini useMemo ile optimize et
+  const yeniHizmetler = useMemo(() => [
+    {
+      id: 'aile-hukuku',
+      baslik: 'Aile Hukuku',
+      aciklama: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
+      icon: 'Heart',
+      link: '/hizmetler/aile-hukuku'
+    },
+    {
+      id: 'is-hukuku',
+      baslik: 'İş Hukuku',
+      aciklama: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
+      icon: 'Briefcase',
+      link: '/hizmetler/is-hukuku'
+    },
+    {
+      id: 'ceza-hukuku',
+      baslik: 'Ceza Hukuku',
+      aciklama: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
+      icon: 'Shield',
+      link: '/hizmetler/ceza-hukuku'
+    },
+    {
+      id: 'idare-hukuku',
+      baslik: 'İdare Hukuku',
+      aciklama: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
+      icon: 'Building2',
+      link: '/hizmetler/idare-hukuku'
+    },
+    {
+      id: 'miras-hukuku',
+      baslik: 'Miras Hukuku',
+      aciklama: 'Miras davaları, vasiyetname, miras paylaşımı ve miras hukuku konularında danışmanlık.',
+      icon: 'Scale',
+      link: '/hizmetler/miras-hukuku'
+    },
+    {
+      id: 'trafik-kazasi',
+      baslik: 'Trafik Kazası',
+      aciklama: 'Trafik kazası davaları, tazminat hesaplamaları ve sigorta şirketleri ile uyuşmazlık çözümü.',
+      icon: 'CarFront',
+      link: '/hizmetler/trafik-kazasi'
+    }
+  ], []);
+
+  // Neden Çavuş Hukuk listesi - useMemo ile optimize edilmiş
+  const nedenCavusHukuk = useMemo(() => [
+    {
+      icon: Users,
+      title: 'Deneyimli Ekip'
+    },
+    {
+      icon: Award,
+      title: 'Uzman Avukatlar'
+    },
+    {
+      icon: Clock,
+      title: 'Hızlı Çözüm'
+    },
+    {
+      icon: CheckCircle,
+      title: 'Profesyonel Yaklaşım'
+    },
+    {
+      icon: Scale,
+      title: 'Şeffaf Süreç'
+    },
+    {
+      icon: FileText,
+      title: 'Kapsamlı Danışmanlık'
+    }
+  ], []);
+
+  // Hizmet kataloğu - useMemo ile optimize edilmiş
+  const hizmetKatalogu = useMemo(() => [
+    {
+      '@type': 'LegalService',
+      name: 'Aile Hukuku',
+      description: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
+      url: 'https://ankaraavukat.com/hizmetler/aile-hukuku',
+      serviceType: 'Aile Hukuku'
+    },
+    {
+      '@type': 'LegalService',
+      name: 'İş Hukuku',
+      description: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
+      url: 'https://ankaraavukat.com/hizmetler/is-hukuku',
+      serviceType: 'İş Hukuku'
+    },
+    {
+      '@type': 'LegalService',
+      name: 'Ceza Hukuku',
+      description: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
+      url: 'https://ankaraavukat.com/hizmetler/ceza-hukuku',
+      serviceType: 'Ceza Hukuku'
+    },
+    {
+      '@type': 'LegalService',
+      name: 'İdare Hukuku',
+      description: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
+      url: 'https://ankaraavukat.com/hizmetler/idare-hukuku',
+      serviceType: 'İdare Hukuku'
+    }
+  ], []);
+
+  // Icon map - useMemo ile optimize edilmiş
+  const iconMap = useMemo(() => ({
+    Heart: Heart,
+    Briefcase: Briefcase,
+    Shield: Shield,
+    Building2: Building2,
+    Scale: Scale,
+    CarFront: CarFront,
+    Users: Users,
+    Award: Award,
+    Clock: Clock,
+    CheckCircle: CheckCircle
+  }), []);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Organization Schema */}
+      <OrganizationSchema
+        name="Çavuş Hukuk Bürosu"
+        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
+        url="https://ankaraavukat.com"
+        logo="https://ankaraavukat.com/logo-header.png"
+        telephone="+90 312 123 45 67"
+        email="info@ankaraavukat.com"
+        address={{
+          streetAddress: "Kızılay Mahallesi",
+          addressLocality: "Ankara",
+          addressRegion: "Ankara",
+          postalCode: "06420",
+          addressCountry: "TR"
+        }}
+        geo={{
+          latitude: "39.9334",
+          longitude: "32.8597"
+        }}
+        sameAs={[
+          "https://www.facebook.com/cavushukuk",
+          "https://www.linkedin.com/company/cavus-hukuk",
+          "https://twitter.com/cavushukuk"
+        ]}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* LocalBusiness Schema */}
+      <LocalBusinessSchema
+        name="Çavuş Hukuk Bürosu"
+        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
+        url="https://ankaraavukat.com"
+        telephone="+90 312 123 45 67"
+        email="info@ankaraavukat.com"
+        address={{
+          streetAddress: "Kızılay Mahallesi",
+          addressLocality: "Ankara",
+          addressRegion: "Ankara",
+          postalCode: "06420",
+          addressCountry: "TR"
+        }}
+        geo={{
+          latitude: "39.9334",
+          longitude: "32.8597"
+        }}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
+        }}
+        serviceType="Hukuki Danışmanlık"
+      />
+
+      {/* ServiceCatalog Schema */}
+      <ServiceCatalogSchema
+        name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
+        description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
+        url="https://ankaraavukat.com/hizmetler"
+        provider={{
+          name: "Çavuş Hukuk Bürosu",
+          url: "https://ankaraavukat.com",
+          logo: "https://ankaraavukat.com/logo-header.png"
+        }}
+        services={hizmetKatalogu}
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
+        }}
+      />
+
+      {/* WebPage Schema */}
+      <WebPageSchema
+        title="Ankara Avukat - Çavuş Hukuk Bürosu"
+        description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
+        url="https://ankaraavukat.com"
+        image="https://ankaraavukat.com/og-image.jpg"
+        author={{
+          name: "Av. İsmail Çavuş"
+        }}
+        publisher={{
+          name: "Çavuş Hukuk Bürosu",
+          logo: "https://ankaraavukat.com/logo-header.png"
+        }}
+        datePublished="2024-01-01"
+        dateModified="2024-12-19"
+        breadcrumb={[
+          { name: 'Ana Sayfa', url: 'https://ankaraavukat.com' }
+        ]}
+        isPartOf={{
+          name: 'Çavuş Hukuk Bürosu',
+          url: 'https://ankaraavukat.com'
+        }}
+      />
+
+      <HeroSection />
+      
+      {/* Hizmetler Bölümü */}
+      <section className="py-12 md:py-20 bg-white" aria-labelledby="hizmetler-baslik">
+        <div className="container mx-auto px-4 md:px-6">
+          <header className="text-center mb-8 md:mb-16">
+            <h2 id="hizmetler-baslik" className="text-4xl font-bold text-gray-900 mb-4">
+              Hizmet Alanlarımız
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Deneyimli avukatlarımız, çeşitli hukuk alanlarında size kapsamlı danışmanlık hizmeti sunmaktadır.
+            </p>
+          </header>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            {yeniHizmetler.map((hizmet, index) => {
+              const IconComponent = iconMap[hizmet.icon as keyof typeof iconMap];
+              
+              return (
+                <article key={hizmet.id} className="group">
+                  <div className="bg-gray-50 rounded-lg p-4 md:p-8 hover:bg-red-50 transition-all duration-300 border border-gray-100 hover:border-red-200">
+                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-red-200 transition-colors">
+                      <IconComponent size={24} className="text-red-600" />
+                        </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                          {hizmet.baslik}
+                        </h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                          {hizmet.aciklama}
+                        </p>
+                        <Link
+                      href={hizmet.link}
+                      className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-colors group"
+                      aria-label={`${hizmet.baslik} hakkında detaylı bilgi`}
+                        >
+                          Detaylı Bilgi
+                          <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          
+          <div className="text-center mt-8 md:mt-12">
+            <Link
+              href="/hizmetler"
+              className="inline-flex items-center px-8 py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              aria-label="Tüm hizmet alanlarımızı görüntüle"
+            >
+              Tüm Hizmetlerimiz
+              <ChevronRight size={20} className="ml-2" />
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Hakkımızda Bölümü */}
+      <section className="py-12 md:py-20 bg-gray-50" aria-labelledby="hakkimizda-baslik">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div>
+              <h2 id="hakkimizda-baslik" className="text-4xl font-bold text-gray-900 mb-8">
+                Hakkımızda
+                </h2>
+              <div className="space-y-6 text-base text-gray-600 leading-relaxed">
+                <p>
+                  Büromuz, adaletin evrensel ilkelerine sıkı sıkıya bağlı kalarak, eşitlikçi, şeffaf ve erişilebilir hukuki hizmetler sunmayı temel misyon edinmiştir. Bu doğrultuda, yalnızca mevcut hukuki sorunların çözümüne odaklanmakla kalmayıp, aynı zamanda genç ve idealist hukukçuların mesleki gelişimine katkıda bulunmayı, onları sürekli eğitim ve mentorluk programlarıyla desteklemeyi de amaçlamaktadır. Böylece, hukuk alanında geleceğin liderlerinin yetişmesine öncülük etmektedir.
+                </p>
+                <p>
+                  Özellikle hukuki ihtilafların çözümü konusunda uzmanlaşmış olan Ankara avukatlık büromuz, müvekkillerinin haklarını en etkin biçimde korumak için detaylı bir risk analizi yaparak, potansiyel uyuşmazlıkların önceden tespit edilip giderilmesine yönelik stratejik ve proaktif çözümler geliştirmektedir.
+                </p>
+              </div>
+              <div className="mt-8">
+                <Link 
+                  href="/hakkimizda" 
+                  className="inline-flex items-center px-8 py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  aria-label="Hakkımızda sayfasına git - Büromuz hakkında detaylı bilgi"
+                >
+                  Daha Fazla Bilgi
+                  <ChevronRight size={20} className="ml-2" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+            
+            <aside className="bg-white rounded-lg p-4 md:p-8 shadow-lg border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Neden Çavuş Hukuk?</h3>
+              <ul className="space-y-4">
+                  {nedenCavusHukuk.map((item, index) => (
+                    <li key={index} className="flex items-center space-x-4">
+                    <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center">
+                      <CheckCircle size={16} className="text-red-600" />
+                      </div>
+                    <span className="text-gray-700 font-medium">{item.title}</span>
+                    </li>
+                  ))}
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      {/* Çavuş Hukuk - Ankara Avukat Bölümü */}
+      <section className="py-12 md:py-20 bg-white" aria-labelledby="cavus-hukuk-baslik">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            {/* Sol - Fotoğraf Alanı */}
+            <div className="bg-gray-100 rounded-lg p-4 md:p-8 shadow-lg border border-gray-200 min-h-[300px] md:min-h-[400px] flex items-center justify-center">
+              <div className="text-center text-gray-500">
+                <Building size={64} className="mx-auto mb-4 text-gray-400" />
+                <p className="text-lg font-medium">Fotoğraf Alanı</p>
+                <p className="text-sm text-gray-400 mt-2">Buraya fotoğraf eklenecek</p>
+              </div>
+            </div>
+            
+            {/* Sağ - Metin */}
+            <div>
+              <h2 id="cavus-hukuk-baslik" className="text-4xl font-bold text-gray-900 mb-8">
+                Çavuş Hukuk - Ankara Avukat
+              </h2>
+              <div className="space-y-6 text-base text-gray-600 leading-relaxed">
+                <p>
+                  Avukat; bireylerin veya kurumların karşılaştığı hukuki uyuşmazlıkları çözmek, yasal haklarını korumak ve yargı sürecini doğru şekilde yürütmek için hizmet veren hukuk uzmanıdır. Türkiye'de mahkemelerde avukatla temsil zorunlu değildir; ancak hukuki bilgi ve deneyim eksikliği, kişilerin ciddi hak kayıpları yaşamasına neden olabilir.
+                </p>
+                <p>
+                  Bir avukat, sadece dava süreçlerinde değil; sözleşme hazırlığı, boşanma, miras, ceza hukuku, iş hukuku, ticari ilişkiler gibi birçok alanda danışmanlık sunar. Sürecin usulüne uygun ilerlemesi, hakların korunması ve ileride doğabilecek sorunların önlenmesi açısından avukat desteği büyük önem taşır.
+                </p>
+                <p>
+                  Hukuki bir meseleyle karşılaştığınızda veya ileride sorun yaşamamak için önlem almak istediğinizde, konusunda uzman bir avukata danışmak, hem güvenli hem de etkili bir çözümdür. Avukatsız yürütülen işlemler çoğu zaman zaman ve hak kaybına yol açabilir.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Yazıları Bölümü */}
+      <section className="py-12 md:py-20 bg-gray-50" aria-labelledby="blog-baslik">
+        <div className="container mx-auto px-4 md:px-6">
+          <header className="text-center mb-8 md:mb-16">
+            <h3 id="blog-baslik" className="text-4xl font-bold text-gray-900 mb-4">
+              Blog Yazılarımız
+            </h3>
+          </header>
+          
+          <BlogGrid />
+        </div>
+      </section>
+    </>
   );
-}
+});
+
+export default HomePage;
