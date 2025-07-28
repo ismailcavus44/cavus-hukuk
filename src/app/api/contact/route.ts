@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { cache } from '@/lib/cache';
 
+// Rate limiting interface
+interface RateLimit {
+  count: number;
+  timestamp: number;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { name, phone, subject, message } = await request.json();
@@ -10,7 +16,7 @@ export async function POST(request: NextRequest) {
     const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
     const rateLimitKey = `rate_limit:contact:${clientIP}`;
     
-    const rateLimit = await cache.get(rateLimitKey);
+    const rateLimit = await cache.get<RateLimit>(rateLimitKey);
     if (rateLimit && rateLimit.count >= 5) {
       return NextResponse.json(
         { error: 'Çok fazla istek gönderdiniz. Lütfen bir süre bekleyin.' },
@@ -76,7 +82,10 @@ export async function POST(request: NextRequest) {
 
     // Rate limiting güncelle
     const currentCount = rateLimit ? rateLimit.count + 1 : 1;
-    await cache.set(rateLimitKey, { count: currentCount }, 300); // 5 dakika
+    await cache.set(rateLimitKey, { 
+      count: currentCount, 
+      timestamp: Date.now() 
+    }, 300); // 5 dakika
 
     return NextResponse.json(
       { success: true, message: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.' },

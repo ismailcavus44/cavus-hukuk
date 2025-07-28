@@ -1,30 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cache } from '@/lib/cache';
+import { getCacheStats } from '@/lib/cache-utils';
 
-// Cache statistics
-let cacheHits = 0;
-let cacheMisses = 0;
-
-export function incrementCacheHit() {
-  cacheHits++;
-}
-
-export function incrementCacheMiss() {
-  cacheMisses++;
-}
-
+// API route handler
 export async function GET(request: NextRequest) {
   try {
-    const total = cacheHits + cacheMisses;
-    const hitRate = total > 0 ? (cacheHits / total) * 100 : 0;
-    const stats = await cache.getStats();
+    const stats = getCacheStats();
+    const total = stats.hits + stats.misses;
+    const hitRate = total > 0 ? (stats.hits / total) * 100 : 0;
+    const cacheStats = await cache.getStats();
 
     return NextResponse.json({
-      hits: cacheHits,
-      misses: cacheMisses,
+      hits: stats.hits,
+      misses: stats.misses,
       hitRate: Math.round(hitRate * 100) / 100,
       total,
-      cache: stats,
+      cache: cacheStats,
       timestamp: new Date().toISOString(),
     });
 

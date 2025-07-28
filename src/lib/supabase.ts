@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { cache } from './cache';
+import { incrementCacheHit, incrementCacheMiss } from './cache-utils';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -32,10 +33,12 @@ export const cachedQuery = async (key: string, queryFn: () => Promise<any>, ttl:
     // Önce cache'den kontrol et
     const cached = await cache.get(key);
     if (cached) {
+      incrementCacheHit();
       return cached;
     }
     
     // Cache'de yoksa database'den getir
+    incrementCacheMiss();
     const data = await queryFn();
     
     // Cache'e kaydet

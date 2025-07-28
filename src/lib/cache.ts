@@ -1,13 +1,20 @@
-import Redis from 'ioredis';
+// Server-only Redis import
+let Redis: any = null;
+let redis: any = null;
 
-// Redis client (opsiyonel - eğer Redis varsa)
-let redis: Redis | null = null;
-
-if (process.env.REDIS_URL) {
-  redis = new Redis(process.env.REDIS_URL, {
-    retryDelayOnFailover: 100,
-    maxRetriesPerRequest: 3,
-  });
+// Sadece server-side'da Redis'i yükle
+if (typeof window === 'undefined') {
+  try {
+    Redis = require('ioredis');
+    if (process.env.REDIS_URL) {
+      redis = new Redis(process.env.REDIS_URL, {
+        retryDelayOnFailover: 100,
+        maxRetriesPerRequest: 3,
+      });
+    }
+  } catch (error) {
+    console.warn('Redis not available:', error);
+  }
 }
 
 // Fallback memory cache
@@ -26,6 +33,16 @@ export class CacheManager {
 
   async get<T>(key: string): Promise<T | null> {
     try {
+      // Client-side'da sadece memory cache kullan
+      if (typeof window !== 'undefined') {
+        const cached = memoryCache.get(key);
+        if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+          return cached.data;
+        }
+        return null;
+      }
+
+      // Server-side'da Redis veya memory cache kullan
       if (redis) {
         const cached = await redis.get(key);
         return cached ? JSON.parse(cached) : null;
@@ -44,6 +61,13 @@ export class CacheManager {
 
   async set(key: string, value: any, ttl: number = 3600): Promise<void> {
     try {
+      // Client-side'da sadece memory cache kullan
+      if (typeof window !== 'undefined') {
+        memoryCache.set(key, { data: value, timestamp: Date.now() });
+        return;
+      }
+
+      // Server-side'da Redis veya memory cache kullan
       if (redis) {
         await redis.setex(key, ttl, JSON.stringify(value));
       } else {
@@ -56,6 +80,11 @@ export class CacheManager {
 
   async del(key: string): Promise<void> {
     try {
+      if (typeof window !== 'undefined') {
+        memoryCache.delete(key);
+        return;
+      }
+
       if (redis) {
         await redis.del(key);
       } else {
@@ -68,6 +97,11 @@ export class CacheManager {
 
   async flush(): Promise<void> {
     try {
+      if (typeof window !== 'undefined') {
+        memoryCache.clear();
+        return;
+      }
+
       if (redis) {
         await redis.flushall();
       } else {
@@ -84,16 +118,34 @@ export class CacheManager {
 
   // Cache statistics
   async getStats() {
-    if (redis) {
-      const info = await redis.info('stats');
+    if (typeof window !== 'undefined') {
       return {
-        connected: redis.status === 'ready',
-        memory: info,
+        connected: false,
+        size: memoryCache.size,
+        type: 'memory'
       };
+    }
+
+    if (redis) {
+      try {
+        const info = await redis.info('stats');
+        return {
+          connected: redis.status === 'ready',
+          memory: info,
+          type: 'redis'
+        };
+      } catch (error) {
+        return {
+          connected: false,
+          size: memoryCache.size,
+          type: 'memory'
+        };
+      }
     } else {
       return {
         connected: false,
         size: memoryCache.size,
+        type: 'memory'
       };
     }
   }

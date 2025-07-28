@@ -16,7 +16,8 @@ export default function CacheDebugger() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'development') return;
+    // Sadece development ve server-side'da çalışsın
+    if (process.env.NODE_ENV !== 'development' || typeof window === 'undefined') return;
 
     const fetchStats = async () => {
       try {
@@ -34,7 +35,8 @@ export default function CacheDebugger() {
     return () => clearInterval(interval);
   }, []);
 
-  if (process.env.NODE_ENV !== 'development' || !stats) return null;
+  // Client-side'da render etme
+  if (typeof window === 'undefined' || process.env.NODE_ENV !== 'development' || !stats) return null;
 
   return (
     <>
@@ -82,9 +84,9 @@ export default function CacheDebugger() {
               <span>{stats.total}</span>
             </div>
             <div className="flex justify-between">
-              <span>Connected:</span>
-              <span className={stats.cache.connected ? 'text-green-400' : 'text-red-400'}>
-                {stats.cache.connected ? 'Yes' : 'No'}
+              <span>Type:</span>
+              <span className={stats.cache.connected ? 'text-green-400' : 'text-yellow-400'}>
+                {stats.cache.type}
               </span>
             </div>
           </div>

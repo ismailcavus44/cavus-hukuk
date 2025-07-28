@@ -36,10 +36,6 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
     scrollRestoration: true,
-    // Modern JavaScript desteği
-    modern: true,
-    // Bundle analyzer
-    bundlePagesRouterDependencies: true,
   },
   
   // Security headers
@@ -301,6 +297,19 @@ const nextConfig = {
       // Tree shaking'i etkinleştir
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
+    }
+
+    // Server-only modüller için fallback
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        net: false,
+        tls: false,
+        dns: false,
+        fs: false,
+        path: false,
+        os: false,
+      };
     }
     
     return config

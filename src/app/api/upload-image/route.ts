@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { cache } from '@/lib/cache';
 
+// Upload cache interface
+interface UploadCache {
+  url: string;
+  timestamp: number;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -19,7 +25,7 @@ export async function POST(request: NextRequest) {
     const cacheKey = `upload:${path}:${file.name}`;
     
     // Önce cache'den kontrol et
-    const cached = await cache.get(cacheKey);
+    const cached = await cache.get<UploadCache>(cacheKey);
     if (cached) {
       return NextResponse.json({ url: cached.url });
     }
@@ -51,7 +57,10 @@ export async function POST(request: NextRequest) {
       .getPublicUrl(path);
 
     // Cache'e kaydet (1 saat)
-    await cache.set(cacheKey, { url: publicUrl }, 3600);
+    await cache.set(cacheKey, { 
+      url: publicUrl, 
+      timestamp: Date.now() 
+    }, 3600);
 
     return NextResponse.json({ url: publicUrl });
 

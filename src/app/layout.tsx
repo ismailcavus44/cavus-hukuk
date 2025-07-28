@@ -69,24 +69,28 @@ export const metadata: Metadata = {
 // Hizmet kataloğu verisi
 const hizmetKatalogu = [
   {
+    '@type': 'Service',
     name: 'Aile Hukuku',
     description: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
     url: 'https://ismailcavus.av.tr/hizmetler/aile-hukuku',
     serviceType: 'Aile Hukuku'
   },
   {
+    '@type': 'Service',
     name: 'İş Hukuku',
     description: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
     url: 'https://ismailcavus.av.tr/hizmetler/is-hukuku',
     serviceType: 'İş Hukuku'
   },
   {
+    '@type': 'Service',
     name: 'Ceza Hukuku',
     description: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
     url: 'https://ismailcavus.av.tr/hizmetler/ceza-hukuku',
     serviceType: 'Ceza Hukuku'
   },
   {
+    '@type': 'Service',
     name: 'İdare Hukuku',
     description: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
     url: 'https://ismailcavus.av.tr/hizmetler/idare-hukuku',
