@@ -19,12 +19,6 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'vptmbniqrrxqggqwldww.supabase.co',
-        port: '',
-        pathname: '/**',
-      },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -32,9 +26,6 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false, // WebP dönüştürme için gerekli
-    // Performance optimizasyonları
-    loader: 'default',
-    disableStaticImages: false,
   },
   
   // Font optimizasyonu

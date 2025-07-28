@@ -7,22 +7,7 @@ import MobileCTA from '@/components/layout/MobileCTA';
 import { OrganizationSchema, LocalBusinessSchema, ServiceCatalogSchema, WebPageSchema } from '@/components/seo';
 import CacheDebugger from '@/components/ui/CacheDebugger';
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'arial'],
-  variable: '--font-inter',
-});
-
-// Critical CSS - inline
-const criticalCSS = `
-  /* Critical styles for above-the-fold content */
-  body { margin: 0; font-family: var(--font-inter), system-ui, sans-serif; }
-  .hero-section { min-height: 100vh; background: white; }
-  .loading-spinner { animation: spin 1s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-`;
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -120,24 +105,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <head>
-        {/* Critical CSS */}
-        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
-        
-        {/* Preload critical resources */}
-        <link rel="preload" href="/logo-header.png" as="image" type="image/png" />
-        <link rel="preload" href="/hero1.jpg" as="image" type="image/jpeg" />
-        
-        {/* DNS prefetch */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//vptmbniqrrxqggqwldww.supabase.co" />
-        
-        {/* Preconnect */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://vptmbniqrrxqggqwldww.supabase.co" />
-      </head>
       <body className={inter.className}>
         {/* SEO Schema Markup */}
         <OrganizationSchema
