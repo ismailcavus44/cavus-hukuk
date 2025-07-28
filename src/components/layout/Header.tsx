@@ -47,7 +47,7 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
         ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100' 
-        : 'bg-transparent'
+        : 'bg-white/90 backdrop-blur-sm'
     }`}>
       {/* Üst Bilgi Çubuğu */}
       <div className="hidden lg:block bg-gray-900 text-white py-2">

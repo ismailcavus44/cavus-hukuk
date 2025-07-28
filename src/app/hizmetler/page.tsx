@@ -219,7 +219,7 @@ const HizmetlerPage = () => {
   <main className="bg-white min-h-screen py-16 px-4 md:px-0">
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb - SEO için önemli */}
-          <nav aria-label="Breadcrumb" className="mb-8">
+          <nav aria-label="Breadcrumb" className="mb-8 bg-white p-4 rounded-lg border border-gray-100">
         <Breadcrumb 
           items={[
             { label: 'Hizmet Alanlarımız' }

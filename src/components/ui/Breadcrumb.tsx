@@ -16,10 +16,10 @@ interface BreadcrumbProps {
 
 const Breadcrumb = React.memo(({ items, className = "" }: BreadcrumbProps) => {
   return (
-    <nav className={`flex items-center flex-wrap gap-2 text-sm mb-6 ${className}`} aria-label="Breadcrumb">
+    <nav className={`flex items-center flex-wrap gap-2 text-sm mb-6 text-gray-600 ${className}`} aria-label="Breadcrumb">
       <Link 
         href="/" 
-        className="flex items-center hover:text-red-600 transition-colors whitespace-nowrap"
+        className="flex items-center text-gray-600 hover:text-red-600 transition-colors whitespace-nowrap"
         aria-label="Ana Sayfa"
       >
         <Home size={16} className="mr-1" />
@@ -28,16 +28,16 @@ const Breadcrumb = React.memo(({ items, className = "" }: BreadcrumbProps) => {
       
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          <ChevronRight size={16} className="text-gray-400 flex-shrink-0" />
+          <ChevronRight size={16} className="text-gray-500 flex-shrink-0" />
           {item.href ? (
             <Link 
               href={item.href}
-              className="hover:text-red-600 transition-colors whitespace-nowrap"
+              className="text-gray-600 hover:text-red-600 transition-colors whitespace-nowrap"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-gray-900 font-medium whitespace-nowrap">{item.label}</span>
+            <span className="text-gray-800 font-medium whitespace-nowrap">{item.label}</span>
           )}
         </React.Fragment>
       ))}

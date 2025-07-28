@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -10,14 +10,23 @@ import {
   ChevronRight,
   FileText
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
-import TableOfContents from '@/components/blog/TableOfContents';
-import BlogMainContent from '@/components/blog/BlogMainContent';
-import Breadcrumb from '@/components/ui/Breadcrumb';
-import OptimizedImage from '@/components/ui/OptimizedImage';
+import { supabase, cachedQuery } from '@/lib/supabase';
 import { BlogYazisi } from '@/types';
 import { ArticleSchema, BreadcrumbSchema } from '@/components/seo';
-import AIChatbot from '@/components/ui/AIChatbot';
+
+// Dynamic imports - sadece gerektiğinde yükle
+const TableOfContents = React.lazy(() => import('@/components/blog/TableOfContents'));
+const BlogMainContent = React.lazy(() => import('@/components/blog/BlogMainContent'));
+const Breadcrumb = React.lazy(() => import('@/components/ui/Breadcrumb'));
+const OptimizedImage = React.lazy(() => import('@/components/ui/OptimizedImage'));
+const AIChatbot = React.lazy(() => import('@/components/ui/AIChatbot'));
+
+// Loading component
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center p-4">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
+  </div>
+);
 
 // Critical preload için Head component
 const CriticalPreload = ({ blogYazisi }: { blogYazisi: BlogYazisi }) => (
@@ -46,19 +55,16 @@ interface BlogPostPageProps {
 // Meta bilgilerini oluştur
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   try {
-    const { data: blogYazisi, error } = await supabase
-      .from('blog_yazilari')
-      .select('*')
-      .eq('slug', params.slug)
-      .single();
-
-    if (error) {
-      console.error('Blog yazısı metadata yüklenirken hata:', error);
-      return {
-        title: 'Yazı Bulunamadı | Çavuş Hukuk Bürosu',
-        description: 'Aradığınız blog yazısı mevcut değil.',
-      };
-    }
+    const blogYazisi = await cachedQuery(`blog-${params.slug}`, async () => {
+      const { data, error } = await supabase
+        .from('blog_yazilari')
+        .select('*')
+        .eq('slug', params.slug)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    });
 
     if (!blogYazisi) {
       return {
@@ -294,16 +300,16 @@ RelatedPosts.displayName = 'RelatedPosts';
 
 const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   try {
-    const { data: blogYazisi, error } = await supabase
-      .from('blog_yazilari')
-      .select('*')
-      .eq('slug', params.slug)
-      .single();
-
-    if (error) {
-      console.error('Blog yazısı yüklenirken hata:', error);
-      notFound();
-    }
+    const blogYazisi = await cachedQuery(`blog-${params.slug}`, async () => {
+      const { data, error } = await supabase
+        .from('blog_yazilari')
+        .select('*')
+        .eq('slug', params.slug)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    });
 
     if (!blogYazisi) {
       notFound();
@@ -353,18 +359,26 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-8">
               <div className="lg:col-span-4">
-                <BlogMainContent blogYazisi={blogYazisi} processedContent={processedContent} />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <BlogMainContent blogYazisi={blogYazisi} processedContent={processedContent} />
+                </Suspense>
               </div>
-              <BlogSidebar processedContent={processedContent} accordionTitles={accordionTitles} />
+              <Suspense fallback={<LoadingSpinner />}>
+                <BlogSidebar processedContent={processedContent} accordionTitles={accordionTitles} />
+              </Suspense>
             </div>
           </div>
 
           {/* Related Posts */}
-          <RelatedPosts currentSlug={params.slug} />
+          <Suspense fallback={<LoadingSpinner />}>
+            <RelatedPosts currentSlug={params.slug} />
+          </Suspense>
         </div>
         
         {/* AI Chatbot */}
-        <AIChatbot />
+        <Suspense fallback={null}>
+          <AIChatbot />
+        </Suspense>
       </>
     );
   } catch (error) {

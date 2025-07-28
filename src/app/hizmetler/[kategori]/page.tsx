@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, User, Tag, ChevronRight, FileText, Calculator } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { supabase, cachedQuery } from '@/lib/supabase';
 import { Kategori, BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
@@ -15,12 +15,17 @@ interface KategoriPageProps {
 }
 
 const KategoriPage = async ({ params }: KategoriPageProps) => {
-  // Kategori bilgilerini getir
-  const { data: kategoriData } = await supabase
-    .from('kategoriler')
-    .select('*')
-    .eq('slug', params.kategori)
-    .single();
+  // Kategori bilgilerini getir (cache ile)
+  const kategoriData = await cachedQuery(`kategori-${params.kategori}`, async () => {
+    const { data, error } = await supabase
+      .from('kategoriler')
+      .select('*')
+      .eq('slug', params.kategori)
+      .single();
+    
+    if (error) throw error;
+    return data;
+  });
 
   if (!kategoriData) {
     return (
@@ -33,12 +38,17 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
     );
   }
 
-  // Bu kategoriye ait blog yazılarını getir
-  const { data: blogYazilari } = await supabase
-    .from('blog_yazilari')
-    .select('*')
-    .ilike('categories', `%${kategoriData.title}%`)
-    .order('date', { ascending: false });
+  // Bu kategoriye ait blog yazılarını getir (cache ile)
+  const blogYazilari = await cachedQuery(`blog-kategori-${params.kategori}`, async () => {
+    const { data, error } = await supabase
+      .from('blog_yazilari')
+      .select('*')
+      .ilike('categories', `%${kategoriData.title}%`)
+      .order('date', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  });
 
   const kategori = kategoriData;
   const yazilar = blogYazilari || [];
@@ -53,7 +63,7 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
   return (
     <main className="bg-white min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-white py-4 relative z-10">
+      <div className="bg-white py-4 relative z-10 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6">
           <Breadcrumb 
             items={[

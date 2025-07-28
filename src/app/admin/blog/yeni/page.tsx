@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 // React Quill'i dinamik olarak import et (SSR sorunlarını önlemek için)
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
+import BlogPreview from '@/components/admin/BlogPreview';
 
 const YeniBlogPage = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const YeniBlogPage = () => {
   const [kategoriler, setKategoriler] = useState<Kategori[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -368,9 +370,11 @@ const YeniBlogPage = () => {
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Sol Taraf - Form */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
             {/* Başlık */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -491,41 +495,67 @@ const YeniBlogPage = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="meta_title" className="block text-sm font-medium text-gray-700 mb-2">
-                  Meta Başlık
-                </label>
-                <input
-                  type="text"
-                  id="meta_title"
-                  value={formData.meta_title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, meta_title: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  placeholder="SEO için meta başlık"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Arama motorları için başlık (60 karakter)
-                </p>
-              </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="meta_title" className="block text-sm font-medium text-gray-700 mb-2">
+                    Meta Başlık
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="meta_title"
+                      value={formData.meta_title}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value.length <= 60) {
+                          setFormData(prev => ({ ...prev, meta_title: value }));
+                        }
+                      }}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      placeholder="SEO için meta başlık"
+                      maxLength={60}
+                    />
+                    <div className="absolute right-2 top-2 text-xs">
+                      <span className={`${formData.meta_title.length > 50 ? 'text-red-500' : 'text-gray-400'}`}>
+                        {formData.meta_title.length}/60
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Arama motorları için başlık (60 karakter)
+                  </p>
+                </div>
 
-              <div>
-                <label htmlFor="meta_description" className="block text-sm font-medium text-gray-700 mb-2">
-                  Meta Açıklama
-                </label>
-                <input
-                  type="text"
-                  id="meta_description"
-                  value={formData.meta_description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, meta_description: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  placeholder="SEO için meta açıklama"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Arama motorları için açıklama (160 karakter)
-                </p>
+                <div>
+                  <label htmlFor="meta_description" className="block text-sm font-medium text-gray-700 mb-2">
+                    Meta Açıklama
+                  </label>
+                  <div className="relative">
+                    <textarea
+                      id="meta_description"
+                      value={formData.meta_description}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value.length <= 160) {
+                          setFormData(prev => ({ ...prev, meta_description: value }));
+                        }
+                      }}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                      placeholder="SEO için meta açıklama"
+                      maxLength={160}
+                      rows={3}
+                    />
+                    <div className="absolute right-2 top-2 text-xs">
+                      <span className={`${formData.meta_description.length > 150 ? 'text-red-500' : 'text-gray-400'}`}>
+                        {formData.meta_description.length}/160
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Arama motorları için açıklama (160 karakter)
+                  </p>
+                </div>
               </div>
-            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Yazar */}
@@ -700,7 +730,33 @@ const YeniBlogPage = () => {
             </div>
           </form>
         </div>
+
+                  {/* Sağ Taraf - Önizleme */}
+          <div className="lg:col-span-1">
+            <BlogPreview
+              title={formData.title}
+              content={formData.content}
+              author={formData.author}
+              date={formData.date}
+              categories={formData.categories}
+              image={imagePreview || formData.image}
+              image_alt={formData.image_alt}
+              excerpt={formData.content
+                .replace(/<[^>]*>/g, '')
+                .replace(/\[.*?\]/g, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .substring(0, 200)}
+              meta_title={formData.meta_title}
+              meta_description={formData.meta_description}
+              slug={formData.slug}
+              isPreviewMode={isPreviewMode}
+              onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+            />
+          </div>
       </div>
+    </div>
     </div>
   );
 };

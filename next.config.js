@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 const nextConfig = {
   // Production optimizasyonları
   output: 'standalone', // Docker için
@@ -32,6 +36,10 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
     scrollRestoration: true,
+    // Modern JavaScript desteği
+    modern: true,
+    // Bundle analyzer
+    bundlePagesRouterDependencies: true,
   },
   
   // Security headers
@@ -71,6 +79,41 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cavus-hukuk-8lm1.vercel.app; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self';"
+          },
+          // Agresif cache headers
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
+          }
+        ]
+      },
+      // Statik sayfalar için daha uzun cache
+      {
+        source: '/ankara-:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=604800, immutable'
+          }
+        ]
+      },
+      // Blog sayfaları için ISR cache
+      {
+        source: '/:slug',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
+          }
+        ]
+      },
+      // Kategori sayfaları için cache
+      {
+        source: '/hizmetler/:kategori',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800'
           }
         ]
       },
@@ -85,6 +128,10 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cavus-hukuk-8lm1.vercel.app; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self' https://www.openstreetmap.org https://maps.google.com https://www.google.com;"
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=3600'
           }
         ]
       },
@@ -98,7 +145,7 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
+            value: 'public, max-age=3600, s-maxage=86400'
           }
         ]
       },
@@ -112,7 +159,27 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600'
+            value: 'public, max-age=3600, s-maxage=86400'
+          }
+        ]
+      },
+      // CSS/JS dosyaları için cache
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      // Görseller için cache
+      {
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
           }
         ]
       }
@@ -191,13 +258,49 @@ const nextConfig = {
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
+          // Vendor chunk'ları daha küçük parçalara böl
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
+            priority: 10,
+            enforce: true,
+          },
+          // React ve Next.js ayrı chunk
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            chunks: 'all',
+            priority: 20,
+          },
+          // Supabase ayrı chunk
+          supabase: {
+            test: /[\\/]node_modules[\\/](@supabase)[\\/]/,
+            name: 'supabase',
+            chunks: 'all',
+            priority: 15,
+          },
+          // UI kütüphaneleri ayrı chunk
+          ui: {
+            test: /[\\/]node_modules[\\/](lucide-react|@radix-ui)[\\/]/,
+            name: 'ui',
+            chunks: 'all',
+            priority: 15,
+          },
+          // Common chunk
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 5,
+            reuseExistingChunk: true,
           },
         },
       }
+      
+      // Tree shaking'i etkinleştir
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
     }
     
     return config
@@ -243,4 +346,4 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig 
+module.exports = withBundleAnalyzer(nextConfig) 

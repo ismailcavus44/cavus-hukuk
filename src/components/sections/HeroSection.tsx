@@ -3,12 +3,12 @@ import { Shield, Users, Award, Clock, CheckCircle, Star, Scale, Gavel, Play, Che
 
 const HeroSection = () => {
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <section className="relative py-20 overflow-hidden bg-white">
       {/* Background Effects */}
       <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full blur-3xl opacity-50 animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-pink-100 to-orange-100 rounded-full blur-2xl opacity-30 animate-pulse delay-500"></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-red-50 to-red-100 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-red-50 to-red-100 rounded-full blur-3xl opacity-30 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-red-50 to-red-100 rounded-full blur-2xl opacity-20 animate-pulse delay-500"></div>
       </div>
 
       <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">

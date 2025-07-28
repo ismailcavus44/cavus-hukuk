@@ -46,14 +46,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://ankaraavukat.com'),
+  metadataBase: new URL('https://ismailcavus.av.tr'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://ankaraavukat.com',
+    url: 'https://ismailcavus.av.tr',
     siteName: 'Çavuş Hukuk Bürosu',
     title: 'Ankara Avukat - Güvenilir Hukuki Danışmanlık',
     description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
@@ -170,28 +170,28 @@ const HomePage = React.memo(() => {
       '@type': 'LegalService',
       name: 'Aile Hukuku',
       description: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
-      url: 'https://ankaraavukat.com/hizmetler/aile-hukuku',
+      url: 'https://ismailcavus.av.tr/hizmetler/aile-hukuku',
       serviceType: 'Aile Hukuku'
     },
     {
       '@type': 'LegalService',
       name: 'İş Hukuku',
       description: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
-      url: 'https://ankaraavukat.com/hizmetler/is-hukuku',
+      url: 'https://ismailcavus.av.tr/hizmetler/is-hukuku',
       serviceType: 'İş Hukuku'
     },
     {
       '@type': 'LegalService',
       name: 'Ceza Hukuku',
       description: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
-      url: 'https://ankaraavukat.com/hizmetler/ceza-hukuku',
+      url: 'https://ismailcavus.av.tr/hizmetler/ceza-hukuku',
       serviceType: 'Ceza Hukuku'
     },
     {
       '@type': 'LegalService',
       name: 'İdare Hukuku',
       description: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
-      url: 'https://ankaraavukat.com/hizmetler/idare-hukuku',
+      url: 'https://ismailcavus.av.tr/hizmetler/idare-hukuku',
       serviceType: 'İdare Hukuku'
     }
   ], []);
@@ -216,10 +216,10 @@ const HomePage = React.memo(() => {
       <OrganizationSchema
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
-        url="https://ankaraavukat.com"
-        logo="https://ankaraavukat.com/logo-header.png"
+        url="https://ismailcavus.av.tr"
+        logo="https://ismailcavus.av.tr/logo-header.png"
         telephone="+90 312 123 45 67"
-        email="info@ankaraavukat.com"
+        email="info@ismailcavus.av.tr"
         address={{
           streetAddress: "Kızılay Mahallesi",
           addressLocality: "Ankara",
@@ -244,9 +244,9 @@ const HomePage = React.memo(() => {
       <LocalBusinessSchema
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
-        url="https://ankaraavukat.com"
+        url="https://ismailcavus.av.tr"
         telephone="+90 312 123 45 67"
-        email="info@ankaraavukat.com"
+        email="info@ismailcavus.av.tr"
         address={{
           streetAddress: "Kızılay Mahallesi",
           addressLocality: "Ankara",
@@ -274,8 +274,8 @@ const HomePage = React.memo(() => {
         url="https://ankaraavukat.com/hizmetler"
         provider={{
           name: "Çavuş Hukuk Bürosu",
-          url: "https://ankaraavukat.com",
-          logo: "https://ankaraavukat.com/logo-header.png"
+          url: "https://ismailcavus.av.tr",
+          logo: "https://ismailcavus.av.tr/logo-header.png"
         }}
         services={hizmetKatalogu}
         areaServed={{
@@ -288,23 +288,23 @@ const HomePage = React.memo(() => {
       <WebPageSchema
         title="Ankara Avukat - Çavuş Hukuk Bürosu"
         description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
-        url="https://ankaraavukat.com"
-        image="https://ankaraavukat.com/og-image.jpg"
+        url="https://ismailcavus.av.tr"
+        image="https://ismailcavus.av.tr/og-image.jpg"
         author={{
           name: "Av. İsmail Çavuş"
         }}
         publisher={{
           name: "Çavuş Hukuk Bürosu",
-          logo: "https://ankaraavukat.com/logo-header.png"
+          logo: "https://ismailcavus.av.tr/logo-header.png"
         }}
         datePublished="2024-01-01"
         dateModified="2024-12-19"
         breadcrumb={[
-          { name: 'Ana Sayfa', url: 'https://ankaraavukat.com' }
+          { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' }
         ]}
         isPartOf={{
           name: 'Çavuş Hukuk Bürosu',
-          url: 'https://ankaraavukat.com'
+          url: 'https://ismailcavus.av.tr'
         }}
       />
 

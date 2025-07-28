@@ -212,7 +212,7 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 
 ## 📞 İletişim
 
-- **Email**: info@ankaraavukat.com
+- **Email**: info@ismailcavus.av.tr
 - **Telefon**: +90 312 555 0100
 - **Adres**: Kızılay Mahallesi, Atatürk Bulvarı No:123, Çankaya/Ankara
 
