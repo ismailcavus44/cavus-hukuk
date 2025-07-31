@@ -61,42 +61,34 @@ const AnkaraBosanmaAvukatiPage = () => {
 
   // SEO Schema Data
   const seoSchemaData = {
-    pageUrl: 'https://ismailcavus.av.tr/ankara-bosanma-avukati',
-    serviceName: 'Ankara Boşanma Avukatı',
-    serviceDescription: 'Ankara\'da boşanma davalarında uzman avukatlar. Anlaşmalı boşanma, çekişmeli boşanma ve mal paylaşımı konularında destek.',
-    serviceType: 'Aile Hukuku',
-    services: [
-      { name: 'Anlaşmalı Boşanma' },
-      { name: 'Çekişmeli Boşanma' },
-      { name: 'Mal Paylaşımı' }
+    name: 'Ankara Boşanma Avukatı',
+    description: 'Ankara\'da boşanma davalarında uzman avukatlar. Anlaşmalı boşanma, çekişmeli boşanma ve mal paylaşımı konularında destek.',
+    url: 'https://ismailcavus.av.tr/ankara-bosanma-avukati',
+    logo: 'https://ismailcavus.av.tr/logo-header.png',
+    telephone: '+90 505 398 99 81',
+    email: 'info@ismailcavus.av.tr',
+    address: {
+      streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
+      addressLocality: 'Çankaya',
+      addressRegion: 'Ankara',
+      postalCode: '06000',
+      addressCountry: 'TR'
+    },
+    geo: {
+      latitude: '39.9334',
+      longitude: '32.8597'
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    priceRange: '$$',
+    sameAs: [
+      'https://www.facebook.com/cavushukuk',
+      'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
       name: 'Ankara'
     },
-    businessInfo: {
-      name: 'Çavuş Hukuk Bürosu',
-      description: 'Ankara\'da aile hukuku alanında uzman hukuk bürosu',
-      telephone: '+90-312-XXX-XXXX',
-      email: 'info@ismailcavus.av.tr',
-      address: {
-        streetAddress: 'Ankara Adres',
-        addressLocality: 'Ankara',
-        addressRegion: 'Ankara',
-        postalCode: '06000',
-        addressCountry: 'TR'
-      },
-      geo: {
-        latitude: '39.9334',
-        longitude: '32.8597'
-      },
-      openingHours: 'Mo-Fr 09:00-18:00',
-      priceRange: '$$',
-      sameAs: [
-        'https://www.facebook.com/cavushukuk',
-        'https://www.linkedin.com/company/cavushukuk'
-      ]
-    }
+    serviceType: 'Aile Hukuku'
   };
 
   // Breadcrumb Schema Data

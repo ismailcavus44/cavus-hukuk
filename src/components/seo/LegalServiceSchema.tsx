@@ -1,129 +1,101 @@
 'use client'
 
-import React from 'react'
-import StructuredData from './StructuredData'
+import React from 'react';
 
 interface LegalServiceSchemaProps {
-  pageUrl: string
-  serviceName: string
-  serviceDescription: string
-  serviceType: string
-  services: Array<{
-    name: string
-    description?: string
-  }>
+  name: string;
+  description: string;
+  url: string;
+  logo?: string;
+  telephone: string;
+  email: string;
+  address: {
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: {
+    latitude: string;
+    longitude: string;
+  };
+  openingHours?: string;
+  priceRange?: string;
+  sameAs?: string[];
   areaServed?: {
-    '@type': string
-    name: string
-  }
-  businessInfo: {
-    name: string
-    description: string
-    telephone?: string
-    email?: string
-    address?: {
-      streetAddress: string
-      addressLocality: string
-      addressRegion: string
-      postalCode: string
-      addressCountry: string
-    }
-    geo?: {
-      latitude: string
-      longitude: string
-    }
-    openingHours?: string
-    priceRange?: string
-    sameAs?: string[]
-  }
+    '@type': string;
+    name: string;
+  };
+  serviceType?: string;
+  hasOfferCatalog?: {
+    '@type': string;
+    name: string;
+    itemListElement: Array<{
+      '@type': string;
+      itemOffered: {
+        '@type': string;
+        name: string;
+      };
+    }>;
+  };
 }
 
-export default function LegalServiceSchema({
-  pageUrl,
-  serviceName,
-  serviceDescription,
-  serviceType,
-  services,
+const LegalServiceSchema: React.FC<LegalServiceSchemaProps> = ({
+  name,
+  description,
+  url,
+  logo,
+  telephone,
+  email,
+  address,
+  geo,
+  openingHours,
+  priceRange,
+  sameAs,
   areaServed,
-  businessInfo
-}: LegalServiceSchemaProps) {
-  try {
-    // Güvenli array kontrolü
-    const servicesArray = Array.isArray(services) ? services : [];
-    
-    // LegalService schema
-    const legalServiceSchema = {
-      '@type': 'LegalService',
-      '@id': `${pageUrl}#legalService`,
-      name: serviceName,
-      description: serviceDescription,
-      url: pageUrl,
-      ...(areaServed && { areaServed: areaServed }),
-      serviceType,
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: `${serviceType} Hizmetleri`,
-        itemListElement: servicesArray.map(service => ({
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: service.name,
-            ...(service.description && { description: service.description })
-          }
-        }))
+  serviceType,
+  hasOfferCatalog
+}) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": name,
+    "description": description,
+    "url": url,
+    ...(logo && { "logo": logo }),
+    "telephone": telephone,
+    "email": email,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": address.streetAddress,
+      "addressLocality": address.addressLocality,
+      "addressRegion": address.addressRegion,
+      "postalCode": address.postalCode,
+      "addressCountry": {
+        "@type": "Country",
+        "name": address.addressCountry
       }
-    };
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": geo.latitude,
+      "longitude": geo.longitude
+    },
+    ...(openingHours && { "openingHours": openingHours }),
+    ...(priceRange && { "priceRange": priceRange }),
+    ...(sameAs && { "sameAs": sameAs }),
+    ...(areaServed && { "areaServed": areaServed }),
+    ...(serviceType && { "serviceType": serviceType }),
+    ...(hasOfferCatalog && { "hasOfferCatalog": hasOfferCatalog })
+  };
 
-    // LocalBusiness schema
-    const localBusinessSchema = {
-      '@type': 'LocalBusiness',
-      '@id': `${pageUrl}#localBusiness`,
-      name: businessInfo.name,
-      description: businessInfo.description,
-      url: 'https://ismailcavus.av.tr',
-      ...(businessInfo.telephone && { telephone: businessInfo.telephone }),
-      ...(businessInfo.email && { email: businessInfo.email }),
-      ...(businessInfo.address && {
-        address: {
-          '@type': 'PostalAddress',
-          ...businessInfo.address
-        }
-      }),
-      ...(businessInfo.geo && {
-        geo: {
-          '@type': 'GeoCoordinates',
-          ...businessInfo.geo
-        }
-      }),
-      ...(businessInfo.openingHours && { openingHours: businessInfo.openingHours }),
-      ...(businessInfo.priceRange && { priceRange: businessInfo.priceRange }),
-      ...(businessInfo.sameAs && { sameAs: businessInfo.sameAs })
-    };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
 
-    const legalServiceData = {
-      '@context': 'https://schema.org',
-      '@graph': [legalServiceSchema, localBusinessSchema]
-    }
-
-    // Debug için console.log (production'da kaldırılabilir)
-    if (typeof window !== 'undefined') {
-      console.log('LegalServiceSchema Data:', legalServiceData);
-    }
-
-    return <StructuredData data={legalServiceData} />
-  } catch (error) {
-    console.error('LegalServiceSchema Error:', error);
-    console.error('Props:', { pageUrl, serviceName, serviceType, services, businessInfo });
-    
-    // Fallback - basit schema
-    const fallbackData = {
-      '@context': 'https://schema.org',
-      '@type': 'LegalService',
-      name: serviceName,
-      description: serviceDescription,
-      url: pageUrl
-    };
-    
-    return <StructuredData data={fallbackData} />
-  }
-} 
+export default LegalServiceSchema; 

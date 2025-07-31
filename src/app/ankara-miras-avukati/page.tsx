@@ -61,42 +61,34 @@ const AnkaraMirasAvukatiPage = () => {
 
   // SEO Schema Data
   const seoSchemaData = {
-    pageUrl: 'https://ismailcavus.av.tr/ankara-miras-avukati',
-    serviceName: 'Ankara Miras Avukatı',
-    serviceDescription: 'Ankara\'da miras hukuku davalarında uzman avukatlar. Vasiyetname düzenleme, mirasın reddi ve miras paylaşımı konularında destek.',
-    serviceType: 'Miras Hukuku',
-    services: [
-      { name: 'Vasiyetname Düzenleme' },
-      { name: 'Mirasın Reddi' },
-      { name: 'Miras Paylaşımı' }
+    name: 'Ankara Miras Avukatı',
+    description: 'Ankara\'da miras hukuku davalarında uzman avukatlar. Miras paylaşımı, vasiyetname ve mirasçılık belgesi konularında hukuki destek.',
+    url: 'https://ismailcavus.av.tr/ankara-miras-avukati',
+    logo: 'https://ismailcavus.av.tr/logo-header.png',
+    telephone: '+90 505 398 99 81',
+    email: 'info@ismailcavus.av.tr',
+    address: {
+      streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
+      addressLocality: 'Çankaya',
+      addressRegion: 'Ankara',
+      postalCode: '06000',
+      addressCountry: 'TR'
+    },
+    geo: {
+      latitude: '39.9334',
+      longitude: '32.8597'
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    priceRange: '$$',
+    sameAs: [
+      'https://www.facebook.com/cavushukuk',
+      'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
       name: 'Ankara'
     },
-    businessInfo: {
-      name: 'Çavuş Hukuk Bürosu',
-      description: 'Ankara\'da miras hukuku alanında uzman hukuk bürosu',
-      telephone: '+90-312-XXX-XXXX',
-      email: 'info@ismailcavus.av.tr',
-      address: {
-        streetAddress: 'Ankara Adres',
-        addressLocality: 'Ankara',
-        addressRegion: 'Ankara',
-        postalCode: '06000',
-        addressCountry: 'TR'
-      },
-      geo: {
-        latitude: '39.9334',
-        longitude: '32.8597'
-      },
-      openingHours: 'Mo-Fr 09:00-18:00',
-      priceRange: '$$',
-      sameAs: [
-        'https://www.facebook.com/cavushukuk',
-        'https://www.linkedin.com/company/cavushukuk'
-      ]
-    }
+    serviceType: 'Miras Hukuku'
   };
 
   // Breadcrumb Schema Data

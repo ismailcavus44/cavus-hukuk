@@ -219,11 +219,11 @@ const HomePage = React.memo(() => {
         description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
         url="https://ismailcavus.av.tr"
         logo="https://ismailcavus.av.tr/logo-header.png"
-        telephone="+90 312 123 45 67"
+        telephone="+90 505 398 99 81"
         email="info@ismailcavus.av.tr"
         address={{
-          streetAddress: "Kızılay Mahallesi",
-          addressLocality: "Ankara",
+          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+          addressLocality: "Çankaya",
           addressRegion: "Ankara",
           postalCode: "06420",
           addressCountry: "TR"
@@ -246,11 +246,11 @@ const HomePage = React.memo(() => {
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
         url="https://ismailcavus.av.tr"
-        telephone="+90 312 123 45 67"
+        telephone="+90 505 398 99 81"
         email="info@ismailcavus.av.tr"
         address={{
-          streetAddress: "Kızılay Mahallesi",
-          addressLocality: "Ankara",
+          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+          addressLocality: "Çankaya",
           addressRegion: "Ankara",
           postalCode: "06420",
           addressCountry: "TR"

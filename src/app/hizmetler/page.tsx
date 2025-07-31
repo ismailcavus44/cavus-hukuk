@@ -188,34 +188,34 @@ const HizmetlerPage = () => {
     <>
       {/* Service Schema - SEO için kritik */}
       <ServiceSchema
-        pageUrl="https://ismailcavus.av.tr/hizmetler"
-        serviceName="Çavuş Hukuk Bürosu Hizmetleri"
-        serviceDescription="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri. Aile hukuku, iş hukuku, ceza hukuku, idare hukuku, miras hukuku ve gayrimenkul hukuku alanlarında profesyonel hizmet."
-        services={hizmetler.map(hizmet => ({
-          name: hizmet.baslik,
-          description: hizmet.aciklama,
-          url: `https://ismailcavus.av.tr${hizmet.link}`,
-          serviceType: hizmet.baslik
-        }))}
-        businessInfo={{
-          name: "Çavuş Hukuk Bürosu",
-          description: "Ankara'da hukuki danışmanlık ve avukatlık hizmetleri",
-          telephone: "+90 505 398 9981",
-          email: "info@ismailcavus.av.tr",
-          address: {
-            streetAddress: "Ankara",
-            addressLocality: "Ankara",
-            addressRegion: "Ankara",
-            postalCode: "06420",
-            addressCountry: "TR"
-          },
-          geo: {
-            latitude: "39.9334",
-            longitude: "32.8597"
-          },
-          openingHours: "Mo-Fr 09:00-18:00",
-          priceRange: "$$"
+        name="Çavuş Hukuk Bürosu Hizmetleri"
+        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri. Aile hukuku, iş hukuku, ceza hukuku, idare hukuku, miras hukuku ve gayrimenkul hukuku alanlarında profesyonel hizmet."
+        url="https://ismailcavus.av.tr/hizmetler"
+        logo="https://ismailcavus.av.tr/logo-header.png"
+        telephone="+90 505 398 9981"
+        email="info@ismailcavus.av.tr"
+        address={{
+          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+          addressLocality: "Çankaya",
+          addressRegion: "Ankara",
+          postalCode: "06420",
+          addressCountry: "TR"
         }}
+        geo={{
+          latitude: "39.9334",
+          longitude: "32.8597"
+        }}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        sameAs={[
+          "https://www.facebook.com/cavushukuk",
+          "https://www.linkedin.com/company/cavushukuk"
+        ]}
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
+        }}
+        serviceType="Hukuki Danışmanlık"
       />
 
   <main className="bg-white min-h-screen py-16 px-4 md:px-0">

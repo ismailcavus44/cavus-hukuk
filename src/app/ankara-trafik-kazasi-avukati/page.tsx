@@ -61,42 +61,34 @@ const AnkaraTrafikKazasiAvukatiPage = () => {
 
   // SEO Schema Data
   const seoSchemaData = {
-    pageUrl: 'https://ismailcavus.av.tr/ankara-trafik-kazasi-avukati',
-    serviceName: 'Ankara Trafik Kazası Avukatı',
-    serviceDescription: 'Ankara\'da trafik kazası davalarında uzman avukatlar. Maddi ve manevi tazminat taleplerinde hukuki temsil ve danışmanlık.',
-    serviceType: 'Tazminat Hukuku',
-    services: [
-      { name: 'Maddi Tazminat Davası' },
-      { name: 'Manevi Tazminat Davası' },
-      { name: 'Trafik Kazası Zarar Tespiti' }
+    name: 'Ankara Trafik Kazası Avukatı',
+    description: 'Ankara\'da trafik kazası davalarında uzman avukatlar. Trafik kazası tazminat davaları ve sigorta şirketleri ile mücadele.',
+    url: 'https://ismailcavus.av.tr/ankara-trafik-kazasi-avukati',
+    logo: 'https://ismailcavus.av.tr/logo-header.png',
+    telephone: '+90 505 398 99 81',
+    email: 'info@ismailcavus.av.tr',
+    address: {
+      streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
+      addressLocality: 'Çankaya',
+      addressRegion: 'Ankara',
+      postalCode: '06000',
+      addressCountry: 'TR'
+    },
+    geo: {
+      latitude: '39.9334',
+      longitude: '32.8597'
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    priceRange: '$$',
+    sameAs: [
+      'https://www.facebook.com/cavushukuk',
+      'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
       name: 'Ankara'
     },
-    businessInfo: {
-      name: 'Çavuş Hukuk Bürosu',
-      description: 'Ankara\'da trafik kazası tazminat davalarında uzman hukuk bürosu',
-      telephone: '+90-312-XXX-XXXX',
-      email: 'info@ismailcavus.av.tr',
-      address: {
-        streetAddress: 'Ankara Adres',
-        addressLocality: 'Ankara',
-        addressRegion: 'Ankara',
-        postalCode: '06000',
-        addressCountry: 'TR'
-      },
-      geo: {
-        latitude: '39.9334',
-        longitude: '32.8597'
-      },
-      openingHours: 'Mo-Fr 09:00-18:00',
-      priceRange: '$$',
-      sameAs: [
-        'https://www.facebook.com/cavushukuk',
-        'https://www.linkedin.com/company/cavushukuk'
-      ]
-    }
+    serviceType: 'Trafik Hukuku'
   };
 
   // Breadcrumb Schema Data

@@ -61,42 +61,34 @@ const AnkaraIdareAvukatiPage = () => {
 
   // SEO Schema Data
   const seoSchemaData = {
-    pageUrl: 'https://ismailcavus.av.tr/ankara-idare-avukati',
-    serviceName: 'Ankara İdare Avukatı',
-    serviceDescription: 'Ankara\'da idare hukuku davalarında uzman avukatlar. İdari işlemlerin iptali ve tam yargı davalarında hukuki danışmanlık.',
-    serviceType: 'İdare Hukuku',
-    services: [
-      { name: 'İdari İşlem İptali' },
-      { name: 'Tam Yargı Davası' },
-      { name: 'İdari Sözleşme Davası' }
+    name: 'Ankara İdare Avukatı',
+    description: 'Ankara\'da idare hukuku davalarında uzman avukatlar. İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
+    url: 'https://ismailcavus.av.tr/ankara-idare-avukati',
+    logo: 'https://ismailcavus.av.tr/logo-header.png',
+    telephone: '+90 505 398 99 81',
+    email: 'info@ismailcavus.av.tr',
+    address: {
+      streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
+      addressLocality: 'Çankaya',
+      addressRegion: 'Ankara',
+      postalCode: '06000',
+      addressCountry: 'TR'
+    },
+    geo: {
+      latitude: '39.9334',
+      longitude: '32.8597'
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    priceRange: '$$',
+    sameAs: [
+      'https://www.facebook.com/cavushukuk',
+      'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
       name: 'Ankara'
     },
-    businessInfo: {
-      name: 'Çavuş Hukuk Bürosu',
-      description: 'Ankara\'da idare hukuku alanında uzman hukuk bürosu',
-      telephone: '+90-312-XXX-XXXX',
-      email: 'info@ismailcavus.av.tr',
-      address: {
-        streetAddress: 'Ankara Adres',
-        addressLocality: 'Ankara',
-        addressRegion: 'Ankara',
-        postalCode: '06000',
-        addressCountry: 'TR'
-      },
-      geo: {
-        latitude: '39.9334',
-        longitude: '32.8597'
-      },
-      openingHours: 'Mo-Fr 09:00-18:00',
-      priceRange: '$$',
-      sameAs: [
-        'https://www.facebook.com/cavushukuk',
-        'https://www.linkedin.com/company/cavushukuk'
-      ]
-    }
+    serviceType: 'İdare Hukuku'
   };
 
   // Breadcrumb Schema Data

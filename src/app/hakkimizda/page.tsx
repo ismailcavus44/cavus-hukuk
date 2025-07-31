@@ -63,6 +63,7 @@ const HakkimizdaPage = React.memo(() => {
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Ceza, boşanma, iş ve ticaret hukuku alanlarında profesyonel destek."
         url="https://ismailcavus.av.tr"
+        logo="https://ismailcavus.av.tr/logo-header.png"
         telephone="+90 505 398 9981"
         email="av.ismailcavuss@gmail.com"
         address={{

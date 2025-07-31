@@ -61,42 +61,34 @@ const AnkaraIcraAvukatiPage = () => {
 
   // SEO Schema Data
   const seoSchemaData = {
-    pageUrl: 'https://ismailcavus.av.tr/ankara-icra-avukati',
-    serviceName: 'Ankara İcra Avukatı',
-    serviceDescription: 'Ankara\'da icra hukuku davalarında uzman avukatlar. Alacak tahsili, haciz ve iflas süreçlerinde etkili hukuki çözümler.',
-    serviceType: 'İcra Hukuku',
-    services: [
-      { name: 'Alacak Tahsili' },
-      { name: 'Haciz İşlemleri' },
-      { name: 'İflas Davası' }
+    name: 'Ankara İcra Avukatı',
+    description: 'Ankara\'da icra hukuku davalarında uzman avukatlar. İcra takipleri, haciz işlemleri ve borç tahsilatı konularında hukuki destek.',
+    url: 'https://ismailcavus.av.tr/ankara-icra-avukati',
+    logo: 'https://ismailcavus.av.tr/logo-header.png',
+    telephone: '+90 505 398 99 81',
+    email: 'info@ismailcavus.av.tr',
+    address: {
+      streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
+      addressLocality: 'Çankaya',
+      addressRegion: 'Ankara',
+      postalCode: '06000',
+      addressCountry: 'TR'
+    },
+    geo: {
+      latitude: '39.9334',
+      longitude: '32.8597'
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    priceRange: '$$',
+    sameAs: [
+      'https://www.facebook.com/cavushukuk',
+      'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
       name: 'Ankara'
     },
-    businessInfo: {
-      name: 'Çavuş Hukuk Bürosu',
-      description: 'Ankara\'da icra hukuku alanında uzman hukuk bürosu',
-      telephone: '+90-312-XXX-XXXX',
-      email: 'info@ismailcavus.av.tr',
-      address: {
-        streetAddress: 'Ankara Adres',
-        addressLocality: 'Ankara',
-        addressRegion: 'Ankara',
-        postalCode: '06000',
-        addressCountry: 'TR'
-      },
-      geo: {
-        latitude: '39.9334',
-        longitude: '32.8597'
-      },
-      openingHours: 'Mo-Fr 09:00-18:00',
-      priceRange: '$$',
-      sameAs: [
-        'https://www.facebook.com/cavushukuk',
-        'https://www.linkedin.com/company/cavushukuk'
-      ]
-    }
+    serviceType: 'İcra Hukuku'
   };
 
   // Breadcrumb Schema Data
