@@ -4,19 +4,11 @@ import React from 'react'
 import StructuredData from './StructuredData'
 
 interface ServiceItem {
-  '@type': string
+  '@type': 'Service'
   name: string
   description: string
-  url?: string
-  provider?: {
-    '@type': string
-    name: string
-  }
-  areaServed?: {
-    '@type': string
-    name: string
-  }
-  serviceType?: string
+  url: string
+  serviceType: string
 }
 
 interface ServiceCatalogSchemaProps {
@@ -26,7 +18,16 @@ interface ServiceCatalogSchemaProps {
   provider: {
     name: string
     url: string
-    logo?: string
+    logo: string
+    address: {
+      streetAddress: string
+      addressLocality: string
+      addressRegion: string
+      postalCode: string
+      addressCountry: string
+    }
+    telephone: string
+    email: string
   }
   services: ServiceItem[]
   areaServed?: {
@@ -53,7 +54,20 @@ export default function ServiceCatalogSchema({
       '@type': 'LegalService',
       name: provider.name,
       url: provider.url,
-      ...(provider.logo && { logo: provider.logo })
+      logo: provider.logo,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: provider.address.streetAddress,
+        addressLocality: provider.address.addressLocality,
+        addressRegion: provider.address.addressRegion,
+        postalCode: provider.address.postalCode,
+        addressCountry: {
+          '@type': 'Country',
+          name: provider.address.addressCountry
+        }
+      },
+      telephone: provider.telephone,
+      email: provider.email
     },
     ...(areaServed && { areaServed }),
     hasOfferCatalog: {
@@ -66,10 +80,8 @@ export default function ServiceCatalogSchema({
           '@type': service['@type'],
           name: service.name,
           description: service.description,
-          ...(service.url && { url: service.url }),
-          ...(service.provider && { provider: service.provider }),
-          ...(service.areaServed && { areaServed: service.areaServed }),
-          ...(service.serviceType && { serviceType: service.serviceType })
+          url: service.url,
+          serviceType: service.serviceType
         }
       }))
     }
