@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
 import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Ankara Miras Avukatı',
@@ -217,6 +218,9 @@ const AnkaraMirasAvukatiPage = () => {
                 <p className="mb-6">
                   Miras hukuku alanında uzman avukatlarımız, vasiyetname düzenleme ve miras paylaşımı süreçlerinde müvekkillerimizin haklarını en iyi şekilde korumak için çalışmaktadır. Ankara'da miras avukatı olarak, her aşamada yanınızdayız.
                 </p>
+                
+                {/* Yazar Kutusu */}
+                <AuthorBox className="mt-8" />
               </article>
             </div>
             

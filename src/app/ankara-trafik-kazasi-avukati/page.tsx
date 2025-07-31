@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
 import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Ankara Trafik Kazası Avukatı',
@@ -213,6 +214,9 @@ const AnkaraTrafikKazasiAvukatiPage = () => {
                 <p className="mb-6">
                   Trafik kazası hukuku alanında uzman avukatlarımız, maddi ve manevi tazminat davalarında müvekkillerimizin haklarını en iyi şekilde korumak için çalışmaktadır. Ankara'da trafik kazası avukatı olarak, her aşamada yanınızdayız.
                 </p>
+                
+                {/* Yazar Kutusu */}
+                <AuthorBox className="mt-8" />
               </article>
             </div>
             

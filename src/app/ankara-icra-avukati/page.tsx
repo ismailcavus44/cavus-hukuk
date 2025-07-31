@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
 import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Ankara İcra Avukatı',
@@ -217,6 +218,9 @@ const AnkaraIcraAvukatiPage = () => {
                 <p className="mb-6">
                   İcra hukuku alanında uzman avukatlarımız, alacak tahsili ve haciz süreçlerinde müvekkillerimizin haklarını en iyi şekilde korumak için çalışmaktadır. Ankara'da icra avukatı olarak, her aşamada yanınızdayız.
                 </p>
+                
+                {/* Yazar Kutusu */}
+                <AuthorBox className="mt-8" />
               </article>
             </div>
             

@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
 import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Ankara İdare Avukatı',
@@ -217,6 +218,9 @@ const AnkaraIdareAvukatiPage = () => {
                 <p className="mb-6">
                   İdare hukuku alanında uzman avukatlarımız, idari işlemlerin iptali ve tam yargı davalarında müvekkillerimizin haklarını en iyi şekilde korumak için çalışmaktadır. Ankara'da idare avukatı olarak, her aşamada yanınızdayız.
                 </p>
+                
+                {/* Yazar Kutusu */}
+                <AuthorBox className="mt-8" />
               </article>
             </div>
             

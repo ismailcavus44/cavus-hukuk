@@ -44,7 +44,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
               <li key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left text-gray-700 hover:text-red-600 transition-colors"
+                  className={`text-left text-gray-700 hover:text-red-600 transition-colors ${
+                    item.level === 3 ? 'ml-4' : ''
+                  }`}
                 >
                   {item.title}
                 </button>

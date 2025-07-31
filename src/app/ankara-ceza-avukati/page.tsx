@@ -5,6 +5,7 @@ import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
 import { LegalServiceSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo';
 import OptimizedImage from '@/components/ui/OptimizedImage';
+import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Ankara Ceza Avukatı',
@@ -417,6 +418,9 @@ const AnkaraCezaAvukatiPage = () => {
                 <p className="mb-6">
                   Web sitemiz üzerinden online randevu talebinde bulunabilir veya hukuki danışmanlık formumuzu doldurarak bize ulaşabilirsiniz. Hukuki süreçlerinizde yanınızda olmak ve haklarınızı savunmak için buradayız.
                 </p>
+                
+                {/* Yazar Kutusu */}
+                <AuthorBox className="mt-8" />
               </article>
             </div>
             
