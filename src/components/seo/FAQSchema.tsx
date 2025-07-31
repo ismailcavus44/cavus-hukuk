@@ -9,20 +9,19 @@ export interface FAQItem {
 }
 
 interface FAQSchemaProps {
-  faqs: FAQItem[]
-  mainEntity?: boolean
+  items: FAQItem[]
 }
 
-export default function FAQSchema({ faqs, mainEntity = false }: FAQSchemaProps) {
+export default function FAQSchema({ items }: FAQSchemaProps) {
   const faqData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
+    mainEntity: items.map(item => ({
       '@type': 'Question',
-      name: faq.question,
+      name: item.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.answer
+        text: item.answer
       }
     }))
   }

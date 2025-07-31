@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
-import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import { LegalServiceSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 
 export const metadata: Metadata = {
@@ -46,10 +46,27 @@ export const metadata: Metadata = {
 const AnkaraCezaAvukatiPage = () => {
   const tableOfContents = [
     { id: 'ceza-hukuku-nedir', title: 'Ceza Hukuku Nedir ve Neden Bir Ceza Avukatına İhtiyaç Duyulur?', level: 2 },
+    { id: 'ceza-hukukunun-tanimi', title: 'Ceza Hukukunun Tanımı ve Amacı', level: 3 },
+    { id: 'ceza-davalarinin-onemi', title: 'Ceza Davalarının Önemi ve Birey Üzerindeki Etkileri', level: 3 },
+    { id: 'ceza-avukatinin-rolu', title: 'Ceza Avukatının Rolü ve Önemi', level: 3 },
     { id: 'ankara-ceza-avukatligi', title: 'Ankara Ceza Avukatı Hizmet Alanları', level: 2 },
+    { id: 'ankaranin-hukuki-yapisi', title: 'Ankara\'nın Hukuki Yapısı ve Ceza Mahkemeleri', level: 3 },
+    { id: 'ankara-ceza-avukatlarinin-uzmanlik-alanlari', title: 'Ankara\'daki Ceza Avukatlarının Uzmanlık Alanları', level: 3 },
     { id: 'ceza-davasi-surecleri', title: 'Ceza Davası Süreçleri: Soruşturmadan İnfaza Adım Adım', level: 2 },
+    { id: 'sorusturma-evresi', title: 'Soruşturma Evresi', level: 3 },
+    { id: 'kovusturma-evresi', title: 'Kovuşturma Evresi', level: 3 },
+    { id: 'kanun-yollari', title: 'Kanun Yolları', level: 3 },
+    { id: 'infaz-evresi', title: 'İnfaz Evresi', level: 3 },
     { id: 'ceza-avukati-secimi', title: 'Ceza Avukatı Seçerken Dikkat Edilmesi Gerekenler', level: 2 },
+    { id: 'deneyim-ve-uzmanlik', title: 'Deneyim ve Uzmanlık', level: 3 },
+    { id: 'iletisim-ve-guven-iliskisi', title: 'İletişim ve Güven İlişkisi', level: 3 },
+    { id: 'seffaflik', title: 'Şeffaflık', level: 3 },
     { id: 'sss', title: 'Sıkça Sorulan Sorular (SSS)', level: 2 },
+    { id: 'ceza-avukati-ne-is-yapar', title: 'Ceza Avukatı Ne İş Yapar?', level: 3 },
+    { id: 'agir-ceza-avukati-farki', title: 'Ağır Ceza Avukatı ile Normal Ceza Avukatı Arasındaki Fark Nedir?', level: 3 },
+    { id: 'ceza-davasi-ne-kadar-surer', title: 'Ceza Davası Ne Kadar Sürer?', level: 3 },
+    { id: 'vekalet-nasil-verilir', title: 'Vekalet Nasıl Verilir?', level: 3 },
+    { id: 'online-hukuki-destek', title: 'Online Hukuki Destek Alınabilir mi?', level: 3 },
     { id: 'iletisim', title: 'İletişim ve Danışmanlık', level: 2 },
   ];
 
@@ -98,10 +115,35 @@ const AnkaraCezaAvukatiPage = () => {
     { name: 'Ankara Ceza Avukatı', url: 'https://ismailcavus.av.tr/ankara-ceza-avukati' }
   ];
 
+  // FAQ Data
+  const faqData = [
+    {
+      question: 'Ceza Avukatı Ne İş Yapar?',
+      answer: 'Ceza avukatı, ceza hukuku alanında uzmanlaşmış, şüpheli, sanık, müşteki veya katılan sıfatıyla ceza yargılamasında yer alan kişilere hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında soruşturma ve kovuşturma evrelerinde müvekkilinin haklarını korumak, ifade ve sorgu süreçlerinde hazır bulunmak, delillerin toplanmasına ve değerlendirilmesine katkıda bulunmak, savunma dilekçeleri hazırlamak, duruşmalarda müvekkilini temsil etmek, kanun yollarına başvurmak ve infaz süreçlerini takip etmek yer alır.'
+    },
+    {
+      question: 'Ağır Ceza Avukatı ile Normal Ceza Avukatı Arasındaki Fark Nedir?',
+      answer: 'Türk hukuk sisteminde "ağır ceza avukatı" veya "normal ceza avukatı" şeklinde resmi bir ayrım bulunmamaktadır. Avukatlık Kanunu\'na göre tüm avukatlar, hukuk fakültesinden mezun olup stajlarını tamamladıktan sonra baroya kayıt olarak avukatlık yapmaya hak kazanırlar. Ancak, halk arasında ve uygulamada, özellikle ağırlaştırılmış müebbet hapis, müebbet hapis ve on yıldan fazla hapis cezası gerektiren suçlara bakan Ağır Ceza Mahkemeleri\'nde görülen davalarda uzmanlaşmış ve bu alanda yoğunlaşmış avukatlara "ağır ceza avukatı" denilmektedir.'
+    },
+    {
+      question: 'Ceza Davası Ne Kadar Sürer?',
+      answer: 'Bir ceza davasının süresi, davanın niteliğine, suçun karmaşıklığına, delil durumuna, tanık sayısına, mahkemenin iş yüküne ve yargılama sürecinde ortaya çıkabilecek diğer faktörlere göre büyük ölçüde değişiklik gösterir. Basit bir suçun yargılaması birkaç ay içinde sonuçlanabilirken, ağır ceza mahkemelerinde görülen karmaşık ve çok sanıklı davalar yıllarca sürebilir. Kesin bir süre vermek mümkün olmamakla birlikte, deneyimli bir ceza avukatı, davanın tahmini süresi hakkında müvekkiline bilgi verebilir.'
+    },
+    {
+      question: 'Vekalet Nasıl Verilir?',
+      answer: 'Bir avukata vekalet vermek, hukuki işlemlerinizi sizin adınıza yürütmesi için ona yetki vermeniz anlamına gelir. Ceza davalarında avukata vekalet vermek için noter huzurunda özel bir vekaletname düzenlenmesi gerekmektedir. Bu vekaletnameye "dava vekaletnamesi" denir ve avukatın sizin adınıza hangi işlemleri yapabileceğini açıkça belirtir. Vekaletname düzenlenirken kimlik belgeniz ve avukatın tam adı ile baro bilgileri gereklidir.'
+    },
+    {
+      question: 'Online Hukuki Destek Alınabilir mi?',
+      answer: 'Günümüzde teknolojinin gelişmesiyle birlikte, hukuki danışmanlık hizmetlerine erişim de kolaylaşmıştır. Birçok hukuk bürosu ve avukat, online platformlar üzerinden hukuki destek ve danışmanlık hizmeti sunmaktadır. Bu hizmetler genellikle telefon, video konferans veya e-posta aracılığıyla sağlanır. Online hukuki destek, özellikle zaman kısıtlaması olan veya farklı şehirlerde/ülkelerde bulunan kişiler için büyük kolaylık sağlar.'
+    }
+  ];
+
   return (
     <>
       <LegalServiceSchema {...seoSchemaData} />
       <BreadcrumbSchema items={breadcrumbData} />
+      <FAQSchema items={faqData} />
       <main className="bg-white min-h-screen py-16 px-4 md:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -118,13 +160,24 @@ const AnkaraCezaAvukatiPage = () => {
               
               <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-8">Ankara Ceza Avukatı</h1>
               
+              {/* Ana Görsel */}
+              <div className="mb-8">
+                <OptimizedImage
+                  src="/images/ankara-ceza-avukati-ana.jpg"
+                  alt="Ankara Ceza Avukatı - Profesyonel Hukuki Danışmanlık"
+                  width={848}
+                  height={480}
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+              
               {/* İçindekiler */}
               <TableOfContents tableOfContents={tableOfContents} />
               
               {/* İçerik Alanı */}
               <article className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                 <p className="mb-6 text-lg">
-                  Ceza hukuku, bireylerin özgürlüklerini, haklarını ve toplumsal düzeni doğrudan etkileyen, son derece hassas ve karmaşık bir hukuk dalıdır. Bu alanda karşılaşılan hukuki sorunlar, çoğu zaman kişilerin hayatında derin izler bırakabilecek sonuçlar doğurabilir. İşte tam da bu noktada, alanında uzman bir Ankara ceza avukatı, hukuki süreçlerin doğru yönetilmesi, müvekkil haklarının korunması ve adaletin tecellisi için hayati bir rol üstlenir.
+                  Ceza hukuku, bireylerin özgürlüklerini, haklarını ve toplumsal düzeni doğrudan etkileyen, son derece hassas ve karmaşık bir hukuk dalıdır. Bu alanda karşılaşılan hukuki sorunlar, çoğu zaman kişilerin hayatında derin izler bırakabilecek sonuçlar doğurabilir. İşte tam da bu noktada, alanında uzman bir Ankara ceza <a href="/" className="text-red-600 hover:text-red-700 underline">avukat</a>, hukuki süreçlerin doğru yönetilmesi, müvekkil haklarının korunması ve adaletin tecellisi için hayati bir rol üstlenir.
                 </p>
                 
                 <p className="mb-6 text-lg">
@@ -139,7 +192,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Ceza Hukuku Nedir ve Neden Bir Ceza Avukatına İhtiyaç Duyulur?
                 </h2>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Ceza Hukukunun Tanımı ve Amacı</h3>
+                <h3 id="ceza-hukukunun-tanimi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Ceza Hukukunun Tanımı ve Amacı</h3>
                 <p className="mb-6">
                   Ceza hukuku, toplum düzenini ve bireylerin haklarını korumak amacıyla suç sayılan fiilleri ve bu fiillere uygulanacak yaptırımları düzenleyen kamu hukuku dalıdır. Türkiye'de ceza hukuku, büyük ölçüde 29 Eylül 2004 tarihinde kabul edilen ve 1 Haziran 2005 tarihinde yürürlüğe giren 5237 sayılı Türk Ceza Kanunu (TCK) ile şekillenmiştir.
                 </p>
@@ -147,7 +200,7 @@ const AnkaraCezaAvukatiPage = () => {
                   TCK'nın temel amacı, kişi hak ve özgürlüklerini, kamu düzen ve güvenliğini, hukuk devletini, kamu sağlığını ve çevreyi, toplum barışını korumak ve suç işlenmesini önlemektir. Bu kanun, suçun tanımından cezanın belirlenmesine, yargılama süreçlerinden infaz aşamasına kadar geniş bir yelpazeyi kapsar.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Ceza Davalarının Önemi ve Birey Üzerindeki Etkileri</h3>
+                <h3 id="ceza-davalarinin-onemi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Ceza Davalarının Önemi ve Birey Üzerindeki Etkileri</h3>
                 <p className="mb-6">
                   Ceza davaları, sadece hukuki bir süreç olmanın ötesinde, bireylerin yaşamlarını derinden etkileyen önemli olaylardır. Bir ceza davasına karışmak, şüpheli, sanık, müşteki veya mağdur sıfatıyla olsun, kişinin özgürlüğünü, itibarını, sosyal ve ekonomik yaşamını doğrudan etkileyebilir.
                 </p>
@@ -155,7 +208,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Özellikle hürriyeti bağlayıcı cezalar söz konusu olduğunda, bireyin hayatı tamamen değişebilir. Toplum içinde damgalanma, iş kaybı, ailevi sorunlar gibi pek çok olumsuz sonuçla karşılaşma riski bulunur.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Ceza Avukatının Rolü ve Önemi</h3>
+                <h3 id="ceza-avukatinin-rolu" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Ceza Avukatının Rolü ve Önemi</h3>
                 <p className="mb-6">
                   Ceza avukatı, ceza yargılamasının her aşamasında müvekkilinin haklarını koruyan, hukuki süreç boyunca ona rehberlik eden ve adil bir yargılanma için mücadele eden kilit bir figürdür. Şüpheli veya sanık konumunda olan bir kişi için ceza avukatı, savunma hakkının güvencesidir.
                 </p>
@@ -167,7 +220,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Ankara Ceza Avukatı Hizmet Alanları
                 </h2>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Ankara'nın Hukuki Yapısı ve Ceza Mahkemeleri</h3>
+                <h3 id="ankaranin-hukuki-yapisi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Ankara'nın Hukuki Yapısı ve Ceza Mahkemeleri</h3>
                 <p className="mb-6">
                   Türkiye'nin başkenti Ankara, aynı zamanda ülkenin en önemli adli merkezlerinden biridir. Ankara'da ceza hukuku alanında faaliyet gösteren avukatlar, şehrin geniş ve karmaşık hukuki yapısı içinde müvekkillerine hizmet vermektedir.
                 </p>
@@ -181,7 +234,7 @@ const AnkaraCezaAvukatiPage = () => {
                   <li><strong>Sulh Ceza Hakimlikleri:</strong> Soruşturma aşamasında koruma tedbirleri hakkında karar veren, itirazları inceleyen ve bazı basit suçlara bakan hakimliklerdir.</li>
                 </ul>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Ankara'daki Ceza Avukatlarının Uzmanlık Alanları</h3>
+                <h3 id="ankara-ceza-avukatlarinin-uzmanlik-alanlari" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Ankara'daki Ceza Avukatlarının Uzmanlık Alanları</h3>
                 <p className="mb-6">
                   Ankara'da faaliyet gösteren ceza avukatları, geniş bir yelpazede hukuki hizmet sunarak müvekkillerinin çeşitli suç türleriyle ilgili davalarında yanlarında yer alırlar. Başlıca uzmanlık alanları şunlardır:
                 </p>
@@ -214,7 +267,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Ceza davaları, karmaşık ve çok aşamalı süreçlerdir. Bu süreçlerin her bir adımı, bireylerin hakları ve özgürlükleri açısından büyük önem taşır. Bir ceza avukatı, bu süreçlerin her aşamasında müvekkiline rehberlik ederek, hukuki haklarının korunmasını sağlar.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Soruşturma Evresi</h3>
+                <h3 id="sorusturma-evresi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Soruşturma Evresi</h3>
                 <p className="mb-6">
                   Ceza yargılamasının ilk aşaması olan soruşturma evresi, bir suç şüphesinin öğrenilmesiyle başlar ve Cumhuriyet Savcısı tarafından yürütülür. Bu evrenin temel amacı, suçun işlenip işlendiğini, kim tarafından işlendiğini ve delillerin neler olduğunu ortaya çıkarmaktır.
                 </p>
@@ -228,7 +281,7 @@ const AnkaraCezaAvukatiPage = () => {
                   <li><strong>Tutuklama ve Adli Kontrol:</strong> Soruşturma sonunda şüphelinin kaçma şüphesi, delilleri karartma ihtimali varsa, tutuklama kararı verilebilir. Avukat, tutuklama kararlarına itiraz ederek müvekkilinin özgürlüğünü korumaya çalışır.</li>
                 </ul>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Kovuşturma Evresi</h3>
+                <h3 id="kovusturma-evresi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Kovuşturma Evresi</h3>
                 <p className="mb-6">
                   Soruşturma evresi sonunda Cumhuriyet Savcısı, toplanan deliller ışığında suçun işlendiği kanaatine varırsa bir iddianame düzenler. İddianamenin mahkeme tarafından kabul edilmesiyle birlikte kovuşturma evresi başlar.
                 </p>
@@ -239,7 +292,7 @@ const AnkaraCezaAvukatiPage = () => {
                   <li><strong>Karar Aşaması:</strong> Duruşmaların tamamlanması sonrasında mahkeme, davanın esası hakkında bir karar verir. Bu karar, beraat, mahkumiyet, ceza verilmesine yer olmadığı gibi farklı şekillerde olabilir.</li>
                 </ul>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Kanun Yolları</h3>
+                <h3 id="kanun-yollari" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Kanun Yolları</h3>
                 <p className="mb-6">
                   Mahkeme tarafından verilen kararların kesinleşmesi için belirli hukuki yollar bulunur. Bu yollara "kanun yolları" denir ve kararların hukuka uygunluğunun denetlenmesini sağlar.
                 </p>
@@ -248,7 +301,7 @@ const AnkaraCezaAvukatiPage = () => {
                   <li><strong>Temyiz (Yargıtay):</strong> Bölge Adliye Mahkemelerinin istinaf başvurusu üzerine verdiği kararlara karşı başvurulan son kanun yoludur. Temyiz başvurusu, kararın sadece hukuka uygunluk yönünden incelenmesini sağlar.</li>
                 </ul>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">İnfaz Evresi</h3>
+                <h3 id="infaz-evresi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">İnfaz Evresi</h3>
                 <p className="mb-6">
                   Ceza yargılamasının son aşaması olan infaz evresi, mahkeme tarafından verilen kesinleşmiş hapis veya adli para cezalarının uygulanmasını ifade eder.
                 </p>
@@ -277,7 +330,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Ceza davaları, bireylerin hayatını doğrudan etkileyen ciddi hukuki süreçler olduğundan, doğru ceza avukatını seçmek büyük önem taşır. Ankara gibi büyük bir şehirde çok sayıda avukat bulunsa da, ceza hukuku alanında uzmanlaşmış ve deneyimli bir avukatla çalışmak, davanın seyri ve sonucu üzerinde belirleyici olabilir.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Deneyim ve Uzmanlık</h3>
+                <h3 id="deneyim-ve-uzmanlik" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Deneyim ve Uzmanlık</h3>
                 <p className="mb-6">
                   Bir ceza avukatının deneyimi ve ceza hukuku alanındaki uzmanlığı, müvekkiline sunacağı hukuki hizmetin kalitesini doğrudan etkiler. Ceza hukuku, sürekli güncellenen mevzuatlar, değişen içtihatlar ve karmaşık yargılama usulleriyle dolu bir alandır.
                 </p>
@@ -285,7 +338,7 @@ const AnkaraCezaAvukatiPage = () => {
                   Deneyimli bir avukat, bu dinamik yapıya hakimdir, farklı suç türlerindeki davalarda tecrübe sahibidir ve olası hukuki riskleri önceden öngörebilir. Özellikle ağır ceza davaları gibi karmaşık ve yüksek riskli durumlarda, avukatın daha önce benzer davalarda elde ettiği başarılar ve derinlemesine bilgi birikimi, müvekkil için büyük bir avantaj sağlar.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">İletişim ve Güven İlişkisi</h3>
+                <h3 id="iletisim-ve-guven-iliskisi" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">İletişim ve Güven İlişkisi</h3>
                 <p className="mb-6">
                   Avukat-müvekkil ilişkisi, karşılıklı güvene dayalı olmalıdır. Özellikle ceza davalarında, müvekkilin avukatına tüm detayları açıkça anlatabilmesi ve avukatın da müvekkilini hukuki süreç hakkında şeffaf bir şekilde bilgilendirmesi esastır.
                 </p>
@@ -293,7 +346,7 @@ const AnkaraCezaAvukatiPage = () => {
                   İyi bir ceza avukatı, müvekkiliyle düzenli iletişim kurar, davanın her aşamasında bilgilendirme yapar ve müvekkilinin sorularına anlaşılır yanıtlar verir. Güven ilişkisi, müvekkilin kendini rahat hissetmesini ve avukatına tam olarak güvenmesini sağlar.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Şeffaflık</h3>
+                <h3 id="seffaflik" className="text-xl font-semibold text-gray-800 mt-6 mb-3 scroll-mt-20">Şeffaflık</h3>
                 <p className="mb-6">
                   Avukatlık ücretleri, Türkiye Barolar Birliği tarafından belirlenen asgari ücret tarifesine göre ve avukat ile müvekkil arasında serbestçe kararlaştırılır. Bir ceza avukatı seçerken, ücretlendirme konusunda şeffaflık büyük önem taşır.
                 </p>
@@ -310,35 +363,35 @@ const AnkaraCezaAvukatiPage = () => {
 
                 <div className="space-y-6">
                   <div className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Ceza Avukatı Ne İş Yapar?</h3>
+                    <h3 id="ceza-avukati-ne-is-yapar" className="text-lg font-semibold text-gray-900 mb-3 scroll-mt-20">Ceza Avukatı Ne İş Yapar?</h3>
                     <p className="text-gray-700">
                       Ceza avukatı, ceza hukuku alanında uzmanlaşmış, şüpheli, sanık, müşteki veya katılan sıfatıyla ceza yargılamasında yer alan kişilere hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında soruşturma ve kovuşturma evrelerinde müvekkilinin haklarını korumak, ifade ve sorgu süreçlerinde hazır bulunmak, delillerin toplanmasına ve değerlendirilmesine katkıda bulunmak, savunma dilekçeleri hazırlamak, duruşmalarda müvekkilini temsil etmek, kanun yollarına başvurmak ve infaz süreçlerini takip etmek yer alır.
                     </p>
                   </div>
 
                   <div className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Ağır Ceza Avukatı ile Normal Ceza Avukatı Arasındaki Fark Nedir?</h3>
+                    <h3 id="agir-ceza-avukati-farki" className="text-lg font-semibold text-gray-900 mb-3 scroll-mt-20">Ağır Ceza Avukatı ile Normal Ceza Avukatı Arasındaki Fark Nedir?</h3>
                     <p className="text-gray-700">
                       Türk hukuk sisteminde "ağır ceza avukatı" veya "normal ceza avukatı" şeklinde resmi bir ayrım bulunmamaktadır. Avukatlık Kanunu'na göre tüm avukatlar, hukuk fakültesinden mezun olup stajlarını tamamladıktan sonra baroya kayıt olarak avukatlık yapmaya hak kazanırlar. Ancak, halk arasında ve uygulamada, özellikle ağırlaştırılmış müebbet hapis, müebbet hapis ve on yıldan fazla hapis cezası gerektiren suçlara bakan Ağır Ceza Mahkemeleri'nde görülen davalarda uzmanlaşmış ve bu alanda yoğunlaşmış avukatlara "ağır ceza avukatı" denilmektedir.
                     </p>
                   </div>
 
                   <div className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Ceza Davası Ne Kadar Sürer?</h3>
+                    <h3 id="ceza-davasi-ne-kadar-surer" className="text-lg font-semibold text-gray-900 mb-3 scroll-mt-20">Ceza Davası Ne Kadar Sürer?</h3>
                     <p className="text-gray-700">
                       Bir ceza davasının süresi, davanın niteliğine, suçun karmaşıklığına, delil durumuna, tanık sayısına, mahkemenin iş yüküne ve yargılama sürecinde ortaya çıkabilecek diğer faktörlere göre büyük ölçüde değişiklik gösterir. Basit bir suçun yargılaması birkaç ay içinde sonuçlanabilirken, ağır ceza mahkemelerinde görülen karmaşık ve çok sanıklı davalar yıllarca sürebilir. Kesin bir süre vermek mümkün olmamakla birlikte, deneyimli bir ceza avukatı, davanın tahmini süresi hakkında müvekkiline bilgi verebilir.
                     </p>
                   </div>
 
                   <div className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Vekalet Nasıl Verilir?</h3>
+                    <h3 id="vekalet-nasil-verilir" className="text-lg font-semibold text-gray-900 mb-3 scroll-mt-20">Vekalet Nasıl Verilir?</h3>
                     <p className="text-gray-700">
                       Bir avukata vekalet vermek, hukuki işlemlerinizi sizin adınıza yürütmesi için ona yetki vermeniz anlamına gelir. Ceza davalarında avukata vekalet vermek için noter huzurunda özel bir vekaletname düzenlenmesi gerekmektedir. Bu vekaletnameye "dava vekaletnamesi" denir ve avukatın sizin adınıza hangi işlemleri yapabileceğini açıkça belirtir. Vekaletname düzenlenirken kimlik belgeniz ve avukatın tam adı ile baro bilgileri gereklidir.
                     </p>
                   </div>
 
                   <div className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Online Hukuki Destek Alınabilir mi?</h3>
+                    <h3 id="online-hukuki-destek" className="text-lg font-semibold text-gray-900 mb-3 scroll-mt-20">Online Hukuki Destek Alınabilir mi?</h3>
                     <p className="text-gray-700">
                       Günümüzde teknolojinin gelişmesiyle birlikte, hukuki danışmanlık hizmetlerine erişim de kolaylaşmıştır. Birçok hukuk bürosu ve avukat, online platformlar üzerinden hukuki destek ve danışmanlık hizmeti sunmaktadır. Bu hizmetler genellikle telefon, video konferans veya e-posta aracılığıyla sağlanır. Online hukuki destek, özellikle zaman kısıtlaması olan veya farklı şehirlerde/ülkelerde bulunan kişiler için büyük kolaylık sağlar.
                     </p>
@@ -349,7 +402,7 @@ const AnkaraCezaAvukatiPage = () => {
                   İletişim ve Danışmanlık
                 </h2>
                 <p className="mb-6">
-                  Ceza hukuku alanında hukuki destek ve danışmanlık almak için bizimle iletişime geçebilirsiniz. Hukuk büromuz, Ankara merkezli olup, müvekkillerimize yüz yüze görüşme imkanının yanı sıra, online platformlar üzerinden de hukuki danışmanlık hizmeti sunmaktadır.
+                  Ceza hukuku alanında hukuki destek ve danışmanlık almak için bizimle <a href="/iletisim" className="text-red-600 hover:text-red-700 underline">iletişim</a>e geçebilirsiniz. Hukuk büromuz, Ankara merkezli olup, müvekkillerimize yüz yüze görüşme imkanının yanı sıra, online platformlar üzerinden de hukuki danışmanlık hizmeti sunmaktadır.
                 </p>
                 <p className="mb-6">
                   Hukuki sorunlarınızla ilgili ilk adımı atmak ve profesyonel bir ceza avukatından destek almak için aşağıdaki iletişim bilgilerimizi kullanabilirsiniz:
