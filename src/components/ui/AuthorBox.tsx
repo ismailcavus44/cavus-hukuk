@@ -13,7 +13,7 @@ const AuthorBox: React.FC<AuthorBoxProps> = ({ className = '' }) => {
         <div className="flex-shrink-0">
           <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-red-200">
             <OptimizedImage
-              src="/images/av-ismail-cavus.jpg"
+              src="/images/ismail-cavus.jpg"
               alt="Av. İsmail Çavuş"
               width={64}
               height={64}
@@ -28,10 +28,9 @@ const AuthorBox: React.FC<AuthorBoxProps> = ({ className = '' }) => {
             Av. İsmail Çavuş
           </h3>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz. 
-            Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman avukatlarımız, müvekkillerimizin hukuki süreçlerinde 
-            yanlarında yer almaktadır. Çavuş Hukuk Bürosu olarak, her davanın kendine özgü koşullarını dikkate alarak 
-            müvekkillerimize özel stratejiler geliştirir ve en iyi hukuki sonucu elde etmek için çaba gösteririz.
+            Ankara'da, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz. 
+            Boşanma, ceza, iş, gayrimenkul hukuku alanlarında müvekkillerimizin hukuki süreçlerinde 
+            yanlarında yer almaktayız. 
           </p>
         </div>
       </div>
