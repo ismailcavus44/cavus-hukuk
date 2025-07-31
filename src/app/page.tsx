@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import HeroSection from '@/components/sections/HeroSection';
 import BlogGrid from '@/components/ui/BlogGrid';
 import OptimizedImage from '@/components/ui/OptimizedImage';
+import AIChatbot from '@/components/ui/AIChatbot';
 import { 
   Building2, 
   Heart, 
@@ -468,6 +469,8 @@ const HomePage = React.memo(() => {
           <BlogGrid />
         </div>
       </section>
+
+      <AIChatbot />
     </>
   );
 });

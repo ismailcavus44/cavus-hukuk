@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -7,7 +7,12 @@ import MobileCTA from '@/components/layout/MobileCTA';
 import { OrganizationSchema, LocalBusinessSchema, ServiceCatalogSchema, WebPageSchema } from '@/components/seo';
 import CacheDebugger from '@/components/ui/CacheDebugger';
 
-const inter = Inter({ subsets: ['latin'] });
+const manrope = Manrope({ 
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+});
 
 export const metadata: Metadata = {
   title: {
@@ -105,7 +110,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body className={inter.className}>
+      <body className={manrope.className}>
         {/* SEO Schema Markup */}
         <OrganizationSchema
           name="Çavuş Hukuk Bürosu"

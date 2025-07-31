@@ -3,6 +3,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, AlertCircle, X, Navigation } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import AIChatbot from '@/components/ui/AIChatbot';
 import { ContactPageSchema, LocalBusinessSchema } from '@/components/seo';
 
 const IletisimPage = React.memo(() => {
@@ -565,6 +566,8 @@ const IletisimPage = React.memo(() => {
             </div>
           )}
         </main>
+
+        <AIChatbot />
       </>
     );
   });

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { ChevronRight, Heart, Briefcase, Shield, Building2, Scale, Users, Award, Clock, CheckCircle } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { ServiceSchema } from '@/components/seo';
+import AIChatbot from '@/components/ui/AIChatbot';
+import { hizmetler } from '@/data';
 
 export const metadata: Metadata = {
   title: 'Hizmet Alanlarımız',
@@ -359,6 +361,8 @@ const HizmetlerPage = () => {
           </section>
     </div>
   </main>
+
+  <AIChatbot />
     </>
 );
 };
