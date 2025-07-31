@@ -203,7 +203,7 @@ export default function RootLayout({
         />
 
         <Header />
-        <main>{children}</main>
+        <main className="pt-32 lg:pt-40">{children}</main>
         <Footer />
         <MobileCTA />
         
