@@ -244,10 +244,24 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     );
     
     // Accordion shortcode'larını kaldır (React component olarak render edilecek)
-    processed = processed.replace(
-      /\[accordion title="([^"]*)"\]([\s\S]*?)\[\/accordion\]/g,
-      ''
-    );
+    let tempProcessed = processed;
+    while (true) {
+      const startIndex = tempProcessed.indexOf('[accordion title="');
+      if (startIndex === -1) break;
+      
+      const titleStart = startIndex + '[accordion title="'.length;
+      const titleEnd = tempProcessed.indexOf('"', titleStart);
+      if (titleEnd === -1) break;
+      
+      // İçeriği bul
+      const contentStart = tempProcessed.indexOf(']', titleEnd) + 1;
+      const endIndex = tempProcessed.indexOf('[/accordion]', contentStart);
+      if (endIndex === -1) break;
+      
+      // Accordion'ı kaldır
+      tempProcessed = tempProcessed.substring(0, startIndex) + tempProcessed.substring(endIndex + '[/accordion]'.length);
+    }
+    processed = tempProcessed;
     
     // React Quill sınıflarını temizle (info-box hariç)
     processed = processed.replace(/class="(?!info-box)[^"]*"/g, '');
@@ -401,25 +415,69 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
   // Accordion matches'i hesapla - useMemo ile optimize edilmiş
   const accordionMatches = useMemo(() => {
-    return content.match(/\[accordion title="([^"]*)"\]([\s\S]*?)\[\/accordion\]/g);
+    const matches = [];
+    let currentIndex = 0;
+    let remainingContent = content;
+    
+    // Her accordion'ı tek tek bul
+    while (true) {
+      const startIndex = remainingContent.indexOf('[accordion title="');
+      
+      if (startIndex === -1) break;
+      
+      const titleStart = startIndex + '[accordion title="'.length;
+      const titleEnd = remainingContent.indexOf('"', titleStart);
+      
+      if (titleEnd === -1) break;
+      
+      let title = remainingContent.substring(titleStart, titleEnd);
+      
+      // Title'daki HTML tag'lerini temizle
+      title = title
+        .replace(/<span[^>]*>/g, '')
+        .replace(/<\/span>/g, '')
+        .replace(/<br\s*\/?>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .trim();
+      
+      // İçeriği bul
+      const contentStart = remainingContent.indexOf(']', titleEnd) + 1;
+      const endIndex = remainingContent.indexOf('[/accordion]', contentStart);
+      
+      if (endIndex === -1) break;
+      
+      const accordionContent = remainingContent.substring(contentStart, endIndex);
+      
+      // HTML tag'lerini temizle
+      const cleanContent = accordionContent
+        .replace(/<span[^>]*>/g, '')
+        .replace(/<\/span>/g, '')
+        .replace(/<br\s*\/?>/g, '\n')
+        .replace(/&nbsp;/g, ' ')
+        .trim();
+      
+      matches.push({
+        id: `accordion-${currentIndex}`,
+        title: title.trim(),
+        content: cleanContent
+      });
+      
+      // Kalan içeriği güncelle
+      remainingContent = remainingContent.substring(endIndex + '[/accordion]'.length);
+      currentIndex++;
+    }
+    
+    return matches;
   }, [content]);
 
   // Accordion başlıklarını parent'a gönder
   useEffect(() => {
-    if (onAccordionTitles && accordionMatches) {
-      const accordionTitles = accordionMatches.map((match, index) => {
-        const titleMatch = match.match(/\[accordion title="([^"]*)"\]/);
-        if (titleMatch) {
-          const title = titleMatch[1];
-          const id = `accordion-${index}`;
-          return {
-            id,
-            title,
-            level: 3 // Accordion'lar H3 seviyesinde
-          };
-        }
-        return null;
-      }).filter((item): item is { id: string; title: string; level: number } => item !== null);
+    if (onAccordionTitles && accordionMatches.length > 0) {
+      const accordionTitles = accordionMatches.map((item) => ({
+        id: item.id,
+        title: item.title,
+        level: 3 // Accordion'lar H3 seviyesinde
+      }));
       
       onAccordionTitles(accordionTitles);
     }
@@ -436,36 +494,30 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
       
       {/* Accordion'ları manuel render et */}
-      {accordionMatches && (
+      {accordionMatches.length > 0 && (
         <div className="mb-6">
-          {accordionMatches.map((match, index) => {
-            const titleMatch = match.match(/\[accordion title="([^"]*)"\]/);
-            const contentMatch = match.match(/\[accordion title="[^"]*"\]([\s\S]*?)\[\/accordion\]/);
+          {accordionMatches.map((accordion) => {
+            const { id, title, content } = accordion;
             
-            if (titleMatch && contentMatch) {
-              const title = titleMatch[1];
-              const accordionContent = contentMatch[1];
-              const id = `accordion-${index}`;
-              
-              return (
-                <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
-                  <div className="accordion-item border border-gray-200 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                    <button 
-                      className="accordion-trigger w-full px-4 py-4 text-left bg-white hover:bg-gray-50 transition-all duration-200 flex items-center justify-between focus:outline-none"
-                      data-accordion-id={id}
-                      aria-expanded="false"
-                      aria-controls={`${id}-content`}
-                      aria-labelledby={`${id}-title`}
-                      onClick={() => toggleAccordion(id)}
-                    >
-                      <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200" itemProp="name">{title}</h3>
-                      <div className="accordion-icon text-gray-400 group-hover:text-red-500 transition-all duration-200 flex items-center justify-center w-6 h-6" aria-hidden="true">
-                        <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                    </button>
-                    <div 
+            return (
+              <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
+                <div className="accordion-item border border-gray-200 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <button 
+                    className="accordion-trigger w-full px-4 py-4 text-left bg-white hover:bg-gray-50 transition-all duration-200 flex items-center justify-between focus:outline-none"
+                    data-accordion-id={id}
+                    aria-expanded="false"
+                    aria-controls={`${id}-content`}
+                    aria-labelledby={`${id}-title`}
+                    onClick={() => toggleAccordion(id)}
+                  >
+                    <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200" itemProp="name">{title}</h3>
+                    <div className="accordion-icon text-gray-400 group-hover:text-red-500 transition-all duration-200 flex items-center justify-center w-6 h-6" aria-hidden="true">
+                      <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </button>
+                                      <div 
                       ref={(el) => {
                         if (el) accordionRefs.current.set(`${id}-content`, el);
                       }}
@@ -476,13 +528,17 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
                       style={{ display: 'none' }}
                       itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer"
                     >
-                      <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(accordionContent) }} suppressHydrationWarning={true} />
+                      <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text">
+                        {content.split('\n').map((paragraph, index) => (
+                          <p key={index} className="mb-3 last:mb-0">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
                 </div>
-              );
-            }
-            return null;
+              </div>
+            );
           })}
         </div>
       )}
