@@ -21,6 +21,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Dosya boyutu kontrolü (5KB minimum, 5MB maximum)
+    const fileSizeInKB = file.size / 1024;
+    if (fileSizeInKB < 5) {
+      return NextResponse.json(
+        { error: 'Dosya boyutu çok küçük. Minimum 5KB olmalıdır.' },
+        { status: 400 }
+      );
+    }
+    
+    if (fileSizeInKB > 5120) { // 5MB
+      return NextResponse.json(
+        { error: 'Dosya boyutu çok büyük. Maksimum 5MB olmalıdır.' },
+        { status: 400 }
+      );
+    }
+
     // Cache key oluştur
     const cacheKey = `upload:${path}:${file.name}`;
     

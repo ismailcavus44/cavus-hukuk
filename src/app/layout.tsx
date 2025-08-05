@@ -118,6 +118,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
+      <head>
+        <meta name="google-site-verification" content="uVEo01Ze8oz1qzS4tXBA2F7MNjDvq6Ak4CwtfcuxK1M" />
+      </head>
       <body className={manrope.className}>
         {/* SEO Schema Markup */}
         <OrganizationSchema

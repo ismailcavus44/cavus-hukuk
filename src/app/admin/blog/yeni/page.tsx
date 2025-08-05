@@ -641,7 +641,7 @@ const YeniBlogPage = () => {
                       <span className="text-sm font-medium text-red-600 hover:text-red-500">
                         Görsel Yükle
                       </span>
-                      <p className="text-xs text-gray-500">PNG, JPG, GIF (max 5MB)</p>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF, WebP (5KB - 5MB)</p>
                     </div>
                   </div>
                 </label>
