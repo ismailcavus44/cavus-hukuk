@@ -448,8 +448,8 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
               const id = `accordion-${index}`;
               
               return (
-                <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
-                  <div className="accordion-item border border-gray-200 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40">
+                  <div className="accordion-item border border-gray-200 overflow-hidden group">
                     <button 
                       className="accordion-trigger w-full px-4 py-4 text-left bg-white hover:bg-gray-50 transition-all duration-200 flex items-center justify-between focus:outline-none"
                       data-accordion-id={id}
@@ -458,7 +458,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
                       aria-labelledby={`${id}-title`}
                       onClick={() => toggleAccordion(id)}
                     >
-                      <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200" itemProp="name">{title}</h3>
+                      <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200">{title}</h3>
                       <div className="accordion-icon text-gray-400 group-hover:text-red-500 transition-all duration-200 flex items-center justify-center w-6 h-6" aria-hidden="true">
                         <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -474,9 +474,8 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
                       aria-labelledby={`${id}-title`}
                       className="accordion-content px-4 py-4 border-t border-gray-100 bg-white"
                       style={{ display: 'none' }}
-                      itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer"
                     >
-                      <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(accordionContent) }} suppressHydrationWarning={true} />
+                      <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(accordionContent) }} suppressHydrationWarning={true} />
                     </div>
                   </div>
                 </div>

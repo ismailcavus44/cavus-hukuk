@@ -167,20 +167,6 @@ export default function RootLayout({
           name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
           description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
           url="https://ismailcavus.av.tr/hizmetler"
-          provider={{
-            name: "Çavuş Hukuk Bürosu",
-            url: "https://ismailcavus.av.tr",
-            logo: "https://ismailcavus.av.tr/logo-header.png",
-            address: {
-              streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-              addressLocality: "Çankaya",
-              addressRegion: "Ankara",
-              postalCode: "06000",
-              addressCountry: "TR"
-            },
-            telephone: "+90 505 398 99 81",
-            email: "info@ismailcavus.av.tr"
-          }}
           services={hizmetKatalogu}
           areaServed={{
             '@type': 'City',

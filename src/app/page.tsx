@@ -34,10 +34,6 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { hizmetler } from '@/data';
-import { 
-  ServiceCatalogSchema, 
-  WebPageSchema 
-} from '@/components/seo';
 
 export const metadata: Metadata = {
   title: 'Av. İsmail Çavuş - Ankara Avukat',
@@ -169,38 +165,6 @@ const HomePage = React.memo(() => {
     }
   ], []);
 
-  // Hizmet kataloğu - useMemo ile optimize edilmiş
-  const hizmetKatalogu = useMemo(() => [
-    {
-      '@type': 'Service' as const,
-      name: 'Aile Hukuku',
-      description: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/aile-hukuku',
-      serviceType: 'Aile Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'İş Hukuku',
-      description: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/is-hukuku',
-      serviceType: 'İş Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'Ceza Hukuku',
-      description: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
-      url: 'https://ismailcavus.av.tr/hizmetler/ceza-hukuku',
-      serviceType: 'Ceza Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'İdare Hukuku',
-      description: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/idare-hukuku',
-      serviceType: 'İdare Hukuku'
-    }
-  ], []);
-
   // Icon map - useMemo ile optimize edilmiş
   const iconMap = useMemo(() => ({
     Heart: Heart,
@@ -223,58 +187,6 @@ const HomePage = React.memo(() => {
 
   return (
     <>
-
-
-      {/* ServiceCatalog Schema */}
-      <ServiceCatalogSchema
-        name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
-        description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
-        url="https://ismailcavus.av.tr/hizmetler"
-        provider={{
-          name: "Çavuş Hukuk Bürosu",
-          url: "https://ismailcavus.av.tr",
-          logo: "https://ismailcavus.av.tr/logo-header.png",
-          address: {
-            streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-            addressLocality: "Çankaya",
-            addressRegion: "Ankara",
-            postalCode: "06420",
-            addressCountry: "TR"
-          },
-          telephone: "+90 505 398 99 81",
-          email: "info@ismailcavus.av.tr"
-        }}
-        services={hizmetKatalogu}
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
-      />
-
-      {/* WebPage Schema */}
-      <WebPageSchema
-        title="Ankara Avukat - Çavuş Hukuk Bürosu"
-        description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
-        url="https://ismailcavus.av.tr"
-        image="https://ismailcavus.av.tr/og-image.jpg"
-        author={{
-          name: "Av. İsmail Çavuş"
-        }}
-        publisher={{
-          name: "Çavuş Hukuk Bürosu",
-          logo: "https://ismailcavus.av.tr/logo-header.png"
-        }}
-        datePublished="2024-01-01"
-        dateModified="2024-12-19"
-        breadcrumb={[
-          { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' }
-        ]}
-        isPartOf={{
-          name: 'Çavuş Hukuk Bürosu',
-          url: 'https://ismailcavus.av.tr'
-        }}
-      />
-
       <HeroSection />
       
       {/* Hizmetler Bölümü */}
