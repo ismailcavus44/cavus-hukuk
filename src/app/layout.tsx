@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import MobileCTA from '@/components/ui/MobileCTA';
-import CacheDebugger from '@/components/debug/CacheDebugger';
-import './globals.css';
+import MobileCTA from '@/components/layout/MobileCTA';
+import { OrganizationSchema, LocalBusinessSchema, ServiceCatalogSchema, WebPageSchema } from '@/components/seo';
+import CacheDebugger from '@/components/ui/CacheDebugger';
 
 const manrope = Manrope({ 
   subsets: ['latin'],
@@ -31,6 +32,14 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ismailcavus.av.tr'),
   alternates: {
     canonical: '/',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/cavus-hukuk-ankara-avukat-favicon.png', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/images/cavus-hukuk-ankara-avukat-favicon.png',
   },
   openGraph: {
     type: 'website',
@@ -66,7 +75,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'uVEo01Ze8oz1qzS4tXBA2F7MNjDvq6Ak4CwtfcuxK1M',
   },
 };
 
@@ -110,6 +119,92 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={manrope.className}>
+        {/* SEO Schema Markup */}
+        <OrganizationSchema
+          name="Çavuş Hukuk Bürosu"
+          description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
+          url="https://ismailcavus.av.tr"
+          logo="https://ismailcavus.av.tr/logo-header.png"
+          telephone="+90 505 398 99 81"
+          email="info@ismailcavus.av.tr"
+          address={{
+            streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+            addressLocality: "Çankaya",
+            addressRegion: "Ankara",
+            postalCode: "06000",
+            addressCountry: "TR"
+          }}
+          geo={{
+            latitude: "39.9334",
+            longitude: "32.8597"
+          }}
+          openingHours="Mo-Fr 09:00-18:00"
+          priceRange="$$"
+          sameAs={[
+            "https://www.facebook.com/cavushukuk",
+            "https://www.linkedin.com/company/cavushukuk"
+          ]}
+        />
+
+        <LocalBusinessSchema
+          name="Çavuş Hukuk Bürosu"
+          description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
+          url="https://ismailcavus.av.tr"
+          telephone="+90 505 398 99 81"
+          email="info@ismailcavus.av.tr"
+          address={{
+            streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+            addressLocality: "Çankaya",
+            addressRegion: "Ankara",
+            postalCode: "06000",
+            addressCountry: "TR"
+          }}
+          geo={{
+            latitude: "39.9334",
+            longitude: "32.8597"
+          }}
+          openingHours="Mo-Fr 09:00-18:00"
+          priceRange="$$"
+          sameAs={[
+            "https://www.facebook.com/cavushukuk",
+            "https://www.linkedin.com/company/cavushukuk"
+          ]}
+        />
+
+        <ServiceCatalogSchema
+          name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
+          description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
+          url="https://ismailcavus.av.tr/hizmetler"
+          services={hizmetKatalogu}
+          areaServed={{
+            '@type': 'City',
+            name: 'Ankara'
+          }}
+        />
+
+        <WebPageSchema
+          title="Ankara Avukat - Çavuş Hukuk Bürosu"
+          description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
+          url="https://ismailcavus.av.tr"
+          image="https://ismailcavus.av.tr/og-image.jpg"
+          author={{
+            name: "Av. İsmail Çavuş"
+          }}
+          publisher={{
+            name: "Çavuş Hukuk Bürosu",
+            logo: "https://ismailcavus.av.tr/logo-header.png"
+          }}
+          datePublished="2024-01-01"
+          dateModified="2024-12-19"
+          breadcrumb={[
+            { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' }
+          ]}
+          isPartOf={{
+            name: 'Çavuş Hukuk Bürosu',
+            url: 'https://ismailcavus.av.tr'
+          }}
+        />
+
         <Header />
         <main className="pt-32 lg:pt-40">{children}</main>
         <Footer />

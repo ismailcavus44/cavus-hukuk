@@ -34,12 +34,6 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { hizmetler } from '@/data';
-import { 
-  OrganizationSchema, 
-  LocalBusinessSchema, 
-  ServiceCatalogSchema, 
-  WebPageSchema 
-} from '@/components/seo';
 
 export const metadata: Metadata = {
   title: 'Av. İsmail Çavuş - Ankara Avukat',
@@ -178,6 +172,7 @@ const HomePage = React.memo(() => {
     Shield: Shield,
     Building2: Building2,
     Scale: Scale,
+    Building: Building,
     Users: Users,
     Award: Award,
     Clock: Clock,
@@ -190,126 +185,8 @@ const HomePage = React.memo(() => {
     CheckCircle2: CheckCircle2
   }), []);
 
-  // Hizmet kataloğu - useMemo ile optimize edilmiş
-  const hizmetKatalogu = useMemo(() => [
-    {
-      '@type': 'Service' as const,
-      name: 'Aile Hukuku',
-      description: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/aile-hukuku',
-      serviceType: 'Aile Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'İş Hukuku',
-      description: 'İşçi-işveren uyuşmazlıkları, iş sözleşmeleri, iş güvenliği ve sosyal güvenlik konularında hukuki danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/is-hukuku',
-      serviceType: 'İş Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'Ceza Hukuku',
-      description: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
-      url: 'https://ismailcavus.av.tr/hizmetler/ceza-hukuku',
-      serviceType: 'Ceza Hukuku'
-    },
-    {
-      '@type': 'Service' as const,
-      name: 'İdare Hukuku',
-      description: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
-      url: 'https://ismailcavus.av.tr/hizmetler/idare-hukuku',
-      serviceType: 'İdare Hukuku'
-    }
-  ], []);
-
   return (
     <>
-      {/* Global SEO Schemas - Sadece ana sayfada */}
-      <OrganizationSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
-        url="https://ismailcavus.av.tr"
-        logo="https://ismailcavus.av.tr/logo-header.png"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06000",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavushukuk"
-        ]}
-      />
-
-      <LocalBusinessSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
-        url="https://ismailcavus.av.tr"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06000",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavushukuk"
-        ]}
-      />
-
-      <ServiceCatalogSchema
-        name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
-        description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
-        url="https://ismailcavus.av.tr/hizmetler"
-        services={hizmetKatalogu}
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
-      />
-
-      <WebPageSchema
-        title="Ankara Avukat - Çavuş Hukuk Bürosu"
-        description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
-        url="https://ismailcavus.av.tr"
-        image="https://ismailcavus.av.tr/og-image.jpg"
-        author={{
-          name: "Av. İsmail Çavuş"
-        }}
-        publisher={{
-          name: "Çavuş Hukuk Bürosu",
-          logo: "https://ismailcavus.av.tr/logo-header.png"
-        }}
-        datePublished="2024-01-01"
-        dateModified="2024-12-19"
-        breadcrumb={[
-          { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' }
-        ]}
-        isPartOf={{
-          name: 'Çavuş Hukuk Bürosu',
-          url: 'https://ismailcavus.av.tr'
-        }}
-      />
-
       <HeroSection />
       
       {/* Hizmetler Bölümü */}
@@ -481,55 +358,55 @@ const HomePage = React.memo(() => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Ceza Avukatı Ne İş Yapar?
+                Hukuki bir konuda danışmanlık almak neden önemlidir?
               </h3>
               <p className="text-gray-700">
-                Ceza avukatı, ceza hukuku alanında uzmanlaşmış, şüpheli, sanık, müşteki veya katılan sıfatıyla ceza yargılamasında yer alan kişilere hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında soruşturma ve kovuşturma evrelerinde müvekkilinin haklarını korumak, ifade ve sorgu süreçlerinde hazır bulunmak, delillerin toplanmasına ve değerlendirilmesine katkıda bulunmak, savunma dilekçeleri hazırlamak, duruşmalarda müvekkilini temsil etmek, kanun yollarına başvurmak ve infaz süreçlerini takip etmek yer alır.
+                Hukuki konularda doğru adımlar atmak, olası hak kayıplarını önlemek ve yasal süreçleri doğru yönetmek için profesyonel danışmanlık almak büyük önem taşır. Bir Ankara avukat ile görüşerek, mevcut durumunuzu objektif bir şekilde değerlendirebilir, yasal haklarınızı öğrenebilir ve gelecekte karşılaşabileceğiniz sorunlara karşı önlem alabilirsiniz. Bu, hukuki güvenliğiniz için kritik bir adımdır.
               </p>
             </div>
             
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Boşanma Avukatı Ne İş Yapar?
+                Avukatlık hizmetleri hangi alanları kapsar?
               </h3>
               <p className="text-gray-700">
-                Boşanma avukatı, evlilik birliğinin sona erdirilmesi sürecinde taraflara hukuki danışmanlık ve temsil hizmeti sunan uzman avukattır. Görevleri arasında boşanma davası açmak, nafaka taleplerini değerlendirmek, velayet konularında danışmanlık yapmak, mal paylaşımı süreçlerini yönetmek, anlaşmalı boşanma protokolleri hazırlamak, aile mahkemelerinde müvekkilini temsil etmek ve boşanma sonrası hukuki süreçleri takip etmek yer alır.
+                Avukatlık hizmetleri, aile hukuku, ceza hukuku, iş hukuku, miras hukuku, gayrimenkul hukuku gibi birçok farklı alanı kapsar. Her hukuki durumun kendine özgü dinamikleri olduğundan, uzman bir Ankara avukat ile çalışmak, davanızın veya hukuki sorununuzun doğru bir şekilde ele alınmasını sağlar. Bu geniş yelpaze, müvekkillerin çeşitli ihtiyaçlarına cevap verir.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                İş Avukatı Ne İş Yapar?
+                Hukuki süreçlerde zaman yönetimi neden önemlidir?
               </h3>
               <p className="text-gray-700">
-                İş avukatı, iş hukuku alanında uzmanlaşmış, işçi ve işveren arasındaki uyuşmazlıklarda hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında iş sözleşmeleri hazırlamak, işçi alacakları davaları açmak, işe iade davaları yürütmek, iş kazası tazminat davaları takip etmek, toplu iş hukuku konularında danışmanlık yapmak ve iş mahkemelerinde müvekkilini temsil etmek yer alır.
+                Hukuki süreçlerde zaman yönetimi, hak düşürücü süreler ve zamanaşımı gibi önemli faktörler nedeniyle hayati öneme sahiptir. Gecikmeler, telafisi mümkün olmayan sonuçlara yol açabilir. Bu nedenle, bir Ankara avukat ile erken aşamada iletişime geçmek, gerekli adımların zamanında atılmasını ve hukuki haklarınızın korunmasını sağlar. Doğru zamanlama, başarının anahtarıdır.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                İdare Avukatı Ne İş Yapar?
+                Hukuki danışmanlık alırken nelere dikkat edilmelidir?
               </h3>
               <p className="text-gray-700">
-                İdare avukatı, idari hukuk alanında uzmanlaşmış, kamu kurumları ile vatandaşlar arasındaki uyuşmazlıklarda hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında idari işlemlerin iptali için dava açmak, tam yargı davaları yürütmek, kamu personeli hukuku konularında danışmanlık yapmak, vergi uyuşmazlıklarında temsil etmek ve idari yargı süreçlerini takip etmek yer alır.
+                Hukuki danışmanlık alırken avukatın uzmanlık alanı, deneyimi ve iletişim becerileri gibi faktörlere dikkat etmek önemlidir. Güvenilir bir Ankara avukat seçimi, hukuki sürecinizin sağlıklı ilerlemesi için temeldir. Şeffaf bir iletişim ve karşılıklı güven, danışmanlık sürecinin verimli olmasını sağlar ve beklentilerinizi karşılar.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Gayrimenkul Avukatı Ne İş Yapar?
+                Avukatlık ücretleri nasıl belirlenir ve ödeme koşulları nelerdir?
               </h3>
               <p className="text-gray-700">
-                Gayrimenkul avukatı, emlak hukuku alanında uzmanlaşmış, gayrimenkul ile ilgili hukuki uyuşmazlıklarda danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında kat mülkiyeti davaları açmak, imar hukuku konularında danışmanlık yapmak, kentsel dönüşüm süreçlerini yönetmek, kamulaştırma davaları yürütmek, tapu iptal ve tescil davaları takip etmek ve emlak hukuku konularında hukuki destek sağlamak yer alır.
+                Avukatlık ücretleri, Türkiye Barolar Birliği tarafından belirlenen asgari ücret tarifesi ve avukatın deneyimi, davanın karmaşıklığı gibi faktörlere göre belirlenir. Ödeme koşulları ise avukat ile müvekkil arasında yapılan anlaşmaya bağlıdır. Bir Ankara avukat ile yapacağınız görüşmede, davanızın veya hukuki hizmetin niteliğine göre ücretlendirme ve ödeme planı hakkında detaylı bilgi alabilirsiniz.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Tazminat Avukatı Ne İş Yapar?
+                Hukuki belgelerin hazırlanmasında avukat desteği neden gereklidir?
               </h3>
               <p className="text-gray-700">
-                Tazminat avukatı, maddi ve manevi tazminat davalarında uzmanlaşmış, zarar gören kişilerin haklarını korumak için hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında trafik kazası tazminat davaları açmak, iş kazası tazminatı talep etmek, malpraktis davaları yürütmek, maddi ve manevi zarar tespiti yapmak, sigorta şirketleri ile müzakere etmek ve tazminat davalarında müvekkilini temsil etmek yer alır.
+                Hukuki belgelerin (sözleşmeler, dilekçeler, vasiyetnameler vb.) doğru ve eksiksiz hazırlanması, gelecekteki olası uyuşmazlıkları önlemek açısından kritik öneme sahiptir. Bir Ankara avukat, bu belgelerin yasalara uygun ve müvekkilinin menfaatlerini koruyacak şekilde düzenlenmesini sağlar. Profesyonel destek, hukuki metinlerin geçerliliğini ve etkinliğini garanti eder.
               </p>
             </div>
           </div>
