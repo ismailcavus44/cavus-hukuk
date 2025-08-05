@@ -31,10 +31,10 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
               alt={blogYazisi.image_alt || blogYazisi.title}
               width={1200}
               height={600}
-              priority={false}
-              className="w-full h-auto rounded-lg shadow-lg"
+              priority={true}
+              className="w-full h-auto"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-              quality={80}
+              quality={90}
             />
           </div>
         )}

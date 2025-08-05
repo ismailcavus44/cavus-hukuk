@@ -34,28 +34,11 @@ const OptimizedImage = React.memo(({
   objectFit = 'cover',
   objectPosition = 'center'
 }: OptimizedImageProps) => {
-  // Supabase URL kontrolü
-  const isSupabaseUrl = src.includes('supabase.co');
-  
-  // Supabase URL'leri için direkt img tag kullan
-  if (isSupabaseUrl) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-        style={{ objectFit, objectPosition }}
-        crossOrigin="anonymous"
-      />
-    );
-  }
+  // External URL kontrolü
+  const isExternalUrl = src.startsWith('http');
   
   // Local image için optimizasyon
-  if (!src.startsWith('http')) {
+  if (!isExternalUrl) {
     return (
       <Image
         src={src}
@@ -76,7 +59,7 @@ const OptimizedImage = React.memo(({
     );
   }
 
-  // Diğer external URL'ler için fallback img tag
+  // External URL için fallback img tag
   return (
     <img
       src={src}
