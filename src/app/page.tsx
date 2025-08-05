@@ -25,12 +25,16 @@ import {
   Home,
   UserCheck,
   Building,
-  CarFront
+  CarFront,
+  Users2,
+  BookOpen,
+  Landmark,
+  ShieldCheck,
+  FileCheck,
+  CheckCircle2
 } from 'lucide-react';
 import { hizmetler } from '@/data';
 import { 
-  OrganizationSchema, 
-  LocalBusinessSchema, 
   ServiceCatalogSchema, 
   WebPageSchema 
 } from '@/components/seo';
@@ -97,7 +101,7 @@ const HomePage = React.memo(() => {
       id: 'aile-hukuku',
       baslik: 'Aile Hukuku',
       aciklama: 'Boşanma, nafaka, velayet, mal paylaşımı ve aile içi uyuşmazlıklar konularında hukuki danışmanlık.',
-      icon: 'Heart',
+      icon: 'Users2',
       link: '/hizmetler/aile-hukuku'
     },
     {
@@ -111,14 +115,14 @@ const HomePage = React.memo(() => {
       id: 'ceza-hukuku',
       baslik: 'Ceza Hukuku',
       aciklama: 'Ceza davaları, savunma ve hukuki danışmanlık konularında profesyonel destek.',
-      icon: 'Shield',
+      icon: 'ShieldCheck',
       link: '/hizmetler/ceza-hukuku'
     },
     {
       id: 'idare-hukuku',
       baslik: 'İdare Hukuku',
       aciklama: 'İdari işlemler, idari sözleşmeler ve kamu personeli hukuku konularında danışmanlık.',
-      icon: 'Building2',
+      icon: 'Landmark',
       link: '/hizmetler/idare-hukuku'
     },
     {
@@ -132,7 +136,7 @@ const HomePage = React.memo(() => {
       id: 'gayrimenkul-hukuku',
       baslik: 'Gayrimenkul Hukuku',
       aciklama: 'Tapu işlemleri, kat mülkiyeti, kentsel dönüşüm ve gayrimenkul uyuşmazlıkları konularında hukuki danışmanlık.',
-      icon: 'Building',
+      icon: 'Building2',
       link: '/hizmetler/gayrimenkul-hukuku'
     }
   ], []);
@@ -140,7 +144,7 @@ const HomePage = React.memo(() => {
   // Neden Çavuş Hukuk listesi - useMemo ile optimize edilmiş
   const nedenCavusHukuk = useMemo(() => [
     {
-      icon: Users,
+      icon: Users2,
       title: 'Deneyimli Ekip'
     },
     {
@@ -152,7 +156,7 @@ const HomePage = React.memo(() => {
       title: 'Hızlı Çözüm'
     },
     {
-      icon: CheckCircle,
+      icon: CheckCircle2,
       title: 'Profesyonel Yaklaşım'
     },
     {
@@ -160,7 +164,7 @@ const HomePage = React.memo(() => {
       title: 'Şeffaf Süreç'
     },
     {
-      icon: FileText,
+      icon: FileCheck,
       title: 'Kapsamlı Danışmanlık'
     }
   ], []);
@@ -208,65 +212,18 @@ const HomePage = React.memo(() => {
     Users: Users,
     Award: Award,
     Clock: Clock,
-    CheckCircle: CheckCircle
+    CheckCircle: CheckCircle,
+    Users2: Users2,
+    ShieldCheck: ShieldCheck,
+    Landmark: Landmark,
+    BookOpen: BookOpen,
+    FileCheck: FileCheck,
+    CheckCircle2: CheckCircle2
   }), []);
 
   return (
     <>
-      {/* Organization Schema */}
-      <OrganizationSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
-        url="https://ismailcavus.av.tr"
-        logo="https://ismailcavus.av.tr/logo-header.png"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06420",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavus-hukuk",
-          "https://twitter.com/cavushukuk"
-        ]}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-      />
 
-      {/* LocalBusiness Schema */}
-      <LocalBusinessSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
-        url="https://ismailcavus.av.tr"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06420",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
-        serviceType="Hukuki Danışmanlık"
-      />
 
       {/* ServiceCatalog Schema */}
       <ServiceCatalogSchema
@@ -324,7 +281,7 @@ const HomePage = React.memo(() => {
       <section className="py-12 md:py-20 bg-white" aria-labelledby="hizmetler-baslik">
         <div className="container mx-auto px-4 md:px-6">
           <header className="text-center mb-8 md:mb-16">
-            <h2 id="hizmetler-baslik" className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 id="hizmetler-baslik" className="text-3xl font-medium text-gray-900 mb-4">
               Hizmet Alanlarımız
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -338,16 +295,16 @@ const HomePage = React.memo(() => {
               
               return (
                 <article key={hizmet.id} className="group">
-                  <div className="bg-white rounded-xl p-6 md:p-8 hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 transition-all duration-300 border border-gray-100 hover:border-red-200 shadow-md hover:shadow-lg h-full flex flex-col">
+                  <div className="bg-white rounded-sm p-4 md:p-6 hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 transition-all duration-300 border border-gray-100 hover:border-red-200 h-full flex flex-col">
                     {/* İkon Container */}
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center mb-4 group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300 shadow-sm group-hover:scale-105">
-                      <IconComponent size={24} className="text-red-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-red-50 to-red-100 rounded-md flex items-center justify-center mb-4 group-hover:from-red-100 group-hover:to-red-200 transition-all duration-300 group-hover:scale-110 border border-red-100 group-hover:border-red-200">
+                      <IconComponent size={24} className="text-red-600 group-hover:text-red-700 transition-colors duration-300" />
                     </div>
                     
                     {/* Başlık */}
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-700 transition-colors duration-300">
-                      {hizmet.baslik}
-                    </h3>
+                                    <h3 className="text-lg font-medium text-gray-900 mb-3 group-hover:text-red-700 transition-colors duration-300">
+                  {hizmet.baslik}
+                </h3>
                     
                     {/* Açıklama */}
                     <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3 flex-grow">
@@ -361,9 +318,8 @@ const HomePage = React.memo(() => {
                         className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-all duration-300 group/link"
                         aria-label={`${hizmet.baslik} hakkında detaylı bilgi`}
                       >
-                        <span className="relative">
+                        <span>
                           Detaylı Bilgi
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 group-hover/link:w-full transition-all duration-300"></span>
                         </span>
                         <ChevronRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform duration-300" />
                       </Link>
@@ -388,11 +344,11 @@ const HomePage = React.memo(() => {
       </section>
 
       {/* Hakkımızda Bölümü */}
-      <section className="py-12 md:py-20 bg-gray-50" aria-labelledby="hakkimizda-baslik">
+      <section className="py-12 md:py-20 bg-white" aria-labelledby="hakkimizda-baslik">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <h2 id="hakkimizda-baslik" className="text-4xl font-bold text-gray-900 mb-8">
+              <h2 id="hakkimizda-baslik" className="text-3xl font-medium text-gray-900 mb-8">
                 Hakkımızda
                 </h2>
               <div className="space-y-6 text-base text-gray-600 leading-relaxed">
@@ -415,39 +371,49 @@ const HomePage = React.memo(() => {
               </div>
             </div>
             
-            <aside className="bg-white rounded-lg p-4 md:p-8 shadow-lg border border-gray-100">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Neden Çavuş Hukuk?</h3>
+            <aside className="bg-white rounded-lg p-4 md:p-8 border border-gray-125">
+              <h3 className="text-2xl font-medium text-gray-900 mb-6">Neden Çavuş Hukuk?</h3>
               <ul className="space-y-4">
-                  {nedenCavusHukuk.map((item, index) => (
-                    <li key={index} className="flex items-center space-x-4">
-                    <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center">
-                      <CheckCircle size={16} className="text-red-600" />
-                      </div>
-                    <span className="text-gray-700 font-medium">{item.title}</span>
-                    </li>
-                  ))}
+                  {nedenCavusHukuk.map((item, index) => {
+                    const ItemIcon = item.icon;
+                    return (
+                      <li key={index} className="flex items-center space-x-4">
+                        <div className="w-8 h-8 bg-gradient-to-br from-red-50 to-red-100 rounded-lg flex items-center justify-center border border-red-100">
+                          <ItemIcon size={18} className="text-red-600" />
+                        </div>
+                        <span className="text-gray-700 font-medium">{item.title}</span>
+                      </li>
+                    );
+                  })}
               </ul>
             </aside>
           </div>
         </div>
       </section>
 
+      {/* Ayırıcı Çizgi */}
+      <div className="w-full h-px bg-gray-300"></div>
+
       {/* Çavuş Hukuk - Ankara Avukat Bölümü */}
       <section className="py-12 md:py-20 bg-white" aria-labelledby="cavus-hukuk-baslik">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Sol - Fotoğraf Alanı */}
-            <div className="bg-gray-100 rounded-lg p-4 md:p-8 shadow-lg border border-gray-200 min-h-[300px] md:min-h-[400px] flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <Building size={64} className="mx-auto mb-4 text-gray-400" />
-                <p className="text-lg font-medium">Fotoğraf Alanı</p>
-                <p className="text-sm text-gray-400 mt-2">Buraya fotoğraf eklenecek</p>
-              </div>
+            <div className="min-h-[300px] md:min-h-[400px] overflow-hidden">
+              <OptimizedImage
+                src="/images/ankara-avukat-cavus-hukuk.webp"
+                alt="Ankara Avukat - Çavuş Hukuk Bürosu - Av. İsmail Çavuş"
+                width={400}
+                height={300}
+                className="w-full h-full object-cover rounded-lg"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={80}
+              />
             </div>
             
             {/* Sağ - Metin */}
             <div>
-              <h2 id="cavus-hukuk-baslik" className="text-4xl font-bold text-gray-900 mb-8">
+              <h2 id="cavus-hukuk-baslik" className="text-3xl font-medium text-gray-900 mb-8">
                 Çavuş Hukuk - Ankara Avukat
               </h2>
               <div className="space-y-6 text-base text-gray-600 leading-relaxed">
@@ -466,12 +432,86 @@ const HomePage = React.memo(() => {
         </div>
       </section>
 
-      {/* Blog Yazıları Bölümü */}
-      <section className="py-12 md:py-20 bg-gray-50" aria-labelledby="blog-baslik">
+      {/* SSS Bölümü */}
+      <section className="py-12 md:py-20 bg-white" aria-labelledby="sss-baslik">
         <div className="container mx-auto px-4 md:px-6">
           <header className="text-center mb-8 md:mb-16">
-            <h3 id="blog-baslik" className="text-4xl font-bold text-gray-900 mb-4">
+            <h3 id="sss-baslik" className="text-3xl font-medium text-gray-900 mb-4 flex items-center justify-center">
+              <span className="w-16 h-px bg-gray-300 mr-4"></span>
+              Sıkça Sorulan Sorular
+              <span className="w-16 h-px bg-gray-300 ml-4"></span>
+            </h3>
+          </header>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Ceza Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                Ceza avukatı, ceza hukuku alanında uzmanlaşmış, şüpheli, sanık, müşteki veya katılan sıfatıyla ceza yargılamasında yer alan kişilere hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında soruşturma ve kovuşturma evrelerinde müvekkilinin haklarını korumak, ifade ve sorgu süreçlerinde hazır bulunmak, delillerin toplanmasına ve değerlendirilmesine katkıda bulunmak, savunma dilekçeleri hazırlamak, duruşmalarda müvekkilini temsil etmek, kanun yollarına başvurmak ve infaz süreçlerini takip etmek yer alır.
+              </p>
+            </div>
+            
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Boşanma Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                Boşanma avukatı, evlilik birliğinin sona erdirilmesi sürecinde taraflara hukuki danışmanlık ve temsil hizmeti sunan uzman avukattır. Görevleri arasında boşanma davası açmak, nafaka taleplerini değerlendirmek, velayet konularında danışmanlık yapmak, mal paylaşımı süreçlerini yönetmek, anlaşmalı boşanma protokolleri hazırlamak, aile mahkemelerinde müvekkilini temsil etmek ve boşanma sonrası hukuki süreçleri takip etmek yer alır.
+              </p>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                İş Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                İş avukatı, iş hukuku alanında uzmanlaşmış, işçi ve işveren arasındaki uyuşmazlıklarda hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında iş sözleşmeleri hazırlamak, işçi alacakları davaları açmak, işe iade davaları yürütmek, iş kazası tazminat davaları takip etmek, toplu iş hukuku konularında danışmanlık yapmak ve iş mahkemelerinde müvekkilini temsil etmek yer alır.
+              </p>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                İdare Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                İdare avukatı, idari hukuk alanında uzmanlaşmış, kamu kurumları ile vatandaşlar arasındaki uyuşmazlıklarda hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında idari işlemlerin iptali için dava açmak, tam yargı davaları yürütmek, kamu personeli hukuku konularında danışmanlık yapmak, vergi uyuşmazlıklarında temsil etmek ve idari yargı süreçlerini takip etmek yer alır.
+              </p>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Gayrimenkul Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                Gayrimenkul avukatı, emlak hukuku alanında uzmanlaşmış, gayrimenkul ile ilgili hukuki uyuşmazlıklarda danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında kat mülkiyeti davaları açmak, imar hukuku konularında danışmanlık yapmak, kentsel dönüşüm süreçlerini yönetmek, kamulaştırma davaları yürütmek, tapu iptal ve tescil davaları takip etmek ve emlak hukuku konularında hukuki destek sağlamak yer alır.
+              </p>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Tazminat Avukatı Ne İş Yapar?
+              </h3>
+              <p className="text-gray-700">
+                Tazminat avukatı, maddi ve manevi tazminat davalarında uzmanlaşmış, zarar gören kişilerin haklarını korumak için hukuki danışmanlık ve temsil hizmeti sunan avukattır. Görevleri arasında trafik kazası tazminat davaları açmak, iş kazası tazminatı talep etmek, malpraktis davaları yürütmek, maddi ve manevi zarar tespiti yapmak, sigorta şirketleri ile müzakere etmek ve tazminat davalarında müvekkilini temsil etmek yer alır.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ayırıcı Çizgi */}
+      <div className="w-full h-px bg-gray-300"></div>
+
+      {/* Blog Yazıları Bölümü */}
+      <section className="py-12 md:py-20 bg-white" aria-labelledby="blog-baslik">
+        <div className="container mx-auto px-4 md:px-6">
+          <header className="text-center mb-8 md:mb-16">
+            <h3 id="blog-baslik" className="text-3xl font-medium text-gray-900 mb-4 flex items-center justify-center">
+              <span className="w-16 h-px bg-gray-300 mr-4"></span>
               Blog Yazılarımız
+              <span className="w-16 h-px bg-gray-300 ml-4"></span>
             </h3>
           </header>
           

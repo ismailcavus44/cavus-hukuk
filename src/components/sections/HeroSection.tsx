@@ -21,15 +21,15 @@ const HeroSection = () => {
               
           {/* Ana Başlık */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
-                Hukuki Sorunlarınız İçin
+                Hukuki Süreç Yönetimi
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-700 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl lg:mt-2 xl:mt-3">
                   Avukatlık & Hukuk Hizmetleri
                 </span>
               </h2>
               
           {/* Açıklama */}
-          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto mb-8">
-                Ankara'da hukuki danışmanlık hizmeti veren avukatlarımız, müvekkillerimizin hukuki süreçlerinde yanlarında yer almaktadır.
+          <p className="text-base text-slate-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                Ankara avukat olarak hukuki danışmanlık hizmeti veren avukatlarımız, müvekkillerimizin hukuki süreçlerinde yanlarında yer almaktadır.
               </p>
 
             {/* CTA Butonları */}

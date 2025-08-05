@@ -370,14 +370,9 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       const [fullMatch, title, content] = match;
       
       const infoBox = `
-        <div class="info-box bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 p-6 my-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-          ${title ? `<h4 class="font-bold text-blue-900 mb-3 text-lg flex items-center">
-            <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-            </svg>
-            ${title}
-          </h4>` : ''}
-          <div class="text-blue-800 leading-relaxed">${content}</div>
+        <div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">
+          ${title ? `<h4 class="font-semibold text-gray-900 mb-3 text-lg">${title}</h4>` : ''}
+          <div class="text-gray-900 leading-relaxed [&_a]:text-blue-600 [&_a:hover]:text-blue-700">${content}</div>
         </div>
       `;
       result = result.replace(fullMatch, infoBox);
@@ -431,10 +426,10 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   }, [accordionMatches, onAccordionTitles]);
 
   return (
-    <div className="text-base text-gray-700 leading-relaxed">
+    <div className="text-sm text-gray-700 leading-relaxed">
       <div 
         dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderInfoBoxes(processedContent)) }}
-        className="prose max-w-none"
+        className="prose max-w-none text-justify prose-h2:text-[26px] prose-h3:text-[22px] prose-h2:font-semibold prose-h3:font-semibold prose-p:font-light prose-p:leading-[25px]"
         suppressHydrationWarning={true}
       />
       
@@ -453,20 +448,20 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
               const id = `accordion-${index}`;
               
               return (
-                <div key={id} id={id} className="accordion-wrapper mb-6 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
-                  <div className="accordion-item bg-gradient-to-r from-gray-50 to-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
+                  <div className="accordion-item border border-gray-200 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                     <button 
-                      className="accordion-trigger w-full px-6 py-5 text-left bg-transparent hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 transition-all duration-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-inset focus:ring-offset-2 scroll-mt-40"
+                      className="accordion-trigger w-full px-4 py-4 text-left bg-white hover:bg-gray-50 transition-all duration-200 flex items-center justify-between focus:outline-none"
                       data-accordion-id={id}
                       aria-expanded="false"
                       aria-controls={`${id}-content`}
                       aria-labelledby={`${id}-title`}
                       onClick={() => toggleAccordion(id)}
                     >
-                      <h3 id={`${id}-title`} className="font-semibold text-gray-900 text-lg scroll-mt-40 group-hover:text-red-700 transition-colors duration-200" itemProp="name">{title}</h3>
-                      <div className="accordion-icon text-gray-400 group-hover:text-red-600 transition-all duration-300 flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 group-hover:bg-red-100" aria-hidden="true">
-                        <svg className="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                      <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200" itemProp="name">{title}</h3>
+                      <div className="accordion-icon text-gray-400 group-hover:text-red-500 transition-all duration-200 flex items-center justify-center w-6 h-6" aria-hidden="true">
+                        <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                       </div>
                     </button>
@@ -477,7 +472,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
                       id={`${id}-content`}
                       role="region"
                       aria-labelledby={`${id}-title`}
-                      className="accordion-content px-6 py-5 border-t border-gray-100 bg-white"
+                      className="accordion-content px-4 py-4 border-t border-gray-100 bg-white"
                       style={{ display: 'none' }}
                       itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer"
                     >

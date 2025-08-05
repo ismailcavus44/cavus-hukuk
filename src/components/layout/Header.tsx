@@ -92,7 +92,7 @@ const Header = () => {
           <Link href="/" aria-label="Ana sayfaya dön - Çavuş Hukuk Bürosu" className="lg:pl-0 -ml-6">
             <OptimizedImage 
               src="/logo-header.png" 
-              alt="Çavuş Hukuk Bürosu" 
+              alt="Ankara Avukat" 
               width={264}
               height={60}
               className="w-[264px] h-[60px] object-cover"

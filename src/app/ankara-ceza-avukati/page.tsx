@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
-import { LegalServiceSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo';
+import { BreadcrumbSchema, FAQSchema } from '@/components/seo';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import AuthorBox from '@/components/ui/AuthorBox';
 
@@ -85,23 +85,23 @@ const AnkaraCezaAvukatiPage = () => {
     url: 'https://ismailcavus.av.tr/ankara-ceza-avukati',
     logo: 'https://ismailcavus.av.tr/logo-header.png',
     telephone: '+90 505 398 99 81',
-    email: 'info@ismailcavus.av.tr',
-    address: {
+      email: 'info@ismailcavus.av.tr',
+      address: {
       streetAddress: 'Korkutreis Mahallesi Cihan Sokak No:12/8',
       addressLocality: 'Çankaya',
-      addressRegion: 'Ankara',
-      postalCode: '06000',
-      addressCountry: 'TR'
-    },
-    geo: {
-      latitude: '39.9334',
-      longitude: '32.8597'
-    },
-    openingHours: 'Mo-Fr 09:00-18:00',
-    priceRange: '$$',
-    sameAs: [
-      'https://www.facebook.com/cavushukuk',
-      'https://www.linkedin.com/company/cavushukuk'
+        addressRegion: 'Ankara',
+        postalCode: '06000',
+        addressCountry: 'TR'
+      },
+      geo: {
+        latitude: '39.9334',
+        longitude: '32.8597'
+      },
+      openingHours: 'Mo-Fr 09:00-18:00',
+      priceRange: '$$',
+      sameAs: [
+        'https://www.facebook.com/cavushukuk',
+        'https://www.linkedin.com/company/cavushukuk'
     ],
     areaServed: {
       '@type': 'City',
@@ -142,7 +142,7 @@ const AnkaraCezaAvukatiPage = () => {
 
   return (
     <>
-      <LegalServiceSchema {...seoSchemaData} />
+
       <BreadcrumbSchema items={breadcrumbData} />
       <FAQSchema items={faqData} />
       <main className="bg-white min-h-screen py-16 px-4 md:px-0">
@@ -216,7 +216,7 @@ const AnkaraCezaAvukatiPage = () => {
                 <p className="mb-6">
                   Avukat, müvekkilinin ifade verme sürecinde yanında bulunur, delillerin toplanması ve değerlendirilmesi aşamalarında aktif rol alır, hukuka aykırı delillerin dışlanmasını sağlar ve müvekkilinin lehine olan tüm unsurları mahkemeye sunar.
                 </p>
-
+                
                 <h2 id="ankara-ceza-avukatligi" className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-20">
                   Ankara Ceza Avukatı Hizmet Alanları
                 </h2>
@@ -398,7 +398,7 @@ const AnkaraCezaAvukatiPage = () => {
                     </p>
                   </div>
                 </div>
-
+                
                 <h2 id="iletisim" className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-20">
                   İletişim ve Danışmanlık
                 </h2>

@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import SidebarCTA from '@/components/ui/SidebarCTA';
 import TableOfContents from '@/components/ui/TableOfContents';
-import { LegalServiceSchema, BreadcrumbSchema } from '@/components/seo';
+import { BreadcrumbSchema } from '@/components/seo';
 import AuthorBox from '@/components/ui/AuthorBox';
 
 export const metadata: Metadata = {
@@ -100,7 +100,7 @@ const AnkaraIsAvukatiPage = () => {
 
   return (
     <>
-      <LegalServiceSchema {...seoSchemaData} />
+
       <BreadcrumbSchema items={breadcrumbData} />
       <main className="bg-white min-h-screen py-16 px-4 md:px-0">
         <div className="max-w-7xl mx-auto">

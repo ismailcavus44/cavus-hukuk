@@ -84,14 +84,14 @@ const TableOfContents = React.memo(({ content, accordionTitles = [] }: TableOfCo
 
   if (tocItems.length === 0) {
     return (
-      <div className="bg-gray-50 rounded-lg min-w-[280px] lg:min-w-[280px]">
+      <div className="border border-gray-200 min-w-[280px] lg:min-w-[280px] w-[375px]">
         <button
           onClick={handleToggle}
-          className="w-full p-4 lg:p-6 flex items-center justify-between text-base lg:text-lg font-semibold text-gray-900"
+          className="w-full p-4 lg:p-6 flex items-center justify-between text-base font-medium text-gray-900"
           aria-expanded={isOpen}
           aria-controls="toc-content"
         >
-          <span className="text-base lg:text-lg font-semibold text-gray-900">İçindekiler</span>
+          <span className="text-base font-medium text-gray-900">Makale İçeriği</span>
           {isOpen ? <ChevronUp size={20} aria-hidden="true" /> : <ChevronDown size={20} aria-hidden="true" />}
         </button>
         {isOpen && (
@@ -106,16 +106,16 @@ const TableOfContents = React.memo(({ content, accordionTitles = [] }: TableOfCo
   }
 
   return (
-    <div className="bg-gray-50 rounded-lg min-w-[280px] lg:min-w-[280px]">
-      <button
-        onClick={handleToggle}
-        className="w-full p-4 lg:p-6 flex items-center justify-between text-base lg:text-lg font-semibold text-gray-900 hover:bg-gray-100 transition-colors"
-        aria-expanded={isOpen}
-        aria-controls="toc-content"
-      >
-        <span className="text-base lg:text-lg font-semibold text-gray-900">İçindekiler</span>
-        {isOpen ? <ChevronUp size={20} aria-hidden="true" /> : <ChevronDown size={20} aria-hidden="true" />}
-      </button>
+    <div className="border border-gray-200 min-w-[280px] lg:min-w-[280px] w-[375px]">
+              <button
+          onClick={handleToggle}
+          className="w-full p-4 lg:p-6 flex items-center justify-between text-base font-medium text-gray-900 hover:bg-gray-100 transition-colors"
+          aria-expanded={isOpen}
+          aria-controls="toc-content"
+        >
+          <span className="text-base font-medium text-gray-900">Makale İçeriği</span>
+          {isOpen ? <ChevronUp size={20} aria-hidden="true" /> : <ChevronDown size={20} aria-hidden="true" />}
+        </button>
       
       {isOpen && (
         <nav id="toc-content" className="px-4 lg:px-6 pb-4 lg:pb-6" aria-label="İçindekiler">

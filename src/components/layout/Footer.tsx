@@ -25,7 +25,7 @@ const Footer = () => {
             <div className="flex items-center justify-start">
               <OptimizedImage 
                 src="/logo-footer.png" 
-                alt="Çavuş Hukuk Bürosu" 
+                alt="Ankara Avukat" 
                 width={220}
                 height={50}
                 className="w-[220px] h-[50px] object-cover"
@@ -36,16 +36,13 @@ const Footer = () => {
               Ankara'da hukuki sorunlarınıza profesyonel çözümler sunuyoruz. Güvenilir ve kaliteli hukuki danışmanlık hizmeti.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-white transition-colors" aria-label="Facebook sayfamızı ziyaret et">
+              <a href="https://www.facebook.com/avismailcavus" className="text-slate-400 hover:text-white transition-colors" aria-label="Facebook sayfamızı ziyaret et">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors" aria-label="Twitter sayfamızı ziyaret et">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn sayfamızı ziyaret et">
+              <a href="https://www.linkedin.com/in/ismail-cavus/" className="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn sayfamızı ziyaret et">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors" aria-label="Instagram sayfamızı ziyaret et">
+              <a href="https://www.instagram.com/av.ismailcavus/" className="text-slate-400 hover:text-white transition-colors" aria-label="Instagram sayfamızı ziyaret et">
                 <Instagram size={20} />
               </a>
             </div>
@@ -132,9 +129,17 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin size={16} className="text-slate-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-slate-300">Korkutreis Mahallesi</p>
-                  <p className="text-slate-300">Cihan Sokak No:12/8</p>
-                  <p className="text-slate-300">Çankaya/Ankara</p>
+                  <a 
+                    href="https://maps.app.goo.gl/Wf66FPCrdRhPqjXQ6" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-slate-300 hover:text-white transition-colors"
+                    aria-label="Google Maps'te ofisimizi görüntüle"
+                  >
+                    <p>Korkutreis Mahallesi</p>
+                    <p>Cihan Sokak No:12/8</p>
+                    <p>Çankaya/Ankara</p>
+                  </a>
                 </div>
               </div>
               <div className="flex items-center space-x-3">

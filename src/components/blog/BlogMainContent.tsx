@@ -22,8 +22,6 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
     <div>
       <article 
         className="prose max-w-none"
-        itemScope 
-        itemType="https://schema.org/Article"
       >
         {/* Öne Çıkan Görsel - LCP optimizasyonu için priority */}
         {blogYazisi.image && (
@@ -34,7 +32,7 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
               width={1200}
               height={600}
               priority={true}
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               quality={90}
             />
@@ -46,11 +44,7 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
           <TableOfContents content={processedContent} accordionTitles={accordionTitles} />
         </div>
         
-        <h1 itemProp="headline" className="sr-only">{blogYazisi.title}</h1>
-        <meta itemProp="author" content={blogYazisi.author} />
-        <meta itemProp="datePublished" content={blogYazisi.date} />
-        <meta itemProp="dateModified" content={blogYazisi.date} />
-        <meta itemProp="publisher" content="Çavuş Hukuk Bürosu" />
+
         
         <BlogContent content={blogYazisi.content} onAccordionTitles={handleAccordionTitles} />
       </article>

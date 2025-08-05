@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
-import { BlogSchema, SearchActionSchema } from '@/components/seo';
+import { SearchActionSchema } from '@/components/seo';
 
 // ISR ayarları - 1 saatte bir güncelleme
 export const revalidate = 3600;
@@ -83,16 +83,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
 
   return (
     <>
-      {/* Blog ve ItemList Schema */}
-      <BlogSchema
-        url="https://ismailcavus.av.tr/blog"
-        name="Çavuş Hukuk Bürosu Blog"
-        description="Hukuki konularda güncel yazılar ve uzman görüşler. Ceza hukuku, aile hukuku, iş hukuku ve diğer hukuk alanlarında bilgilendirici içerikler."
-        publisher={{
-          name: "Çavuş Hukuk Bürosu",
-          url: "https://ismailcavus.av.tr"
-        }}
-      />
+
       {/* SearchAction Schema - Arama özelliği için */}
       <SearchActionSchema
         url="https://ismailcavus.av.tr/blog"
@@ -143,23 +134,35 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
           })
         }}
       />
-      <main className="bg-white min-h-screen py-16 px-4 md:px-0">
-        <div className="max-w-6xl mx-auto">
-          {/* Breadcrumb */}
-          <div className="mb-8">
+      <main className="bg-white min-h-screen">
+        {/* Breadcrumb */}
+        <div className="bg-white py-4 relative z-10 border-b border-gray-100">
+          <div className="max-w-6xl mx-auto px-6">
             <Breadcrumb 
               items={[
                 { label: 'Blog' }
               ]} 
             />
           </div>
-          
-          <section aria-label="Blog Yazıları">
-          <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-8 text-center leading-tight">Blog</h1>
-          <p className="text-base text-gray-800 mb-12 text-center max-w-3xl mx-auto">
-            Hukuki konularda güncel yazılarımızı ve uzman görüşlerimizi keşfedin. 
-            Deneyimli avukatlarımızın kaleminden önemli bilgiler ve rehberler.
-          </p>
+        </div>
+
+        {/* Hero Section */}
+        <section className="relative py-8 bg-white">
+          <div className="relative max-w-6xl mx-auto px-6">
+            <div className="text-center">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-red-600">
+                Blog
+              </h1>
+              <p className="text-lg max-w-2xl mx-auto leading-relaxed text-gray-600">
+                Hukuki konularda güncel yazılarımızı ve uzman görüşlerimizi keşfedin. 
+                Deneyimli avukatlarımızın kaleminden önemli bilgiler ve rehberler.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Blog Content */}
+        <section className="max-w-6xl mx-auto px-6">
           
           {/* Arama Formu */}
           <div className="mb-8">
@@ -336,7 +339,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
               )}
 
               {/* Sayfa Bilgisi */}
-              <div className="text-center mt-6 text-sm text-gray-500">
+              <div className="text-center mt-6 mb-16 text-sm text-gray-500">
                 Sayfa {currentPage} / {totalPages} • Toplam {totalPosts} yazı
               </div>
             </>
@@ -351,8 +354,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
               </p>
             </div>
           )}
-          </section>
-        </div>
+        </section>
       </main>
     </>
   );

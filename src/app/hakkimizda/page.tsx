@@ -17,10 +17,11 @@ import {
   Building,
   Eye,
   MessageSquare,
-  Briefcase
+  Briefcase,
+  ArrowRight
 } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
-import { AboutPageSchema, OrganizationSchema } from '@/components/seo';
+import { AboutPageSchema } from '@/components/seo';
 
 const HakkimizdaPage = React.memo(() => {
 
@@ -59,29 +60,10 @@ const HakkimizdaPage = React.memo(() => {
         name="Hakkımızda - Çavuş Hukuk Bürosu"
         description="Çavuş Hukuk Bürosu hakkında detaylı bilgi. Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Deneyimli avukatlarımız ve çalışma prensiplerimiz."
       />
-      <OrganizationSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Ceza, boşanma, iş ve ticaret hukuku alanlarında profesyonel destek."
-        url="https://ismailcavus.av.tr"
-        logo="https://ismailcavus.av.tr/logo-header.png"
-        telephone="+90 505 398 9981"
-        email="av.ismailcavuss@gmail.com"
-        address={{
-          streetAddress: "Korkutreis Mahallesi, Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06690",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Sa 09:00-18:00"
-        priceRange="$$"
-      />
+
+
       {/* Breadcrumb */}
-      <div className="bg-white py-4">
+      <div className="bg-white py-4 relative z-10 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6">
           <Breadcrumb 
             items={[
@@ -92,26 +74,28 @@ const HakkimizdaPage = React.memo(() => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-8 leading-tight">
-            Çavuş Hukuk Bürosu Hakkında
-          </h1>
-          <p className="text-base text-gray-800 mb-12 max-w-3xl mx-auto">
-            Deneyimli avukatlarımızla birlikte, hukuki süreçlerin karmaşıklığını müvekkillerimiz için yönetilebilir ve anlaşılır kılmayı hedefliyoruz.
-          </p>
+      <section className="relative py-8 bg-white">
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-red-600">
+              Çavuş Hukuk Bürosu Hakkında
+            </h1>
+            <p className="text-lg max-w-2xl mx-auto leading-relaxed text-gray-600">
+              Deneyimli avukatlarımızla birlikte, hukuki süreçlerin karmaşıklığını müvekkillerimiz için yönetilebilir ve anlaşılır kılmayı hedefliyoruz.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Kurumsal Kimlik */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+              <h2 className="text-3xl font-bold text-red-600 mb-8">
                 Kurumsal Kimlik ve Değerler
               </h2>
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-6 text-base text-gray-600 leading-relaxed">
                 <p>
                   Faaliyetlerimizin merkezinde şeffaflık, hesap verebilirlik ve müvekkil odaklılık yatmaktadır. Her biri alanında uzmanlaşmış dinamik ekibimizle, hukuki süreçlerin karmaşıklığını müvekkillerimiz için yönetilebilir ve anlaşılır kılmayı hedefleriz.
                 </p>
@@ -141,158 +125,182 @@ const HakkimizdaPage = React.memo(() => {
       </section>
 
       {/* Çalışma Prensiplerimiz */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-red-600 mb-4">
               Çalışma Prensiplerimiz
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Hukuki süreçlerin karmaşıklığını müvekkillerimiz için yönetilebilir ve anlaşılır kılmayı hedefleriz
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Hukuki süreçlerde müvekkillerimizin haklarını en etkili şekilde korumak için çalışma prensiplerimizi belirliyoruz.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {calismaPrensipleri.map((prensip, index) => (
-              <div key={index} className="text-center group p-8 rounded-2xl hover:bg-white transition-all duration-300 shadow-lg">
-                <div className="w-24 h-24 bg-gradient-to-br from-red-600 to-red-700 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
-                  <prensip.icon size={48} className="text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {calismaPrensipleri.map((prensip, index) => {
+              const IconComponent = prensip.icon;
+              return (
+                <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center mb-6">
+                    <IconComponent size={32} className="text-red-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    {prensip.baslik}
+                  </h3>
+                  <p className="text-base text-gray-600 leading-relaxed">
+                    {prensip.aciklama}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{prensip.baslik}</h3>
-                <p className="text-gray-600 leading-relaxed text-lg">{prensip.aciklama}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Faaliyet Alanları */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-red-600 mb-4">
               Faaliyet Alanları
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              İsmail Çavuş Hukuk Bürosu, hukukun birçok farklı disiplininde engin tecrübeye sahip bir kadro ile hizmet vermektedir.
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Çeşitli hukuk alanlarında uzmanlaşmış ekibimizle hizmet veriyoruz.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {faaliyetAlanlari.map((alan, index) => (
-              <div key={index} className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center">
-                    <alan.icon size={32} className="text-red-600" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {faaliyetAlanlari.map((alan, index) => {
+              const IconComponent = alan.icon;
+              return (
+                <div key={index} className="bg-white rounded-lg p-6 border border-gray-200 hover:border-red-300 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center mb-4">
+                    <IconComponent size={24} className="text-red-600" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">{alan.label}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    {alan.label}
+                  </h3>
+                  <p className="text-base text-gray-600 leading-relaxed">
+                    {alan.value}
+                  </p>
                 </div>
-                <p className="text-gray-600 text-lg leading-relaxed">{alan.value}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Neden Biz */}
-      <section className="py-24 bg-gray-50">
+      {/* Hukuki Hizmetlerimiz */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="relative">
-              <div className="bg-gradient-to-br from-red-600/90 to-red-700/90 backdrop-blur-sm rounded-3xl p-10 text-white shadow-2xl border border-red-500/20">
-                <h3 className="text-3xl font-bold mb-8">Hukuki Danışmanlık</h3>
-                <p className="text-red-100 mb-8 text-base leading-relaxed">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-red-600 mb-4">
+              Hukuki Hizmetlerimiz
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Hukuki sorunlarınız için kapsamlı çözümler sunuyoruz.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Sol taraf - Hukuki Danışmanlık Kartı */}
+            <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-6 lg:p-8 text-white shadow-2xl w-full lg:w-[480px] h-auto lg:h-[500px] flex flex-col justify-between mt-8 lg:mt-12">
+              <div>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6">Hukuki Danışmanlık</h3>
+                <p className="text-lg lg:text-xl mb-6 lg:mb-8 opacity-90 leading-relaxed">
                   Hukuki sorunlarınızı değerlendirmek ve size en uygun çözümü sunmak için profesyonel danışmanlık hizmeti veriyoruz.
                 </p>
-                <div className="space-y-6 mb-8">
-                  <div className="flex items-center space-x-4">
-                    <CheckCircle size={24} className="text-red-200" />
-                    <span className="text-lg">Profesyonel hukuki değerlendirme</span>
+                <div className="space-y-3 lg:space-y-4 mb-6 lg:mb-8">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle size={18} className="lg:text-red-200 text-red-100" />
+                    <span className="text-sm lg:text-base">Profesyonel hukuki değerlendirme</span>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <CheckCircle size={24} className="text-red-200" />
-                    <span className="text-lg">Uzman avukat görüşü</span>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle size={18} className="lg:text-red-200 text-red-100" />
+                    <span className="text-sm lg:text-base">Uzman avukat görüşü</span>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <CheckCircle size={24} className="text-red-200" />
-                    <span className="text-lg">Detaylı çözüm önerileri</span>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle size={18} className="lg:text-red-200 text-red-100" />
+                    <span className="text-sm lg:text-base">Detaylı çözüm önerileri</span>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <CheckCircle size={24} className="text-red-200" />
-                    <span className="text-lg">Hukuki süreç planlaması</span>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle size={18} className="lg:text-red-200 text-red-100" />
+                    <span className="text-sm lg:text-base">Hukuki süreç planlaması</span>
                   </div>
                 </div>
-                <a 
+              </div>
+              <div>
+                <a
                   href="/iletisim"
-                  className="inline-block px-8 py-4 bg-white text-red-600 font-bold rounded-2xl hover:bg-gray-100 transition-colors shadow-lg"
+                  className="inline-flex items-center px-6 lg:px-8 py-3 lg:py-4 bg-white text-red-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   İletişime Geç
+                  <ArrowRight size={18} className="lg:ml-2 ml-1" />
                 </a>
               </div>
             </div>
             
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-10">
-                Hukuki Hizmetlerimiz
-              </h2>
-              <div className="space-y-8">
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
+            {/* Sağ taraf - Hukuki Hizmetler Listesi */}
+            <div className="p-8">
+              <h2 className="text-3xl font-semibold text-gray-900 mb-6">Hukuki Hizmetlerimiz</h2>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle size={16} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Hukuki Uzmanlık</h3>
-                    <p className="text-gray-600 text-lg">İş, Ceza, Aile, İdare, Gayrimenkul ve Tazminat Hukuku alanlarında derin uzmanlık</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">Hukuki Uzmanlık</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      İş, Ceza, Aile, İdare, Gayrimenkul ve Tazminat Hukuku alanlarında derin uzmanlık
+                    </p>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle size={16} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Stratejik Hukuki Yaklaşım</h3>
-                    <p className="text-gray-600 text-lg">Her dava için özel hukuki strateji geliştirme ve risk analizi</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">Stratejik Hukuki Yaklaşım</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Her dava için özel hukuki strateji geliştirme ve risk analizi
+                    </p>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle size={16} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Hukuki Süreç Yönetimi</h3>
-                    <p className="text-gray-600 text-lg">Dava takibi, delil toplama ve hukuki süreçlerin profesyonel yönetimi</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">Hukuki Süreç Yönetimi</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Dava takibi, delil toplama ve hukuki süreçlerin profesyonel yönetimi
+                    </p>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle size={16} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Hukuki Danışmanlık</h3>
-                    <p className="text-gray-600 text-lg">Kapsamlı hukuki değerlendirme ve çözüm önerileri</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">Hukuki Güvenilirlik</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Yılların deneyimi ile hukuki güvenilirlik ve başarılı sonuçlar
+                    </p>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle size={16} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Hukuki Güvenilirlik</h3>
-                    <p className="text-gray-600 text-lg">Yılların deneyimi ile hukuki güvenilirlik ve başarılı sonuçlar</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <CheckCircle size={24} className="text-red-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Hukuki İnovasyon</h3>
-                    <p className="text-gray-600 text-lg">Güncel hukuki gelişmeleri takip eden modern hukuki çözümler</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">Hukuki İnovasyon</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Güncel hukuki gelişmeleri takip eden modern hukuki çözümler
+                    </p>
                   </div>
                 </div>
               </div>

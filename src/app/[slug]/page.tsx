@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -8,25 +8,20 @@ import {
   ArrowLeft, 
   Clock,
   ChevronRight,
-  FileText
+  FileText,
+  BookOpen
 } from 'lucide-react';
 import { supabase, cachedQuery } from '@/lib/supabase';
 import { BlogYazisi } from '@/types';
-import { ArticleSchema, BreadcrumbSchema } from '@/components/seo';
+import { BreadcrumbSchema } from '@/components/seo';
+import TableOfContents from '@/components/blog/TableOfContents';
+import BlogMainContent from '@/components/blog/BlogMainContent';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import AIChatbot from '@/components/ui/AIChatbot';
+import AvukatBilgiKarti from '@/components/ui/AvukatBilgiKarti';
 
-// Dynamic imports - sadece gerektiğinde yükle
-const TableOfContents = React.lazy(() => import('@/components/blog/TableOfContents'));
-const BlogMainContent = React.lazy(() => import('@/components/blog/BlogMainContent'));
-const Breadcrumb = React.lazy(() => import('@/components/ui/Breadcrumb'));
-const OptimizedImage = React.lazy(() => import('@/components/ui/OptimizedImage'));
-const AIChatbot = React.lazy(() => import('@/components/ui/AIChatbot'));
 
-// Loading component
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center p-4">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
-  </div>
-);
 
 // Critical preload için Head component
 const CriticalPreload = ({ blogYazisi }: { blogYazisi: BlogYazisi }) => (
@@ -152,38 +147,58 @@ const processAccordionTitles = (content: string) => {
 
 // Header component - React.memo ile optimize edilmiş
 const BlogHeader = React.memo(({ blogYazisi }: { blogYazisi: BlogYazisi }) => (
-  <header className="bg-gradient-to-r from-red-600 to-red-700 text-white py-6 md:py-8">
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="mb-6">
-        <div className="text-white/80">
+  <header className="bg-white py-6 md:py-8">
+    <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-6 lg:ml-0">
+        <div className="text-gray-600">
           <Breadcrumb 
             items={[
               { label: 'Blog', href: '/blog' },
               { label: blogYazisi.title }
             ]} 
-            className="text-white/80 [&_a]:text-white/80 [&_a:hover]:text-white [&_span]:text-white/90"
+            className="text-gray-600 [&_a]:text-gray-600 [&_a:hover]:text-red-600 [&_span]:text-gray-500"
           />
         </div>
       </div>
       
       <div className="mb-4">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-red-600">
           {blogYazisi.title}
         </h1>
       </div>
       
-      <div className="flex flex-wrap items-center gap-4 md:gap-6 text-white/80">
+      <div className="flex flex-wrap items-center gap-4 md:gap-6 text-gray-600">
         <div className="flex items-center space-x-2">
-          <User size={16} />
-          <span>{blogYazisi.author}</span>
+          <User size={15} />
+          <span className="text-sm">{blogYazisi.author}</span>
         </div>
         <div className="flex items-center space-x-2">
-          <Calendar size={16} />
-          <span>{new Date(blogYazisi.date).toLocaleDateString('tr-TR', {
+          <Calendar size={15} />
+          <span className="text-sm">{new Date(blogYazisi.date).toLocaleDateString('tr-TR', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
           })}</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <FileText size={15} />
+          <Link 
+            href={`/hizmetler/${blogYazisi.categories?.split(',')[0]?.trim()?.toLowerCase().replace(/\s+/g, '-')}`}
+            className="text-sm text-gray-600 hover:text-red-600 transition-colors"
+          >
+            {blogYazisi.categories?.split(',')[0]?.trim()}
+          </Link>
+          {blogYazisi.categories?.split(',').length > 1 && (
+            <span className="text-sm text-gray-600"> | </span>
+          )}
+          {blogYazisi.categories?.split(',').length > 1 && (
+            <Link 
+              href={`/hizmetler/${blogYazisi.categories?.split(',')[1]?.trim()?.toLowerCase().replace(/\s+/g, '-')}`}
+              className="text-sm text-gray-600 hover:text-red-600 transition-colors"
+            >
+              {blogYazisi.categories?.split(',')[1]?.trim()}
+            </Link>
+          )}
         </div>
       </div>
     </div>
@@ -201,8 +216,11 @@ const BlogSidebar = React.memo(({
   accordionTitles: Array<{ id: string; title: string; level: number }> 
 }) => (
   <aside className="hidden lg:block lg:col-span-1">
+    {/* Avukat Bilgi Kartı - Sticky değil */}
+    <AvukatBilgiKarti />
+    
+    {/* Table of Contents - Sticky */}
     <div className="lg:sticky lg:top-32">
-      {/* Table of Contents */}
       <TableOfContents content={processedContent} accordionTitles={accordionTitles} />
     </div>
   </aside>
@@ -225,9 +243,10 @@ const RelatedPosts = React.memo(async ({ currentSlug }: { currentSlug: string })
     }
 
     return (
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+      <section className="bg-white py-16 border-t border-gray-200">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-xl font-medium text-gray-900 mb-8 text-left flex items-center">
+            <div className="w-1 h-6 bg-red-600 mr-3"></div>
             İlgili Yazılar
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -235,55 +254,44 @@ const RelatedPosts = React.memo(async ({ currentSlug }: { currentSlug: string })
               <Link 
                 key={post.id} 
                 href={`/${post.slug || post.id}`}
-                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-red-200 group"
+                className="border border-gray-200 p-6 hover:bg-red-50 transition-all duration-300 block"
                 aria-label={`${post.title} blog yazısını oku`}
               >
                 {/* Blog Görseli */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="mb-4">
                   {post.image ? (
                     <OptimizedImage
                       src={post.image}
                       alt={post.image_alt || post.title}
                       width={400}
                       height={300}
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       quality={80}
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                    <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
                       <div className="text-gray-400">
                         <FileText size={32} />
                       </div>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-1">
-                    {post.categories.split(',').map((category: string, index: number) => (
-                      <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
-                        {category.trim()}
-                      </span>
-                    ))}
-                  </div>
                 </div>
                 
                 {/* Blog İçeriği */}
-                <article className="p-6">
-                  <h4 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2">
+                <div className="space-y-3">
+                  <h4 className="text-lg font-semibold text-gray-900 line-clamp-2">
                     {post.title}
                   </h4>
                   
                   {/* Blog Özeti */}
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  <p className="text-gray-600 text-sm line-clamp-3">
                     {post.excerpt ? 
                       post.excerpt.replace(/&nbsp;/g, ' ').substring(0, 120) + (post.excerpt.length > 120 ? '...' : '') :
                       post.content.substring(0, 120) + '...'
                     }
                   </p>
-                  
-                  {/* Alt Çizgi */}
-                  <div className="w-12 h-0.5 bg-red-500 mx-auto"></div>
-                </article>
+                </div>
               </Link>
             ))}
           </div>
@@ -333,21 +341,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         {/* Critical Preload - LCP optimizasyonu */}
         <CriticalPreload blogYazisi={blogYazisi} />
         
-        {/* Article Schema */}
-        <ArticleSchema
-          title={blogYazisi.title}
-          description={blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
-          url={`https://ismailcavus.av.tr/${blogYazisi.slug}`}
-          image={blogYazisi.image}
-          author={{ name: blogYazisi.author }}
-          publisher={{ name: 'Çavuş Hukuk Bürosu' }}
-          datePublished={blogYazisi.date}
-          dateModified={blogYazisi.date}
-          articleSection={blogYazisi.categories}
-          keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((cat: string) => cat.trim()) : []}
-          wordCount={blogYazisi.content.split(' ').length}
-          readingTime={5}
-        />
+
         
         {/* Breadcrumb Schema */}
         <BreadcrumbSchema items={breadcrumbItems} />
@@ -356,29 +350,21 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           <BlogHeader blogYazisi={blogYazisi} />
 
           {/* Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-8">
-              <div className="lg:col-span-4">
-                <Suspense fallback={<LoadingSpinner />}>
-                  <BlogMainContent blogYazisi={blogYazisi} processedContent={processedContent} />
-                </Suspense>
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
+            <div className="flex flex-col lg:flex-row lg:gap-[80px] lg:justify-start">
+              <div className="w-full lg:w-[660px]">
+                <BlogMainContent blogYazisi={blogYazisi} processedContent={processedContent} />
               </div>
-              <Suspense fallback={<LoadingSpinner />}>
-                <BlogSidebar processedContent={processedContent} accordionTitles={accordionTitles} />
-              </Suspense>
+              <BlogSidebar processedContent={processedContent} accordionTitles={accordionTitles} />
             </div>
           </div>
 
           {/* Related Posts */}
-          <Suspense fallback={<LoadingSpinner />}>
-            <RelatedPosts currentSlug={params.slug} />
-          </Suspense>
+          <RelatedPosts currentSlug={params.slug} />
         </div>
         
         {/* AI Chatbot */}
-        <Suspense fallback={null}>
-          <AIChatbot />
-        </Suspense>
+        <AIChatbot />
       </>
     );
   } catch (error) {

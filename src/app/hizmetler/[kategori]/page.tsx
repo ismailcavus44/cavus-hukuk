@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock, User, Tag, ChevronRight, FileText, Calculator } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, Calendar, Clock, User, Tag, ChevronRight, FileText, ArrowUpRight } from 'lucide-react';
 import { supabase, cachedQuery } from '@/lib/supabase';
 import { Kategori, BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -75,7 +76,7 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
       </div>
 
       {/* Hero Section */}
-      <section className={`relative py-16 ${
+      <section className={`relative py-8 ${
         isHesaplamaAraclari 
           ? 'bg-white' 
           : 'bg-gradient-to-br from-red-600 to-red-700 text-white'
@@ -89,14 +90,14 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
         
         <div className="relative max-w-6xl mx-auto px-6">
           <div className="text-center">
-            <h1 className={`text-4xl md:text-5xl font-bold mb-6 ${
+            <h1 className={`text-3xl md:text-4xl font-bold mb-4 ${
               isHesaplamaAraclari 
                 ? 'text-red-600' 
                 : 'text-white'
             }`}>
               {kategori.title}
             </h1>
-            <p className={`text-xl max-w-3xl mx-auto leading-relaxed ${
+            <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${
               isHesaplamaAraclari 
                 ? 'text-gray-800' 
                 : 'text-white/90'
@@ -116,37 +117,38 @@ const KategoriPage = async ({ params }: KategoriPageProps) => {
           )}
           
           {currentYazilar.length > 0 ? (
-            <div className={`grid gap-6 ${
+            <div className={`grid gap-4 ${
               isHesaplamaAraclari 
-                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+                ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' 
                 : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             }`}>
               {currentYazilar.map((yazi: BlogYazisi) => (
                 isHesaplamaAraclari ? (
                   // Modern hesaplama araçları kart tasarımı
                   <Link key={yazi.id} href={`/${yazi.slug || yazi.id}`} className="group">
-                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 p-6 h-full flex flex-col items-center justify-center text-center min-h-[280px]">
+                    <div className="bg-white border border-gray-100 hover:bg-red-50 p-4 h-full flex flex-col items-center justify-center text-center min-h-[200px] transition-all duration-300">
                       {/* İkon */}
-                      <div className="w-20 h-20 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center group-hover:from-red-100 group-hover:to-red-200 transition-all duration-300 mb-6 shadow-sm">
-                        <Calculator size={28} className="text-red-600" />
+                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
+                        <Image 
+                          src="/images/hesaplama-icon.png" 
+                          alt="Hesaplama Aracı" 
+                          width={32} 
+                          height={32} 
+                          className="object-contain"
+                        />
                       </div>
                       
                       {/* Başlık */}
-                      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-red-600 transition-colors duration-300 mb-4 line-clamp-2 leading-tight">
+                      <h6 className="text-sm font-medium text-gray-900 group-hover:text-red-600 transition-colors duration-300 mb-3 line-clamp-2 leading-tight">
                         {yazi.title}
-                      </h3>
+                      </h6>
                       
-                      {/* Açıklama */}
-                      {yazi.excerpt && (
-                        <p className="text-sm text-gray-600 mb-6 line-clamp-2 leading-relaxed">
-                          {yazi.excerpt.replace(/<[^>]*>/g, '').substring(0, 80)}...
-                        </p>
-                      )}
+
                       
-                      {/* Buton */}
-                      <div className="mt-auto w-full">
-                        <div className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg text-sm font-medium group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 shadow-md group-hover:shadow-lg transform group-hover:scale-105">
-                          Hesapla
+                      {/* Ok İkonu */}
+                      <div className="mt-auto w-full flex justify-center">
+                        <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center group-hover:bg-red-700 transition-all duration-300 transform group-hover:scale-105">
+                          <ArrowUpRight size={16} />
                         </div>
                       </div>
                     </div>

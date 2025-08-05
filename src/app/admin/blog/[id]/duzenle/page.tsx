@@ -149,7 +149,7 @@ const BlogDuzenlePage = () => {
   useEffect(() => {
     fetchKategoriler();
     if (params.id) {
-      fetchBlogYazisi();
+    fetchBlogYazisi();
     }
   }, [params.id]);
 
@@ -161,7 +161,7 @@ const BlogDuzenlePage = () => {
         .order('title');
       
       if (data) {
-        setKategoriler(data);
+          setKategoriler(data);
       }
     } catch (error) {
       console.error('Kategoriler yüklenirken hata:', error);
@@ -366,126 +366,126 @@ const BlogDuzenlePage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Sol Taraf - Form */}
           <div className="bg-white rounded-lg shadow p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
               {/* Başlık */}
-              <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                  Başlık *
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => handleTitleChange(e.target.value)}
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+              Başlık *
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={(e) => handleTitleChange(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Blog yazısı başlığı..."
-                  required
-                />
-              </div>
+              required
+            />
+          </div>
 
-              <div>
-                <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-2">
-                  URL Slug *
-                </label>
-                <input
-                  type="text"
-                  id="slug"
-                  value={formData.slug}
+          <div>
+            <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-2">
+              URL Slug *
+            </label>
+            <input
+              type="text"
+              id="slug"
+              value={formData.slug}
                   onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="blog-yazisi-basligi"
-                  required
-                />
-                <p className="text-xs text-gray-500 mt-1">
+              required
+            />
+            <p className="text-xs text-gray-500 mt-1">
                   URL'de kullanılacak kısa isim (otomatik oluşturulur)
-                </p>
-              </div>
+            </p>
+          </div>
 
               {/* İçerik - Zengin Metin Editörü */}
-              <div>
+            <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  İçerik *
-                </label>
-                <div className="border border-gray-300 rounded-md">
-                  <ReactQuill
+              İçerik *
+            </label>
+            <div className="border border-gray-300 rounded-md">
+              <ReactQuill
                     theme="snow"
-                    value={formData.content}
+                value={formData.content}
                     onChange={(content) => setFormData(prev => ({ ...prev, content }))}
-                    modules={quillModules}
-                    formats={quillFormats}
+                modules={quillModules}
+                formats={quillFormats}
                     placeholder="Blog yazısının detaylı içeriği..."
                     style={{ height: '400px', marginBottom: '40px' }}
-                  />
-                </div>
+              />
+            </div>
                 <p className="text-xs text-gray-500 mt-1">
                   Başlık, kalın, italik, maddeleme, link ve daha fazla formatlama seçeneği kullanabilirsiniz.
                 </p>
-                
-                {/* Editör Butonları */}
-                <div className="mt-2 relative z-10">
-                  <details className="group">
-                    <summary className="flex items-center justify-between cursor-pointer p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
-                      <span className="font-medium text-gray-700">📝 Özel Alanlar Ekle</span>
-                      <svg className="w-5 h-5 text-gray-500 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                      </svg>
-                    </summary>
-                    <div className="mt-3 p-4 bg-white border border-gray-200 rounded-lg space-y-3">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                        <button
-                          type="button"
-                          onClick={imageHandler}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-                        >
-                          <ImageIcon size={16} className="mr-2" />
-                          Görsel Ekle
-                        </button>
-                        
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
-                            if (quill) {
-                              const range = quill.getSelection(true);
-                              const infoText = '[info title="Önemli Bilgi"]Buraya içeriği yazın...[/info]';
-                              quill.insertText(range.index, infoText);
-                            }
-                          }}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
-                        >
-                          📝 Bilgi Kutusu
-                        </button>
-                        
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
-                            if (quill) {
-                              const range = quill.getSelection(true);
-                              const accordionText = '[accordion title="Soru Başlığı"]Buraya cevap içeriği yazın...[/accordion]';
-                              quill.insertText(range.index, accordionText);
-                            }
-                          }}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors"
-                        >
-                          📋 Accordion (FAQ)
-                        </button>
-                        
-                        <button
-                          type="button"
-                          onClick={nofollowLinkHandler}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors"
-                        >
-                          🔗 Nofollow Link
-                        </button>
-                      </div>
-                      <p className="text-xs text-gray-500">
-                        Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
-                      </p>
-                    </div>
-                  </details>
+            
+            {/* Editör Butonları */}
+            <div className="mt-2 relative z-10">
+              <details className="group">
+                <summary className="flex items-center justify-between cursor-pointer p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                  <span className="font-medium text-gray-700">📝 Özel Alanlar Ekle</span>
+                  <svg className="w-5 h-5 text-gray-500 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </summary>
+                <div className="mt-3 p-4 bg-white border border-gray-200 rounded-lg space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <button
+                      type="button"
+                      onClick={imageHandler}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                    >
+                      <ImageIcon size={16} className="mr-2" />
+                      Görsel Ekle
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                        if (quill) {
+                          const range = quill.getSelection(true);
+                          const infoText = '[info title="Önemli Bilgi"]Buraya içeriği yazın...[/info]';
+                          quill.insertText(range.index, infoText);
+                        }
+                      }}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                    >
+                      📝 Bilgi Kutusu
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                        if (quill) {
+                          const range = quill.getSelection(true);
+                          const accordionText = '[accordion title="Soru Başlığı"]Buraya cevap içeriği yazın...[/accordion]';
+                          quill.insertText(range.index, accordionText);
+                        }
+                      }}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors"
+                    >
+                      📋 Accordion (FAQ)
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={nofollowLinkHandler}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors"
+                    >
+                      🔗 Nofollow Link
+                    </button>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
+                  </p>
                 </div>
-              </div>
+              </details>
+            </div>
+          </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -698,7 +698,7 @@ const BlogDuzenlePage = () => {
                   )}
                 </button>
               </div>
-            </form>
+        </form>
           </div>
 
           {/* Sağ Taraf - Önizleme */}

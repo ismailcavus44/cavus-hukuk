@@ -90,40 +90,34 @@ const BlogGrid = React.memo(() => {
         <Link 
           key={yazi.id} 
           href={`/${yazi.slug || yazi.id}`}
-          className="block bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-transparent hover:border-red-500 group cursor-pointer"
+          className="block border border-gray-200 hover:bg-red-50 transition-all duration-300 group cursor-pointer"
           aria-label={`${yazi.title} blog yazısını oku`}
         >
           {/* Blog Görseli */}
-          <div className="relative h-48 overflow-hidden">
+          <div className="relative h-48 overflow-hidden p-4">
             {yazi.image ? (
               <OptimizedImage
                 src={yazi.image} 
                 alt={yazi.title}
                 width={400}
                 height={300}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 quality={80}
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center">
                 <div className="text-gray-400">
                   <Calendar size={32} />
                 </div>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-            <div className="absolute top-4 left-4 flex flex-wrap gap-1">
-              {yazi.categories.split(',').map((category: string, index: number) => (
-                <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-700">
-                  {category.trim()}
-                </span>
-              ))}
-            </div>
+
+
           </div>
           
           {/* Blog İçeriği */}
-          <article className="p-6">
+          <article className="pt-2 px-4 pb-4">
             <h4 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2">
               {yazi.title}
             </h4>
@@ -137,7 +131,7 @@ const BlogGrid = React.memo(() => {
             </p>
             
             {/* Alt Çizgi */}
-            <div className="w-12 h-0.5 bg-red-500 mx-auto"></div>
+            <div className="w-12 h-0.5 bg-red-500"></div>
           </article>
         </Link>
       ))}
