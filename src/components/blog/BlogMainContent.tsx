@@ -32,7 +32,7 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
               width={1200}
               height={600}
               priority={true}
-              className="w-full h-auto"
+              className="w-full h-auto rounded-lg shadow-lg"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               quality={90}
             />
