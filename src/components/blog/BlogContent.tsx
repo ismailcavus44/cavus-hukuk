@@ -395,6 +395,35 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     return result;
   }, []);
 
+  // Dilekçe kutularını render et - başlık ortalı, gövde iki yana yaslı, imza sağa yaslı
+  const renderPetitions = useCallback((htmlContent: string) => {
+    const petitionRegex = /\[dilekce title="([^"]*)"\]([\s\S]*?)\[\/dilekce\]/g;
+    return htmlContent.replace(petitionRegex, (_match, title, body) => {
+      const safeTitle = String(title || '').trim();
+      const rawBody = String(body || '').trim();
+      // [imza]...[/imza] bölümünü ayıkla (opsiyonel)
+      const signatureMatch = rawBody.match(/\[imza\]([\s\S]*?)\[\/imza\]/i);
+      const signature = signatureMatch ? signatureMatch[1].trim() : '';
+      const bodyWithoutSignature = rawBody.replace(/\[imza\][\s\S]*?\[\/imza\]/i, '').trim();
+
+      const sanitizedBody = bodyWithoutSignature
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<iframe[\s\S]*?<\/iframe>/gi, '')
+        .replace(/<object[\s\S]*?<\/object>/gi, '')
+        .replace(/<embed[\s\S]*?<\/embed>/gi, '');
+
+      return `
+        <section class="rounded-lg border border-amber-200 bg-amber-50/70 p-5 my-6 shadow-sm">
+          ${safeTitle ? `<header class="mb-4"><h4 class="text-amber-900 font-semibold text-xl text-center">${safeTitle}</h4></header>` : ''}
+          <div class="prose prose-sm max-w-none text-amber-900 text-justify [&_p]:text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1">
+            ${sanitizedBody}
+          </div>
+          ${signature ? `<div class="mt-6 pt-3 border-t border-amber-200 text-right text-amber-900">${signature}</div>` : ''}
+        </section>
+      `;
+    });
+  }, []);
+
   // HTML sanitize fonksiyonu - useCallback ile optimize edilmiş
   const sanitizeHtml = useCallback((html: string): string => {
     // XSS koruması için tehlikeli tag'leri kaldır
@@ -486,7 +515,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   return (
     <div className="text-sm text-gray-700 leading-relaxed">
       <div 
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderInfoBoxes(processedContent)) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderInfoBoxes(renderPetitions(processedContent))) }}
         className="prose max-w-none text-justify prose-h2:text-[26px] prose-h3:text-[22px] prose-h2:font-semibold prose-h3:font-semibold prose-p:font-light prose-p:leading-[25px]"
         suppressHydrationWarning={true}
       />

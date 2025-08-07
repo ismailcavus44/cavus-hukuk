@@ -487,6 +487,21 @@ const YeniBlogPage = () => {
                       >
                         🔗 Nofollow Link
                       </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                        if (quill) {
+                          const range = quill.getSelection(true);
+                          const petitionText = '[dilekce title="Dilekçe Başlığı"]Buraya dilekçe örneğini yazın...[/dilekce]';
+                          quill.insertText(range.index, petitionText);
+                        }
+                      }}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-md transition-colors"
+                    >
+                      📄 Dilekçe Kutusu
+                    </button>
                     </div>
                     <p className="text-xs text-gray-500">
                       Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.

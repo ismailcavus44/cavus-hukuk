@@ -63,3 +63,4 @@ export function extractTextFromHTML(htmlContent: string): string {
 export function createSafeMarkup(html: string) {
   return { __html: cleanBlogContent(html) };
 }
+
