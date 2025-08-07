@@ -414,8 +414,9 @@ const YeniBlogPage = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 İçerik *
               </label>
-              <div className="border border-gray-300 rounded-md">
+              <div className="border border-gray-300 rounded-md relative z-10">
                 <ReactQuill
+                  key="blog-editor"
                   theme="snow"
                   value={formData.content}
                   onChange={(content) => setFormData(prev => ({ ...prev, content }))}

@@ -36,7 +36,20 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
 }) => {
   // HTML içeriğini güvenli şekilde render et
   const createMarkup = (html: string) => {
-    return { __html: html };
+    // HTML'yi temizle ve doğru etiketleri kullan
+    const cleanedHtml = html
+      .replace(/<span([^>]*)>([^<]*(?:<(?!\/span>)[^<]*)*)<\/span>/gi, (match, attributes, content) => {
+        // Bold, italic, link gibi etiketleri koru
+        if (content.includes('<')) {
+          return `<p${attributes}>${content}</p>`;
+        }
+        return `<p${attributes}>${content}</p>`;
+      })
+      .replace(/<p[^>]*>\s*<\/p>/gi, '') // Boş p etiketlerini temizle
+      .replace(/\s+/g, ' ') // Fazla boşlukları temizle
+      .trim();
+    
+    return { __html: cleanedHtml };
   };
 
   // Kategorileri array'e çevir

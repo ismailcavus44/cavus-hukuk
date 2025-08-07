@@ -23,6 +23,9 @@ const quillModules = {
     ['link', 'image'],
     ['clean']
   ],
+  clipboard: {
+    matchVisual: false
+  }
 };
 
 const quillFormats = [
@@ -406,15 +409,15 @@ const BlogDuzenlePage = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
               İçerik *
             </label>
-            <div className="border border-gray-300 rounded-md">
+                        <div className="border border-gray-300 rounded-md relative z-10">
               <ReactQuill
                     theme="snow"
                 value={formData.content}
                     onChange={(content) => setFormData(prev => ({ ...prev, content }))}
                 modules={quillModules}
                 formats={quillFormats}
-                    placeholder="Blog yazısının detaylı içeriği..."
-                    style={{ height: '400px', marginBottom: '40px' }}
+                placeholder="Blog yazısının detaylı içeriği..."
+                style={{ height: '400px', marginBottom: '40px' }}
               />
             </div>
                 <p className="text-xs text-gray-500 mt-1">

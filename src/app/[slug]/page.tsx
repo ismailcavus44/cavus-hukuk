@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { supabase, cachedQuery } from '@/lib/supabase';
 import { BlogYazisi } from '@/types';
-import { BreadcrumbSchema } from '@/components/seo';
+import { BreadcrumbSchema, ArticleSchema } from '@/components/seo';
 import TableOfContents from '@/components/blog/TableOfContents';
 import BlogMainContent from '@/components/blog/BlogMainContent';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -345,6 +345,22 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         
         {/* Breadcrumb Schema */}
         <BreadcrumbSchema items={breadcrumbItems} />
+        
+        {/* Article Schema */}
+        <ArticleSchema
+          title={blogYazisi.title}
+          description={blogYazisi.meta_description || blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
+          author={{ name: blogYazisi.author }}
+          datePublished={blogYazisi.date}
+          dateModified={blogYazisi.date}
+          image={blogYazisi.image}
+          url={`https://ismailcavus.av.tr/${blogYazisi.slug}`}
+          keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((k: string) => k.trim()) : []}
+          publisher={{
+            name: 'Çavuş Hukuk Bürosu',
+            logo: 'https://ismailcavus.av.tr/images/cavus-hukuk-logo.png'
+          }}
+        />
         
         <div className="min-h-screen bg-white">
           <BlogHeader blogYazisi={blogYazisi} />
