@@ -93,7 +93,7 @@ export const metadata: Metadata = {
 
 const HomePage = React.memo(() => {
   
-  // Hizmet kataloğu için data hazırla
+  // Hizmet kataloğu için data hazırla - Schema optimizasyonu yapıldı
   const hizmetKatalogu = [
     {
       "@type": "Service" as const,
