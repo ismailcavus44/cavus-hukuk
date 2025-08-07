@@ -176,7 +176,7 @@ const AnkaraCezaAvukatiPage = () => {
               <TableOfContents tableOfContents={tableOfContents} />
               
               {/* İçerik Alanı */}
-              <article className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+              <article className="prose prose-lg max-w-none text-gray-700 leading-relaxed ankara-ceza-avukati">
                 <p className="mb-6 text-lg">
                   Ceza hukuku, bireylerin özgürlüklerini, haklarını ve toplumsal düzeni doğrudan etkileyen, son derece hassas ve karmaşık bir hukuk dalıdır. Bu alanda karşılaşılan hukuki sorunlar, çoğu zaman kişilerin hayatında derin izler bırakabilecek sonuçlar doğurabilir. İşte tam da bu noktada, alanında uzman bir Ankara ceza <a href="/" className="text-red-600 hover:text-red-700 underline">avukat</a>, hukuki süreçlerin doğru yönetilmesi, müvekkil haklarının korunması ve adaletin tecellisi için hayati bir rol üstlenir.
                 </p>

@@ -27,9 +27,7 @@ const AvukatBilgiKarti = () => {
       {/* Özgeçmiş */}
       <div className="mb-6">
         <p className="text-sm text-gray-600 leading-relaxed text-center">
-          20 yılı aşkın deneyimimle Ankara'da hukuki danışmanlık hizmeti veriyorum. 
-          Aile hukuku, ceza hukuku, iş hukuku ve diğer alanlarda müvekkillerimin 
-          haklarını en iyi şekilde savunuyorum.
+          Ankara’da avukatlık yapan İsmail Çavuş, farklı hukuk alanlarında danışmanlık ve temsil hizmeti sunmaktadır. Müvekkillerinin haklarını korumak ve hukuki süreçlerde en doğru çözümleri üretmek için çalışır. Aile, ceza, iş ve diğer temel hukuk alanlarında güncel mevzuata uygun, güvenilir ve şeffaf bir hizmet anlayışını benimsemektedir.
         </p>
       </div>
 

@@ -74,3 +74,14 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #b91c1c;
 }
+
+.ankara-ceza-avukati p {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: justify;
+}
+.ankara-ceza-avukati ul,
+.ankara-ceza-avukati ol,
+.ankara-ceza-avukati li {
+  text-align: justify;
+}
