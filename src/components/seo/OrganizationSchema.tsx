@@ -40,7 +40,7 @@ const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
 }) => {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "LegalService",
+    "@type": "Organization",
     "@id": `${url}#organization`,
     "name": name,
     "description": description,

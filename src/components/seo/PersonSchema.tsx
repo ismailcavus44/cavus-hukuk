@@ -30,7 +30,7 @@ export default function PersonSchema({ name, jobTitle, worksFor, alumniOf, addre
     jobTitle,
     ...(worksFor && {
       worksFor: {
-        '@type': worksFor.type || 'LegalService',
+        '@type': worksFor.type || 'Organization',
         name: worksFor.name
       }
     }),

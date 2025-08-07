@@ -23,7 +23,7 @@ export default function BlogSchema({ url, name, description, publisher }: BlogSc
     name,
     description,
     publisher: {
-      '@type': 'LegalService',
+      '@type': 'Organization',
       name: publisher.name,
       url: publisher.url
     }

@@ -51,7 +51,7 @@ const EkipPage = React.memo(() => {
         jobTitle="Kurucu Avukat"
         worksFor={{
           name: "Çavuş Hukuk Bürosu",
-          type: "LegalService"
+          type: "Organization"
         }}
         address={{
           addressLocality: "Ankara",

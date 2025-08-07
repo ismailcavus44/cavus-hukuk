@@ -117,7 +117,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                 datePublished: yazi.date,
                 dateModified: yazi.date,
                 publisher: {
-                  '@type': 'LegalService',
+                  '@type': 'Organization',
                   name: 'Çavuş Hukuk Bürosu',
                   url: 'https://ismailcavus.av.tr'
                 },
