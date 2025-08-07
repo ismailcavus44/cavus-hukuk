@@ -34,7 +34,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { hizmetler } from '@/data';
-import { OrganizationSchema, LocalBusinessSchema, ServiceCatalogSchema, WebPageSchema } from '@/components/seo';
+import { OrganizationSchema, WebPageSchema } from '@/components/seo';
 
 export const metadata: Metadata = {
   title: 'Av. İsmail Çavuş - Ankara Avukat',
@@ -92,31 +92,7 @@ export const metadata: Metadata = {
 };
 
 const HomePage = React.memo(() => {
-  
-  // Hizmet kataloğu için data hazırla - Schema optimizasyonu yapıldı
-  const hizmetKatalogu = [
-    {
-      "@type": "Service" as const,
-      "name": "Aile Hukuku",
-      "description": "Boşanma, nafaka, velayet konularında hukuki danışmanlık",
-      "url": "https://ismailcavus.av.tr/hizmetler/aile-hukuku",
-      "serviceType": "LegalService"
-    },
-    {
-      "@type": "Service" as const, 
-      "name": "İş Hukuku",
-      "description": "İşçi-işveren uyuşmazlıkları ve iş sözleşmeleri",
-      "url": "https://ismailcavus.av.tr/hizmetler/is-hukuku",
-      "serviceType": "LegalService"
-    },
-    {
-      "@type": "Service" as const,
-      "name": "Ceza Hukuku", 
-      "description": "Ceza davaları ve hukuki savunma",
-      "url": "https://ismailcavus.av.tr/hizmetler/ceza-hukuku",
-      "serviceType": "LegalService"
-    }
-  ];
+
   // Hizmetler verilerini useMemo ile optimize et
   const yeniHizmetler = useMemo(() => [
     {
@@ -486,41 +462,7 @@ const HomePage = React.memo(() => {
         ]}
       />
 
-      <LocalBusinessSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
-        url="https://ismailcavus.av.tr"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06000",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavushukuk"
-        ]}
-      />
 
-      <ServiceCatalogSchema
-        name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
-        description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
-        url="https://ismailcavus.av.tr/hizmetler"
-        services={hizmetKatalogu}
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
-      />
 
       <WebPageSchema
         title="Ankara Avukat - Çavuş Hukuk Bürosu"
