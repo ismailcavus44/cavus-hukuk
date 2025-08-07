@@ -48,7 +48,7 @@ declare global {
 }
 
 const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps) => {
-  const [processedContent, setProcessedContent] = useState(content);
+  // State kullanmadan server/client tutarlılığı: tüm dönüşümler memo içinde
   const accordionRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   // Accordion toggle fonksiyonu - useCallback ile optimize edilmiş
@@ -82,7 +82,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   useEffect(() => {
     // Kıdem Tazminatı Hesaplama Aracı
     const kidemCalculatorPlaceholder = document.getElementById('calculator-kidem-tazminati');
-    if (kidemCalculatorPlaceholder && (processedContent.includes('[calculator type="kidem-tazminati"') || content.includes('[calculator type="kidem-tazminati"'))) {
+    if (kidemCalculatorPlaceholder && content.includes('[calculator type="kidem-tazminati"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -99,7 +99,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
     // İhbar Tazminatı Hesaplama Aracı
     const ihbarCalculatorPlaceholder = document.getElementById('calculator-ihbar-tazminati');
-    if (ihbarCalculatorPlaceholder && (processedContent.includes('[calculator type="ihbar-tazminati"') || content.includes('[calculator type="ihbar-tazminati"'))) {
+    if (ihbarCalculatorPlaceholder && content.includes('[calculator type="ihbar-tazminati"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -116,7 +116,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
     // İşsizlik Maaşı Hesaplama Aracı
     const issizlikCalculatorPlaceholder = document.getElementById('calculator-issizlik-maasi');
-    if (issizlikCalculatorPlaceholder && (processedContent.includes('[calculator type="issizlik-maasi"') || content.includes('[calculator type="issizlik-maasi"'))) {
+    if (issizlikCalculatorPlaceholder && content.includes('[calculator type="issizlik-maasi"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -133,7 +133,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
     // Tapu Harcı Hesaplama Aracı
     const tapuCalculatorPlaceholder = document.getElementById('calculator-tapu-harci');
-    if (tapuCalculatorPlaceholder && (processedContent.includes('[calculator type="tapu-harci"') || content.includes('[calculator type="tapu-harci"'))) {
+    if (tapuCalculatorPlaceholder && content.includes('[calculator type="tapu-harci"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -150,7 +150,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
     // Doğum İzni Hesaplama Aracı
     const dogumIzniniCalculatorPlaceholder = document.getElementById('calculator-dogum-iznini');
-    if (dogumIzniniCalculatorPlaceholder && (processedContent.includes('[calculator type="dogum-iznini"') || content.includes('[calculator type="dogum-iznini"'))) {
+    if (dogumIzniniCalculatorPlaceholder && content.includes('[calculator type="dogum-iznini"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -167,7 +167,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
 
     // İnfaz Hesaplama Aracı
     const infazCalculatorPlaceholder = document.getElementById('calculator-infaz-hesaplama');
-    if (infazCalculatorPlaceholder && (processedContent.includes('[calculator type="infaz-hesaplama"') || content.includes('[calculator type="infaz-hesaplama"'))) {
+    if (infazCalculatorPlaceholder && content.includes('[calculator type="infaz-hesaplama"')) {
       const calculatorContainer = document.createElement('div');
       calculatorContainer.className = 'calculator-container my-6';
       
@@ -181,7 +181,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       
       infazCalculatorPlaceholder.parentNode?.replaceChild(calculatorContainer, infazCalculatorPlaceholder);
     }
-  }, [processedContent, content]);
+  }, [content]);
 
   // İçerik işleme - useMemo ile optimize edilmiş
   const processedContentMemo = useMemo(() => {
@@ -267,6 +267,13 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     processed = processed.replace(/class="(?!info-box)[^"]*"/g, '');
     processed = processed.replace(/style="[^"]*"/g, '');
     
+    // Quill kaynaklı span sarmalarını UNWRAP et (paragrafa dönüştürme)
+    processed = processed.replace(/<span\b[^>]*>([\s\S]*?)<\/span>/gi, '$1');
+    // Li içinde oluşan <p> etiketlerini kaldır (madde içi font/spacing sapmasını önler)
+    processed = processed.replace(/<li\b[^>]*>[\s\S]*?<\/li>/gi, (m: string) => m.replace(/<\/?p[^>]*>/gi, ''));
+    // Boş paragrafları temizle
+    processed = processed.replace(/<p[^>]*>\s*<\/p>/gi, '');
+    
     // H2 başlıklarına ID ekle ve stillendir
     processed = processed.replace(
       /<h2[^>]*>(.*?)<\/h2>/g,
@@ -297,41 +304,20 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       }
     );
     
-    // Paragrafları stillendir
+    // Paragrafları normalize et: yalnızca boş olanları kaldır (stil sınıfı enjekte etmiyoruz)
     processed = processed.replace(
-      /<p[^>]*>(.*?)<\/p>/g,
-      (match: string, content: string) => {
-        // Boş paragrafları temizle (<br> veya sadece boşluk içeren)
-        const cleanContent = content.trim();
-        if (cleanContent === '' || cleanContent === '<br>' || cleanContent === '&nbsp;') {
-          return ''; // Boş paragrafı kaldır
-        }
-        return `<p class="text-base text-gray-700 leading-relaxed mb-4">${content}</p>`;
+      /<p[^>]*>([\s\S]*?)<\/p>/gi,
+      (_full: string, inner: string) => {
+        const clean = inner.trim();
+        if (clean === '' || clean === '<br>' || clean === '&nbsp;') return '';
+        return `<p>${inner}</p>`;
       }
     );
     
-    // Listeleri stillendir
-    processed = processed.replace(
-      /<ul[^>]*>(.*?)<\/ul>/g,
-      (match: string, content: string) => {
-        return `<ul class="list-disc list-inside text-base text-gray-700 leading-relaxed mb-4 space-y-2">${content}</ul>`;
-      }
-    );
-    
-    processed = processed.replace(
-      /<ol[^>]*>(.*?)<\/ol>/g,
-      (match: string, content: string) => {
-        return `<ol class="list-decimal list-inside text-base text-gray-700 leading-relaxed mb-4 space-y-2">${content}</ol>`;
-      }
-    );
-    
-    // List item'ları stillendir
-    processed = processed.replace(
-      /<li[^>]*>(.*?)<\/li>/g,
-      (match: string, content: string) => {
-        return `<li class="text-base text-gray-700 leading-relaxed">${content}</li>`;
-      }
-    );
+    // Listeleri ve maddeleri çıplak bırak (tipografi global CSS ile yönetilecek)
+    processed = processed.replace(/<ul[^>]*>([\s\S]*?)<\/ul>/g, (_m: string, inner: string) => `<ul>${inner}</ul>`);
+    processed = processed.replace(/<ol[^>]*>([\s\S]*?)<\/ol>/g, (_m: string, inner: string) => `<ol>${inner}</ol>`);
+    processed = processed.replace(/<li[^>]*>([\s\S]*?)<\/li>/g, (_m: string, inner: string) => `<li>${inner}</li>`);
     
     // Linkleri stillendir
     processed = processed.replace(
@@ -369,10 +355,62 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     return processed;
   }, [content]);
 
-  // Processed content'i state'e set et
-  useEffect(() => {
-    setProcessedContent(processedContentMemo);
-  }, [processedContentMemo]);
+  // HTML sanitize fonksiyonu - useCallback ile optimize edilmiş
+  const sanitizeHtml = useCallback((html: string): string => {
+    // XSS koruması için tehlikeli tag'leri kaldır
+    return html
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+      .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
+      .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
+  }, []);
+
+  // Son HTML: tüm dönüştürmeler + sanitize
+  const finalHtml = useMemo(() => {
+    // Fonksiyon referansları aşağıda tanımlı; burada closure içinde kullanmak yerine
+    // doğrudan processedContentMemo üzerine sıralı dönüşüm uygulayacağız.
+    let html = processedContentMemo;
+    // 1) Dilekçe
+    html = html.replace(/\[dilekce title="([^"]*)"\]([\s\S]*?)\[\/dilekce\]/g, (_m, t, b) => {
+      const title = String(t || '').trim();
+      const raw = String(b || '');
+      const sig = (raw.match(/\[imza\]([\s\S]*?)\[\/imza\]/i) || [,''])[1].trim();
+      const body = raw.replace(/\[imza\][\s\S]*?\[\/imza\]/i, '');
+      return `
+        <section class="rounded-lg border border-amber-200 bg-amber-50/70 p-5 my-6 shadow-sm">
+          ${title ? `<header class="mb-4"><h4 class="text-amber-900 font-semibold text-xl text-center">${title}</h4></header>` : ''}
+          <div class="blog-content">${body}</div>
+          ${sig ? `<div class="mt-6 pt-3 border-t border-amber-200 text-right text-amber-900">${sig}</div>` : ''}
+        </section>`;
+    });
+    // 2) Info box
+    html = html.replace(/\[info title="([^"]*)"\](.*?)\[\/info\]/g, (_m, t, b) => {
+      const title = String(t || '');
+      return `<div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">${title ? `<h4 class="font-semibold text-gray-900 mb-3 text-lg">${title}</h4>` : ''}<div class="text-gray-900 leading-relaxed">${b}</div></div>`;
+    });
+    // 2b) Eski/ön işlenmiş biçim: <div class="info-box" data-title="...">...</div> -> zengin görünüme çevir
+    html = html.replace(/<div class="info-box" data-title="([^"]*)">([\s\S]*?)<\/div>/g, (_m, t, b) => {
+      const title = String(t || '');
+      return `<div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">${title ? `<h4 class=\"font-semibold text-gray-900 mb-3 text-lg\">${title}<\/h4>` : ''}<div class=\"text-gray-900 leading-relaxed\">${b}<\/div><\/div>`;
+    });
+    // 3) Span ve p normalizasyonu (regex tabanlı)
+    // Inline style'ları temizle
+    html = html.replace(/ style="[^"]*"/gi, '');
+    // <font> etiketlerini kaldır
+    html = html.replace(/<\/?font[^>]*>/gi, '');
+    // class attribute'larını KORU (özellikle dilekçe ve link sınıfları için)
+    // span'ları unwrap et (p'ye çevirmeden)
+    html = html.replace(/<span\b[^>]*>([\s\S]*?)<\/span>/gi, '$1');
+    // li içindeki <p> sarmalamasını kaldır
+    html = html.replace(/<li([^>]*)>\s*<p[^>]*>([\s\S]*?)<\/p>\s*<\/li>/gi, '<li$1>$2</li>');
+    // Boş paragrafları kaldır
+    html = html.replace(/<p[^>]*>\s*<\/p>/gi, '');
+    // Özel birleştirme: <p><strong>..</strong></p><p>, ..</p> -> tek paragraf
+    html = html.replace(/<p>\s*(<strong>[\s\S]*?<\/strong>)\s*<\/p>\s*<p>\s*,\s*([\s\S]*?)<\/p>/gi, '<p>$1, $2<\/p>');
+    // Özel birleştirme: </p><a ...>link<\/a><p>devam<\/p> -> tek paragraf
+    html = html.replace(/<p>([\s\S]*?)<\/p>\s*<a([^>]*)>([\s\S]*?)<\/a>\s*<p>([\s\S]*?)<\/p>/gi, '<p>$1 <a$2>$3<\/a> $4<\/p>');
+    return sanitizeHtml(html);
+  }, [processedContentMemo, sanitizeHtml]);
 
   // Info box'ları render et - useMemo ile optimize edilmiş
   const renderInfoBoxes = useCallback((htmlContent: string) => {
@@ -424,15 +462,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     });
   }, []);
 
-  // HTML sanitize fonksiyonu - useCallback ile optimize edilmiş
-  const sanitizeHtml = useCallback((html: string): string => {
-    // XSS koruması için tehlikeli tag'leri kaldır
-    return html
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
-      .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
-      .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
-  }, []);
+  
 
 
 
@@ -515,8 +545,8 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   return (
     <div className="text-sm text-gray-700 leading-relaxed">
       <div 
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderInfoBoxes(renderPetitions(processedContent))) }}
-        className="prose max-w-none text-justify prose-h2:text-[26px] prose-h3:text-[22px] prose-h2:font-semibold prose-h3:font-semibold prose-p:font-light prose-p:leading-[25px]"
+        dangerouslySetInnerHTML={{ __html: finalHtml }}
+        className="max-w-none blog-content"
         suppressHydrationWarning={true}
       />
       

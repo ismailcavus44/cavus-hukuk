@@ -75,13 +75,51 @@ html {
   background: #b91c1c;
 }
 
-.ankara-ceza-avukati p {
-  font-size: 16px;
+/* Blog içerik tipografisini küresel olarak normalize et */
+.blog-content p {
+  font-size: 16px !important;
+  line-height: 1.7;
   font-weight: 400;
+  margin-bottom: 1rem;
   text-align: justify;
 }
-.ankara-ceza-avukati ul,
-.ankara-ceza-avukati ol,
-.ankara-ceza-avukati li {
+.blog-content ul,
+.blog-content ol {
+  font-size: 16px !important;
+  line-height: 1.7;
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem;
+  list-style-position: outside;
   text-align: justify;
+}
+.blog-content ul { list-style-type: disc; }
+.blog-content ol { list-style-type: decimal; }
+.blog-content li {
+  font-size: 16px !important;
+  margin: 0.25rem 0;
+  text-align: justify;
+}
+
+/* Span ve inline elemanlar paragraf tipografisini bozmasın */
+.blog-content span {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* Linkler inline kalsın ve tipografiyle uyumlu olsun */
+.blog-content a {
+  color: #dc2626;
+  text-decoration: underline;
+}
+
+/* Başlıkları sabitle (içerikten gelen stilleri bastır) */
+.blog-content h2 {
+  font-size: 26px !important;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+.blog-content h3 {
+  font-size: 22px !important;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
 }

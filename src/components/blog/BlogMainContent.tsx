@@ -21,7 +21,7 @@ const BlogMainContent = React.memo(({ blogYazisi, processedContent }: BlogMainCo
   return (
     <div>
       <article 
-        className="prose max-w-none"
+        className="max-w-none blog-content"
       >
         {/* Öne Çıkan Görsel - LCP optimizasyonu için priority */}
         {blogYazisi.image && (
