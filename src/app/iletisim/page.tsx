@@ -4,7 +4,7 @@ import React from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, AlertCircle, X, Navigation } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import AIChatbot from '@/components/ui/AIChatbot';
-import { ContactPageSchema } from '@/components/seo';
+import { ContactPageSchema, LocalBusinessSchema } from '@/components/seo';
 
 const IletisimPage = React.memo(() => {
   const [formData, setFormData] = React.useState({
@@ -89,6 +89,31 @@ const IletisimPage = React.memo(() => {
         url="https://ismailcavus.av.tr/iletisim"
         name="İletişim - Çavuş Hukuk Bürosu"
         description="Çavuş Hukuk Bürosu ile iletişime geçin. Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Telefon, e-posta ve adres bilgileri."
+      />
+      
+      <LocalBusinessSchema
+        name="Çavuş Hukuk Bürosu"
+        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
+        url="https://ismailcavus.av.tr"
+        telephone="+90 505 398 99 81"
+        email="info@ismailcavus.av.tr"
+        address={{
+          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+          addressLocality: "Çankaya",
+          addressRegion: "Ankara",
+          postalCode: "06000",
+          addressCountry: "TR"
+        }}
+        geo={{
+          latitude: "39.9334",
+          longitude: "32.8597"
+        }}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        sameAs={[
+          "https://www.facebook.com/cavushukuk",
+          "https://www.linkedin.com/company/cavushukuk"
+        ]}
       />
 
 

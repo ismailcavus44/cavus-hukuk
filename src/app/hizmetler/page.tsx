@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 
 import AIChatbot from '@/components/ui/AIChatbot';
 import { hizmetler } from '@/data';
+import { ServiceCatalogSchema, BreadcrumbSchema } from '@/components/seo';
 
 export const metadata: Metadata = {
   title: 'Hizmet Alanlarımız',
@@ -54,6 +55,52 @@ export const metadata: Metadata = {
 };
 
 const HizmetlerPage = () => {
+  // Schema için data hazırla
+  const hizmetKatalogu = [
+    {
+      "@type": "Service" as const,
+      "name": "Aile Hukuku",
+      "description": "Boşanma, nafaka, velayet konularında hukuki danışmanlık",
+      "url": "https://ismailcavus.av.tr/hizmetler/aile-hukuku",
+      "serviceType": "LegalService"
+    },
+    {
+      "@type": "Service" as const, 
+      "name": "İş Hukuku",
+      "description": "İşçi-işveren uyuşmazlıkları ve iş sözleşmeleri",
+      "url": "https://ismailcavus.av.tr/hizmetler/is-hukuku",
+      "serviceType": "LegalService"
+    },
+    {
+      "@type": "Service" as const,
+      "name": "Ceza Hukuku", 
+      "description": "Ceza davaları ve hukuki savunma",
+      "url": "https://ismailcavus.av.tr/hizmetler/ceza-hukuku",
+      "serviceType": "LegalService"
+    },
+    {
+      "@type": "Service" as const,
+      "name": "İdare Hukuku", 
+      "description": "İdari işlemler ve kamu personeli hukuku",
+      "url": "https://ismailcavus.av.tr/hizmetler/idare-hukuku",
+      "serviceType": "LegalService"
+    },
+    {
+      "@type": "Service" as const,
+      "name": "Gayrimenkul Hukuku", 
+      "description": "Tapu, kat mülkiyeti ve inşaat hukuku",
+      "url": "https://ismailcavus.av.tr/hizmetler/gayrimenkul-hukuku",
+      "serviceType": "LegalService"
+    },
+    {
+      "@type": "Service" as const,
+      "name": "Tazminat Hukuku", 
+      "description": "Maddi-manevi tazminat ve sigorta davaları",
+      "url": "https://ismailcavus.av.tr/hizmetler/tazminat-hukuku",
+      "serviceType": "LegalService"
+    }
+  ];
+
   // Hizmetler verilerini useMemo ile optimize et - LCP için kritik
   const hizmetler = useMemo(() => [
     {
@@ -325,6 +372,23 @@ const HizmetlerPage = () => {
       </main>
 
       <AIChatbot />
+
+      {/* SEO Schemas */}
+      <ServiceCatalogSchema
+        name="Çavuş Hukuk Bürosu Hizmet Kataloğu"
+        description="Ankara'da sunulan hukuki hizmetlerin kapsamlı kataloğu"
+        url="https://ismailcavus.av.tr/hizmetler"
+        services={hizmetKatalogu}
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
+        }}
+      />
+      
+      <BreadcrumbSchema items={[
+        { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' },
+        { name: 'Hizmetler', url: 'https://ismailcavus.av.tr/hizmetler' }
+      ]} />
     </>
   );
 };

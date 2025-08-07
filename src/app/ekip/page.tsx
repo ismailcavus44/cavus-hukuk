@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
-import { PersonSchema } from '@/components/seo';
+import { PersonSchema, OrganizationSchema } from '@/components/seo';
 
 const EkipPage = React.memo(() => {
 
@@ -63,6 +63,32 @@ const EkipPage = React.memo(() => {
           "Boşanma Davaları",
           "Ceza Hukuku",
           "Askeri Davalar"
+        ]}
+      />
+      
+      <OrganizationSchema
+        name="Çavuş Hukuk Bürosu"
+        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
+        url="https://ismailcavus.av.tr"
+        logo="https://ismailcavus.av.tr/logo-header.png"
+        telephone="+90 505 398 99 81"
+        email="info@ismailcavus.av.tr"
+        address={{
+          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
+          addressLocality: "Çankaya",
+          addressRegion: "Ankara",
+          postalCode: "06000",
+          addressCountry: "TR"
+        }}
+        geo={{
+          latitude: "39.9334",
+          longitude: "32.8597"
+        }}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        sameAs={[
+          "https://www.facebook.com/cavushukuk",
+          "https://www.linkedin.com/company/cavushukuk"
         ]}
       />
 

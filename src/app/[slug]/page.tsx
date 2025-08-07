@@ -350,9 +350,12 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <ArticleSchema
           title={blogYazisi.title}
           description={blogYazisi.meta_description || blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
-          author={{ name: blogYazisi.author }}
-          datePublished={blogYazisi.date}
-          dateModified={blogYazisi.date}
+          author={{ 
+            name: blogYazisi.author,
+            url: 'https://ismailcavus.av.tr/ekip'
+          }}
+          datePublished={new Date(blogYazisi.date).toISOString()}
+          dateModified={new Date(blogYazisi.date).toISOString()}
           image={blogYazisi.image}
           url={`https://ismailcavus.av.tr/${blogYazisi.slug}`}
           keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((k: string) => k.trim()) : []}
