@@ -258,6 +258,17 @@ const SeoChecklist: React.FC<SeoChecklistProps> = ({ title, slug, metaTitle, met
     ];
   }, [contentHtml]);
 
+  // Toplam puan hesaplama (0-100)
+  const { score, passedCount, totalCount, scoreColor, barColor } = useMemo(() => {
+    const allChecks = [...basicChecks, ...extraChecks, ...titleReadability, ...contentReadability];
+    const total = allChecks.length;
+    const passed = allChecks.filter((c) => c.ok).length;
+    const s = total > 0 ? Math.round((passed / total) * 100) : 0;
+    const color = s >= 80 ? 'text-green-700' : s >= 50 ? 'text-yellow-700' : 'text-red-700';
+    const bar = s >= 80 ? 'bg-green-500' : s >= 50 ? 'bg-yellow-400' : 'bg-red-500';
+    return { score: s, passedCount: passed, totalCount: total, scoreColor: color, barColor: bar };
+  }, [basicChecks, extraChecks, titleReadability, contentReadability]);
+
   return (
     <div className="space-y-4">
       {/* Arama Motoru Önizlemesi */}
@@ -280,6 +291,19 @@ const SeoChecklist: React.FC<SeoChecklistProps> = ({ title, slug, metaTitle, met
           placeholder="örn: infaz erteleme"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-sm"
         />
+      </div>
+
+      {/* Ana Kontroller */}
+      {/* Puan Kartı */}
+      <div className="border rounded-md p-3 bg-white">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-semibold text-gray-900">SEO Puanı</p>
+          <p className={`text-sm font-bold ${scoreColor}`}>{score}/100</p>
+        </div>
+        <div className="mt-2 h-2 bg-gray-200 rounded">
+          <div className={`h-2 rounded ${barColor}`} style={{ width: `${score}%` }} />
+        </div>
+        <p className="mt-2 text-[11px] text-gray-500">Geçen maddeler: {passedCount}/{totalCount}</p>
       </div>
 
       {/* Ana Kontroller */}

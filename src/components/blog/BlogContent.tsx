@@ -552,53 +552,32 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       
 
       
-      {/* Accordion'ları manuel render et */}
+      {/* FAQ kutuları (anasayfadaki gibi kart) */}
       {accordionMatches.length > 0 && (
-        <div className="mb-6">
-          {accordionMatches.map((accordion) => {
-            const { id, title, content } = accordion;
-            
-            return (
-              <div key={id} id={id} className="accordion-wrapper mb-4 scroll-mt-40" itemScope itemType="https://schema.org/FAQPage">
-                <div className="accordion-item border border-gray-200 overflow-hidden group" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                  <button 
-                    className="accordion-trigger w-full px-4 py-4 text-left bg-white hover:bg-gray-50 transition-all duration-200 flex items-center justify-between focus:outline-none"
-                    data-accordion-id={id}
-                    aria-expanded="false"
-                    aria-controls={`${id}-content`}
-                    aria-labelledby={`${id}-title`}
-                    onClick={() => toggleAccordion(id)}
-                  >
-                    <h3 id={`${id}-title`} className="font-medium text-gray-900 text-base scroll-mt-40 group-hover:text-red-600 transition-colors duration-200" itemProp="name">{title}</h3>
-                    <div className="accordion-icon text-gray-400 group-hover:text-red-500 transition-all duration-200 flex items-center justify-center w-6 h-6" aria-hidden="true">
-                      <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </button>
-                                      <div 
-                      ref={(el) => {
-                        if (el) accordionRefs.current.set(`${id}-content`, el);
-                      }}
-                      id={`${id}-content`}
-                      role="region"
-                      aria-labelledby={`${id}-title`}
-                      className="accordion-content px-4 py-4 border-t border-gray-100 bg-white"
-                      style={{ display: 'none' }}
-                      itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer"
-                    >
-                      <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text">
-                        {content.split('\n').map((paragraph, index) => (
-                          <p key={index} className="mb-3 last:mb-0">
-                            {paragraph}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
+        <div className="mb-6 space-y-4 max-w-[660px] mx-auto" itemScope itemType="https://schema.org/FAQPage">
+          {accordionMatches.map(({ id, title, content }) => (
+            <article
+              key={id}
+              id={id}
+              className="border border-gray-200 rounded-none p-6 bg-white scroll-mt-40"
+              itemScope
+              itemProp="mainEntity"
+              itemType="https://schema.org/Question"
+            >
+              <h3 className="text-lg font-semibold text-gray-900 mb-3" itemProp="name">
+                {title}
+              </h3>
+              <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text">
+                  {content.split('\n').map((paragraph, index) => (
+                    <p key={index} className="mb-3 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
               </div>
-            );
-          })}
+            </article>
+          ))}
         </div>
       )}
     </div>

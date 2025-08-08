@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { supabase } from '@/lib/supabase'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://ismailcavus.av.tr'
+  const baseUrl = 'https://www.ismailcavus.av.tr'
   
   // Blog yazılarını veritabanından çek
   const { data: blogYazilari } = await supabase
@@ -161,27 +161,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   })) || []
 
-  // Admin sayfaları - Düşük öncelik
-  const adminPages = [
-    {
-      url: `${baseUrl}/admin`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.1,
-    },
-    {
-      url: `${baseUrl}/admin/login`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
-      priority: 0.1,
-    },
-  ]
-
   return [
     ...staticPages,
     ...avukatPages,
     ...hizmetPages,
     ...blogPages,
-    ...adminPages,
   ]
 } 

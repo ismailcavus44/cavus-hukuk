@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         '/private/',
       ],
     },
-    sitemap: 'https://ismailcavus.av.tr/sitemap.xml',
+    sitemap: 'https://www.ismailcavus.av.tr/sitemap.xml',
   }
 } 
