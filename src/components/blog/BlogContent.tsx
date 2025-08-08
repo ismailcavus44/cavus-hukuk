@@ -387,19 +387,17 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     html = html.replace(/\[info title="([^"]*)"\](.*?)\[\/info\]/g, (_m, t, b) => {
       const title = String(t || '');
       return `
-        <div class="info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50">
-          ${title ? `<div class="text-base font-semibold text-gray-900 mb-2">${title}</div>` : ''}
-          <div class="text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400">
-            ${b}
-          </div>
+        <div class="info-box border border-gray-200 rounded-none p-4 my-6 bg-gray-50 flex items-start gap-4">
+          ${title ? `<div class="text-base font-semibold text-gray-900 shrink-0">${title}</div>` : ''}
+          <div class="text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400">${b}</div>
         </div>`;
     });
     // 2b) Eski/ön işlenmiş biçim: <div class="info-box" data-title="...">...</div> -> zengin görünüme çevir
     html = html.replace(/<div class="info-box" data-title="([^"]*)">([\s\S]*?)<\/div>/g, (_m, t, b) => {
       const title = String(t || '');
       return `
-        <div class=\"info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50\">
-          ${title ? `<div class=\"text-base font-semibold text-gray-900 mb-2\">${title}<\/div>` : ''}
+        <div class=\"info-box border border-gray-200 rounded-none p-4 my-6 bg-gray-50 flex items-start gap-4\">
+          ${title ? `<div class=\"text-base font-semibold text-gray-900 shrink-0\">${title}<\/div>` : ''}
           <div class=\"text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400\">${b}<\/div>
         <\/div>`;
     });
@@ -432,8 +430,8 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       const [fullMatch, title, content] = match;
       
       const infoBox = `
-        <div class="info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50">
-          ${title ? `<div class="text-base font-semibold text-gray-900 mb-2">${title}</div>` : ''}
+        <div class="info-box border border-gray-200 rounded-none p-4 my-6 bg-gray-50 flex items-start gap-4">
+          ${title ? `<div class="text-base font-semibold text-gray-900 shrink-0">${title}</div>` : ''}
           <div class="text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400">${content}</div>
         </div>
       `;
