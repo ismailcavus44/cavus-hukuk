@@ -386,12 +386,22 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
     // 2) Info box
     html = html.replace(/\[info title="([^"]*)"\](.*?)\[\/info\]/g, (_m, t, b) => {
       const title = String(t || '');
-      return `<div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">${title ? `<h4 class="font-semibold text-gray-900 mb-3 text-lg">${title}</h4>` : ''}<div class="text-gray-900 leading-relaxed">${b}</div></div>`;
+      return `
+        <div class="info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50">
+          ${title ? `<div class="text-base font-semibold text-gray-900 mb-2">${title}</div>` : ''}
+          <div class="text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400">
+            ${b}
+          </div>
+        </div>`;
     });
     // 2b) Eski/ön işlenmiş biçim: <div class="info-box" data-title="...">...</div> -> zengin görünüme çevir
     html = html.replace(/<div class="info-box" data-title="([^"]*)">([\s\S]*?)<\/div>/g, (_m, t, b) => {
       const title = String(t || '');
-      return `<div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">${title ? `<h4 class=\"font-semibold text-gray-900 mb-3 text-lg\">${title}<\/h4>` : ''}<div class=\"text-gray-900 leading-relaxed\">${b}<\/div><\/div>`;
+      return `
+        <div class=\"info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50\">
+          ${title ? `<div class=\"text-base font-semibold text-gray-900 mb-2\">${title}<\/div>` : ''}
+          <div class=\"text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400\">${b}<\/div>
+        <\/div>`;
     });
     // 3) Span ve p normalizasyonu (regex tabanlı)
     // Inline style'ları temizle
@@ -422,9 +432,9 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       const [fullMatch, title, content] = match;
       
       const infoBox = `
-        <div class="info-box bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 p-6 my-8">
-          ${title ? `<h4 class="font-semibold text-gray-900 mb-3 text-lg">${title}</h4>` : ''}
-          <div class="text-gray-900 leading-relaxed [&_a]:text-blue-600 [&_a:hover]:text-blue-700">${content}</div>
+        <div class="info-box border border-gray-200 rounded-none p-5 my-6 bg-gray-50">
+          ${title ? `<div class="text-base font-semibold text-gray-900 mb-2">${title}</div>` : ''}
+          <div class="text-gray-800 leading-relaxed [&_a]:text-gray-900 [&_a]:underline [&_a]:decoration-gray-300 [&_a:hover]:text-red-700 [&_a:hover]:decoration-red-400">${content}</div>
         </div>
       `;
       result = result.replace(fullMatch, infoBox);
@@ -491,12 +501,11 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       
       let title = remainingContent.substring(titleStart, titleEnd);
       
-      // Title'daki HTML tag'lerini temizle
+      // Başlık saf metin olsun: tüm HTML etiketlerini kaldır
       title = title
-        .replace(/<span[^>]*>/g, '')
-        .replace(/<\/span>/g, '')
-        .replace(/<br\s*\/?>/g, ' ')
+        .replace(/<[^>]+>/g, '')
         .replace(/&nbsp;/g, ' ')
+        .replace(/\s+/g, ' ')
         .trim();
       
       // İçeriği bul
