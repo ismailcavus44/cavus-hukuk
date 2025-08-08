@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import FAQCards, { FAQItemData } from '@/components/ui/FAQCards';
 import { createRoot } from 'react-dom/client';
 import dynamic from 'next/dynamic';
 
@@ -481,8 +482,8 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   }, []);
 
   // Accordion matches'i hesapla - useMemo ile optimize edilmiş
-  const accordionMatches = useMemo(() => {
-    const matches = [];
+  const accordionMatches = useMemo((): FAQItemData[] => {
+    const matches: FAQItemData[] = [];
     let currentIndex = 0;
     let remainingContent = content;
     
@@ -540,7 +541,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
   useEffect(() => {
     if (onAccordionTitles && accordionMatches.length > 0) {
       const accordionTitles = accordionMatches.map((item) => ({
-        id: item.id,
+        id: item.id || '',
         title: item.title,
         level: 3 // Accordion'lar H3 seviyesinde
       }));
@@ -561,31 +562,7 @@ const BlogContent = React.memo(({ content, onAccordionTitles }: BlogContentProps
       
       {/* FAQ kutuları (anasayfadaki gibi kart) */}
       {accordionMatches.length > 0 && (
-        <div className="mb-6 space-y-4 max-w-[660px] mx-auto" itemScope itemType="https://schema.org/FAQPage">
-          {accordionMatches.map(({ id, title, content }) => (
-            <article
-              key={id}
-              id={id}
-              className="border border-gray-200 rounded-none p-6 bg-white scroll-mt-40"
-              itemScope
-              itemProp="mainEntity"
-              itemType="https://schema.org/Question"
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-3" itemProp="name">
-                {title}
-              </h3>
-              <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                <div className="text-gray-700 leading-relaxed prose prose-sm max-w-none" itemProp="text">
-                  {content.split('\n').map((paragraph, index) => (
-                    <p key={index} className="mb-3 last:mb-0">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <FAQCards items={accordionMatches} />
       )}
     </div>
   );
