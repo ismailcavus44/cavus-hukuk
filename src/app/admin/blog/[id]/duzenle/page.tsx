@@ -7,7 +7,7 @@ import { supabase, uploadImage } from '@/lib/supabase';
 import { Kategori, BlogYazisi } from '@/types/admin';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
-import BlogPreview from '@/components/admin/BlogPreview';
+import SeoChecklist from '@/components/admin/SeoChecklist';
 
 // React Quill'i dinamik olarak import et (SSR sorunlarını önlemek için)
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -37,6 +37,8 @@ const quillFormats = [
   'link', 'image'
 ];
 
+  // (Taşındı) İç link önerileri: hook'lar component içinde kullanılacak
+
 const BlogDuzenlePage = () => {
   const router = useRouter();
   const params = useParams();
@@ -57,6 +59,137 @@ const BlogDuzenlePage = () => {
     meta_description: '',
     show_on_homepage: false
   });
+
+  // İç link önerileri (component içinde)
+  type SuggestSpan = { start: number; length: number; text: string };
+  type LinkSuggestion = {
+    slug: string;
+    title: string;
+    spans: SuggestSpan[];
+  };
+  const [suggestions, setSuggestions] = useState<LinkSuggestion[]>([]);
+  const [suggestScanLoading, setSuggestScanLoading] = useState(false);
+  const [popover, setPopover] = useState<{
+    open: boolean;
+    left: number;
+    top: number;
+    candidates: Array<{ slug: string; title: string }>;
+    span?: SuggestSpan;
+  } | null>(null);
+
+  // Odak anahtar kelime (analiz içindir)
+  const [focusKeyword, setFocusKeyword] = useState<string>('');
+  useEffect(() => {
+    if (!focusKeyword) {
+      setFocusKeyword(formData.meta_title || '');
+    }
+  }, [formData.meta_title]);
+
+  const highlightSuggestions = (quill: any, items: LinkSuggestion[]) => {
+    try { quill.formatText(0, quill.getLength(), { background: false }); } catch {}
+    items.forEach(item => {
+      item.spans.forEach(({ start, length }) => {
+        try {
+          const fmt = quill.getFormat(start, length);
+          if ((fmt as any)?.link) return;
+          quill.formatText(start, length, { background: '#FEF08A' });
+        } catch {}
+      });
+    });
+
+    // selection-change ile popover
+    quill.off && quill.off('selection-change');
+    quill.on('selection-change', (range: any) => {
+      if (!range) { setPopover(null); return; }
+      const idx = range.index;
+      const hits = items
+        .map(s => ({ s, span: s.spans.find(sp => idx >= sp.start && idx < sp.start + sp.length) }))
+        .filter(x => x.span);
+      if (hits.length) {
+        const b = quill.getBounds(idx, 1);
+        const candidates = Array.from(new Map(hits.map(h => [h.s.slug, { slug: h.s.slug, title: h.s.title }])).values()).slice(0, 8);
+        setPopover({ open: true, left: b.left, top: b.top + b.height + 8, candidates, span: hits[0]!.span! });
+      } else {
+        setPopover(null);
+      }
+    });
+  };
+
+  const scanLinkSuggestions = async () => {
+    const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+    if (!quill) return;
+    try {
+      setSuggestScanLoading(true);
+      const { data: posts } = await supabase
+        .from('blog_yazilari')
+        .select('title, slug')
+        .limit(500);
+
+      const text: string = quill.getText() || '';
+      const items: LinkSuggestion[] = [];
+      const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const splitWords = (s: string) => {
+        try {
+          return s.split(/[^\p{L}\p{N}]+/gu).filter(Boolean);
+        } catch {
+          return s.split(/[^A-Za-z0-9ÇĞİIıÖŞÜçğıöşü]+/g).filter(Boolean);
+        }
+      };
+
+      (posts || [])
+        .filter((p) => p?.slug && p?.title && p.slug !== formData.slug)
+        .forEach((p) => {
+          const title: string = String(p.title);
+          const slug: string = String(p.slug);
+          const phrases = Array.from(new Set([
+            title,
+            ...splitWords(title).filter((w) => w && w.length >= 5)
+          ]));
+
+          const spans: SuggestSpan[] = [];
+          phrases.forEach((ph) => {
+            const escaped = escapeRegex(ph);
+            const pattern = new RegExp(`(?:^|[^\\p{L}\\p{N}])(${escaped})(?=([^\\p{L}\\p{N}]|$))`, 'giu');
+            let m: RegExpExecArray | null;
+            while ((m = pattern.exec(text)) !== null) {
+              const start = m.index + (m[0].length - (m[1]?.length || 0));
+              const length = m[1]?.length || 0;
+              if (length === 0) continue;
+              const fmt = quill.getFormat(start, length);
+              if (!(fmt as any)?.link) {
+                spans.push({ start, length, text: text.slice(start, start + length) });
+              }
+            }
+          });
+
+          if (spans.length) {
+            items.push({ slug, title, spans: spans.slice(0, 3) });
+          }
+        });
+
+      highlightSuggestions(quill, items);
+      setSuggestions(items);
+    } finally {
+      setSuggestScanLoading(false);
+    }
+  };
+
+  const applyLinkAt = (s: LinkSuggestion) => {
+    const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+    if (!quill) return;
+    const span = s.spans.find((sp) => {
+      const fmt = quill.getFormat(sp.start, sp.length);
+      return !(fmt as any)?.link;
+    });
+    if (!span) return;
+    quill.formatText(span.start, span.length, { background: false });
+    quill.formatText(span.start, span.length, 'link', `/${s.slug}`);
+  };
+
+  const copyLinkToClipboard = async (slug: string) => {
+    try { await navigator.clipboard.writeText(`/${slug}`); } catch {}
+    setPopover(null);
+  };
 
   // Görsel yükleme fonksiyonu
   const [showAltModal, setShowAltModal] = useState(false);
@@ -366,7 +499,7 @@ const BlogDuzenlePage = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[650px_minmax(0,1fr)] gap-8">
           {/* Sol Taraf - Form */}
           <div className="bg-white rounded-lg shadow p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -409,7 +542,7 @@ const BlogDuzenlePage = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
               İçerik *
             </label>
-                        <div className="border border-gray-300 rounded-md relative z-10">
+                <div className="border border-gray-300 rounded-md relative z-10">
               <ReactQuill
                     theme="snow"
                 value={formData.content}
@@ -419,6 +552,23 @@ const BlogDuzenlePage = () => {
                 placeholder="Blog yazısının detaylı içeriği..."
                 style={{ height: '400px', marginBottom: '40px' }}
               />
+
+                  {popover?.open && (
+                    <div
+                      style={{ left: popover.left, top: popover.top, position: 'absolute' }}
+                      className="bg-white shadow-md border border-gray-200 rounded-md p-2 w-60 text-xs"
+                    >
+                      <p className="text-[11px] text-gray-600 mb-1">Uygun bağlantılar</p>
+                      <ul className="space-y-1 max-h-56 overflow-auto">
+                        {popover.candidates.map((c, i) => (
+                          <li key={`${c.slug}-${i}`} className="flex items-center justify-between gap-2">
+                            <span className="truncate max-w-[11rem]" title={c.title}>{c.title}</span>
+                            <button type="button" onClick={() => copyLinkToClipboard(c.slug)} className="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded whitespace-nowrap">Kopyala</button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
             </div>
                 <p className="text-xs text-gray-500 mt-1">
                   Başlık, kalın, italik, maddeleme, link ve daha fazla formatlama seçeneği kullanabilirsiniz.
@@ -500,6 +650,45 @@ const BlogDuzenlePage = () => {
                   <p className="text-xs text-gray-500">
                     Özel alanlar eklemek için butonları kullanın. İçeriği düzenleyebilirsiniz.
                   </p>
+                </div>
+              </details>
+              {/* İç Link Önerileri */}
+              <details className="group mt-3">
+                <summary className="flex items-center justify-between cursor-pointer p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors">
+                  <span className="font-medium text-gray-800">🔗 İç Link Önerileri</span>
+                  <svg className="w-5 h-5 text-gray-500 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </summary>
+                <div className="mt-3 p-4 bg-white border border-gray-200 rounded-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <button type="button" onClick={scanLinkSuggestions} className="px-3 py-2 text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-md disabled:opacity-60" disabled={suggestScanLoading}>
+                      {suggestScanLoading ? 'Taranıyor...' : 'Önerileri Tara ve Vurgula'}
+                    </button>
+                    <button type="button" onClick={() => {
+                      const quill = (document.querySelector('.ql-editor')?.parentElement as any)?.__quill;
+                      if (quill) quill.formatText(0, quill.getLength(), { background: false });
+                    }} className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">
+                      Vurguyu Temizle
+                    </button>
+                  </div>
+                  {suggestions.length === 0 ? (
+                    <p className="text-sm text-gray-600">Henüz öneri yok. Taramayı başlatın.</p>
+                  ) : (
+                    <ul className="space-y-2">
+                      {suggestions.map((s, i) => (
+                        <li key={i} className="flex items-center justify-between gap-3 border rounded px-3 py-2">
+                          <div>
+                            <p className="text-sm text-gray-900"><span className="font-medium">{s.title}</span> → <span className="text-gray-600">/{s.slug}</span></p>
+                            <p className="text-xs text-gray-500">Bulunan konum sayısı: {s.spans.length}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {/* İlkini Linkle kaldırıldı */}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </details>
             </div>
@@ -719,28 +908,17 @@ const BlogDuzenlePage = () => {
         </form>
           </div>
 
-          {/* Sağ Taraf - Önizleme */}
-          <div className="lg:col-span-1">
-            <BlogPreview
+          {/* Sağ Taraf - SEO Checklist */}
+          <div className="lg:col-span-1" style={{ width: 500, maxWidth: 500 }}>
+            <SeoChecklist
               title={formData.title}
-              content={formData.content}
-              author={formData.author}
-              date={formData.date}
-              categories={formData.categories}
-              image={formData.image}
-              image_alt={formData.image_alt}
-              excerpt={formData.content
-                .replace(/<[^>]*>/g, '')
-                .replace(/\[.*?\]/g, '')
-                .replace(/&nbsp;/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim()
-                .substring(0, 200)}
-              meta_title={formData.meta_title}
-              meta_description={formData.meta_description}
               slug={formData.slug}
-              isPreviewMode={isPreviewMode}
-              onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+              metaTitle={formData.meta_title || formData.title}
+              metaDescription={formData.meta_description}
+              contentHtml={formData.content}
+              focusKeyword={focusKeyword}
+              onFocusKeywordChange={(v) => setFocusKeyword(v)}
+              imageAlt={formData.image_alt}
             />
           </div>
         </div>
