@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/ankara-icra-avukati',
+    canonical: 'https://www.ismailcavus.av.tr/ankara-icra-avukati',
   },
   other: {
     'article:section': 'Hukuki Hizmetler',

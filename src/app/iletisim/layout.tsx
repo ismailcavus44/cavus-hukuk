@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/iletisim',
+    canonical: 'https://www.ismailcavus.av.tr/iletisim',
   },
 };
 

@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
         images: blogYazisi.image ? [blogYazisi.image] : [],
       },
       alternates: {
-        canonical: `https://ismailcavus.av.tr/${params.slug}`,
+        canonical: `https://www.ismailcavus.av.tr/${params.slug}`,
       },
     };
   } catch (error) {

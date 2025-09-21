@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/ankara-trafik-kazasi-avukati',
+    canonical: 'https://www.ismailcavus.av.tr/ankara-trafik-kazasi-avukati',
   },
   other: {
     'article:section': 'Hukuki Hizmetler',

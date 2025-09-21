@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/kullanim-kosullari',
+    canonical: 'https://www.ismailcavus.av.tr/kullanim-kosullari',
   },
 };
 

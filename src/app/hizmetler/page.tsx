@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     description: 'Avukat İsmail Çavuş tarafından sunulan ceza, boşanma, iş ve ticaret hukuku alanlarındaki profesyonel avukatlık hizmetlerini hemen inceleyin.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://ismailcavus.av.tr/hizmetler',
+    url: 'https://www.ismailcavus.av.tr/hizmetler',
     siteName: 'Çavuş Hukuk Bürosu',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://www.ismailcavus.av.tr/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Çavuş Hukuk Bürosu Hizmet Alanları',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hizmet Alanlarımız - Çavuş Hukuk Bürosu',
     description: 'Avukat İsmail Çavuş tarafından sunulan ceza, boşanma, iş ve ticaret hukuku alanlarındaki profesyonel avukatlık hizmetlerini hemen inceleyin.',
-    images: ['/og-image.jpg'],
+    images: ['https://www.ismailcavus.av.tr/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/hizmetler',
+    canonical: 'https://www.ismailcavus.av.tr/hizmetler',
   },
   verification: {
     google: 'your-google-verification-code',

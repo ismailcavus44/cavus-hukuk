@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/hakkimizda',
+    canonical: 'https://www.ismailcavus.av.tr/hakkimizda',
   },
 
 };

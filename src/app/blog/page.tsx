@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Calendar, Clock, ChevronRight, FileText, ChevronLeft, User, Search, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -14,6 +15,29 @@ interface BlogPageProps {
   searchParams: {
     page?: string;
     search?: string;
+  };
+}
+
+// Dinamik canonical ve robots: search sonuçlarını noindex yap; sayfa > 1 için kendi canonical
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const currentPage = parseInt(searchParams.page || '1');
+  const searchQuery = searchParams.search || '';
+
+  // Canonical: sayfa 1 -> /blog, sayfa >1 -> /blog?page=n
+  const canonical = currentPage > 1
+    ? `https://www.ismailcavus.av.tr/blog?page=${currentPage}`
+    : 'https://www.ismailcavus.av.tr/blog';
+
+  // Arama sonuçlarını noindex, follow
+  const robots = searchQuery
+    ? { index: false, follow: true, googleBot: { index: false, follow: true } }
+    : { index: true, follow: true, googleBot: { index: true, follow: true } };
+
+  return {
+    alternates: {
+      canonical,
+    },
+    robots,
   };
 }
 

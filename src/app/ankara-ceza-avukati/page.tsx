@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/ankara-ceza-avukati',
+    canonical: 'https://www.ismailcavus.av.tr/ankara-ceza-avukati',
   },
   other: {
     'article:section': 'Hukuki Hizmetler',

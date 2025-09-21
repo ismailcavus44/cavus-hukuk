@@ -48,20 +48,20 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://ismailcavus.av.tr'),
+  metadataBase: new URL('https://www.ismailcavus.av.tr'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://ismailcavus.av.tr',
+    url: 'https://www.ismailcavus.av.tr',
     siteName: 'Çavuş Hukuk Bürosu',
     title: 'Ankara Avukat - Güvenilir Hukuki Danışmanlık',
     description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://www.ismailcavus.av.tr/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Ankara Avukat - Çavuş Hukuk Bürosu',
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Ankara Avukat - Güvenilir Hukuki Danışmanlık',
     description: 'Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri. Hukuki sorunlarınıza profesyonel çözümler için bize ulaşın.',
-    images: ['/og-image.jpg'],
+    images: ['https://www.ismailcavus.av.tr/og-image.jpg'],
   },
   robots: {
     index: true,

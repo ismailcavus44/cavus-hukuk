@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: KategoriLayoutProps): Promise
       },
     },
     alternates: {
-      canonical: `https://ismailcavus.av.tr/hizmetler/${params.kategori}`,
+      canonical: `https://www.ismailcavus.av.tr/hizmetler/${params.kategori}`,
     },
   };
 }

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ismailcavus.av.tr/ankara-bosanma-avukati',
+    canonical: 'https://www.ismailcavus.av.tr/ankara-bosanma-avukati',
   },
   other: {
     'article:section': 'Hukuki Hizmetler',
