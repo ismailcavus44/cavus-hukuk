@@ -76,10 +76,16 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.vercel.app; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-src 'self';"
           },
-          // Agresif cache headers
+          // Global seviyede Cache-Control belirlemiyoruz; sayfa bazlı ISR ile hizalanacak
+        ]
+      },
+      // Blog liste sayfası (ISR: 3600 sn) — CDN ile hizalı
+      {
+        source: '/blog',
+        headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=60'
           }
         ]
       },
@@ -99,7 +105,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=60'
           }
         ]
       },
@@ -109,7 +115,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800'
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=60'
           }
         ]
       },
