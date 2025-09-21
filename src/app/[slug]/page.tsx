@@ -333,9 +333,9 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
     
     // Breadcrumb items
     const breadcrumbItems = [
-      { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' },
-      { name: 'Blog', url: 'https://ismailcavus.av.tr/blog' },
-      { name: blogYazisi.title, url: `https://ismailcavus.av.tr/${blogYazisi.slug}` }
+      { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' },
+      { name: 'Blog', url: 'https://www.ismailcavus.av.tr/blog' },
+      { name: blogYazisi.title, url: `https://www.ismailcavus.av.tr/${blogYazisi.slug}` }
     ];
 
     return (
@@ -354,16 +354,16 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           description={blogYazisi.meta_description || blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
           author={{ 
             name: blogYazisi.author,
-            url: 'https://ismailcavus.av.tr/ekip'
+            url: 'https://www.ismailcavus.av.tr/ekip'
           }}
           datePublished={new Date(blogYazisi.date).toISOString()}
           dateModified={new Date(blogYazisi.date).toISOString()}
           image={blogYazisi.image}
-          url={`https://ismailcavus.av.tr/${blogYazisi.slug}`}
+          url={`https://www.ismailcavus.av.tr/${blogYazisi.slug}`}
           keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((k: string) => k.trim()) : []}
           publisher={{
             name: 'Çavuş Hukuk Bürosu',
-            logo: 'https://ismailcavus.av.tr/images/cavus-hukuk-logo.png'
+            logo: 'https://www.ismailcavus.av.tr/images/cavus-hukuk-logo.png'
           }}
         />
         

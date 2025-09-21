@@ -439,8 +439,8 @@ const HomePage = React.memo(() => {
       <OrganizationSchema
         name="Çavuş Hukuk Bürosu"
         description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
-        url="https://ismailcavus.av.tr"
-        logo="https://ismailcavus.av.tr/logo-header.png"
+        url="https://www.ismailcavus.av.tr"
+        logo="https://www.ismailcavus.av.tr/logo-header.png"
         telephone="+90 505 398 99 81"
         email="info@ismailcavus.av.tr"
         address={{
@@ -467,8 +467,8 @@ const HomePage = React.memo(() => {
       <WebPageSchema
         title="Ankara Avukat - Çavuş Hukuk Bürosu"
         description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
-        url="https://ismailcavus.av.tr"
-        image="https://ismailcavus.av.tr/og-image.jpg"
+        url="https://www.ismailcavus.av.tr"
+        image="https://www.ismailcavus.av.tr/og-image.jpg"
         author={{
           name: "Av. İsmail Çavuş"
         }}
@@ -479,11 +479,11 @@ const HomePage = React.memo(() => {
         datePublished="2024-01-01"
         dateModified="2024-12-19"
         breadcrumb={[
-          { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' }
+          { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' }
         ]}
         isPartOf={{
           name: 'Çavuş Hukuk Bürosu',
-          url: 'https://ismailcavus.av.tr'
+          url: 'https://www.ismailcavus.av.tr'
         }}
       />
     </>

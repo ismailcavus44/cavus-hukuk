@@ -110,10 +110,10 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
 
       {/* SearchAction Schema - Arama özelliği için */}
       <SearchActionSchema
-        url="https://ismailcavus.av.tr/blog"
+        url="https://www.ismailcavus.av.tr/blog"
         name="Çavuş Hukuk Bürosu Blog Arama"
         description="Blog yazılarında arama yapın"
-        target="https://ismailcavus.av.tr/blog"
+        target="https://www.ismailcavus.av.tr/blog"
       />
       {/* ItemList Schema - Blog yazıları listesi için */}
       <script
@@ -122,7 +122,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'ItemList',
-            '@id': 'https://ismailcavus.av.tr/blog#itemList',
+            '@id': 'https://www.ismailcavus.av.tr/blog#itemList',
             name: 'Blog Yazıları Listesi',
             description: 'Çavuş Hukuk Bürosu blog yazıları listesi',
             numberOfItems: totalPosts,
@@ -131,7 +131,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
               position: offset + index + 1,
               item: {
                 '@type': 'BlogPosting',
-                '@id': `https://ismailcavus.av.tr/blog/${yazi.slug}`,
+                '@id': `https://www.ismailcavus.av.tr/blog/${yazi.slug}`,
                 headline: yazi.title,
                 description: yazi.excerpt || yazi.content.substring(0, 160),
                 author: {
@@ -143,7 +143,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                 publisher: {
                   '@type': 'Organization',
                   name: 'Çavuş Hukuk Bürosu',
-                  url: 'https://ismailcavus.av.tr'
+                  url: 'https://www.ismailcavus.av.tr'
                 },
                 ...(yazi.image && {
                   image: {
@@ -152,7 +152,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                     alt: yazi.image_alt || yazi.title
                   }
                 }),
-                url: `https://ismailcavus.av.tr/blog/${yazi.slug}`
+                url: `https://www.ismailcavus.av.tr/blog/${yazi.slug}`
               }
             }))
           })

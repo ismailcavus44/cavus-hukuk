@@ -330,8 +330,8 @@ const HizmetlerPage = () => {
       {/* SEO Schemas */}
       
       <BreadcrumbSchema items={[
-        { name: 'Ana Sayfa', url: 'https://ismailcavus.av.tr' },
-        { name: 'Hizmetler', url: 'https://ismailcavus.av.tr/hizmetler' }
+        { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' },
+        { name: 'Hizmetler', url: 'https://www.ismailcavus.av.tr/hizmetler' }
       ]} />
     </>
   );
