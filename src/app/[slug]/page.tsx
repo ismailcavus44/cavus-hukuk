@@ -21,9 +21,11 @@ import OptimizedImage from '@/components/ui/OptimizedImage';
 import AIChatbot from '@/components/ui/AIChatbot';
 import AvukatBilgiKarti from '@/components/ui/AvukatBilgiKarti';
 
+// Deploy: küçük yorum - Vercel yeniden yayın tetikleyici
 
 
-// Critical preload için Head component
+// Critical preload için Head component1
+// Critical preload için Head component1
 const CriticalPreload = ({ blogYazisi }: { blogYazisi: BlogYazisi }) => (
   <>
     {/* Blog öne çıkan görsel preload - LCP için kritik */}
