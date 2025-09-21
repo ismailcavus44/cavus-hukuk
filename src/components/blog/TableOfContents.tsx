@@ -106,7 +106,8 @@ const TableOfContents = React.memo(({ content, accordionTitles = [] }: TableOfCo
   }
 
   return (
-    <div className="border border-gray-200 min-w-[280px] lg:min-w-[280px] w-[375px]">
+    <div className="border border-gray-200 w-full lg:min-w-[280px] lg:w-[375px]">
+    <div className="border border-gray-200 w-full lg:min-w-[280px] lg:w-[375px]">
               <button
           onClick={handleToggle}
           className="w-full p-4 lg:p-6 flex items-center justify-between text-base font-medium text-gray-900 hover:bg-gray-100 transition-colors"

@@ -7,12 +7,7 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Koyu modu devre dışı: Android cihazlarda kontrast sorunlarını önlemek için varsayılan açık tema kullanılır */
 
 /* Font loading optimizasyonları */
 .fonts-loading {
