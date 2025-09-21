@@ -125,7 +125,7 @@ export default function RootLayout({
         {/* SEO şemaları artık sayfa bazında ekleniyor */}
 
         <Header />
-        <main className="pt-32 lg:pt-40">{children}</main>
+        <main className="pt-24 sm:pt-28 lg:pt-40">{children}</main>
         <Footer />
         <MobileCTA />
         
