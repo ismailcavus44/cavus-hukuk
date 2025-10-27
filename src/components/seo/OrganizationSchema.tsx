@@ -6,7 +6,7 @@ interface OrganizationSchemaProps {
   name: string;
   description: string;
   url: string;
-  logo: string;
+  logo?: string;
   telephone: string;
   email: string;
   address: {
