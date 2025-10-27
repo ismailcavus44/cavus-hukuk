@@ -6,7 +6,8 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 
 import AIChatbot from '@/components/ui/AIChatbot';
 import { hizmetler } from '@/data';
-import { BreadcrumbSchema } from '@/components/seo';
+import { BreadcrumbSchema, WebPageSchema, ServiceCatalogSchema } from '@/components/seo';
+import { BASE_URL, ORG_NAME } from '@/components/seo/constants';
 
 export const metadata: Metadata = {
   title: 'Hizmet Alanlarımız',
@@ -328,11 +329,33 @@ const HizmetlerPage = () => {
       <AIChatbot />
 
       {/* SEO Schemas */}
-      
+      <WebPageSchema
+        title="Hizmet Alanlarımız"
+        description="Avukat İsmail Çavuş tarafından sunulan ceza, boşanma, iş ve ticaret hukuku alanlarındaki profesyonel avukatlık hizmetlerini hemen inceleyin."
+        url={`${BASE_URL}/hizmetler`}
+      />
+
       <BreadcrumbSchema items={[
-        { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' },
-        { name: 'Hizmetler', url: 'https://www.ismailcavus.av.tr/hizmetler' }
+        { name: 'Ana Sayfa', url: BASE_URL },
+        { name: 'Hizmetler', url: `${BASE_URL}/hizmetler` }
       ]} />
+
+      <ServiceCatalogSchema
+        name={`${ORG_NAME} Hizmet Kataloğu`}
+        description="Ankara'da sunulan hukuki hizmetler"
+        url={`${BASE_URL}/hizmetler`}
+        services={hizmetler.map(hizmet => ({
+          '@type': 'Service' as const,
+          name: hizmet.baslik,
+          description: hizmet.aciklama,
+          url: `${BASE_URL}${hizmet.link}`,
+          serviceType: 'LegalService'
+        }))}
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
+        }}
+      />
     </>
   );
 };

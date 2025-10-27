@@ -11,11 +11,13 @@ interface ArticleSchemaProps {
   author?: {
     name: string
     url?: string
-  }
+    id?: string
+  } | string
   publisher?: {
     name: string
     logo?: string
-  }
+    id?: string
+  } | string
   datePublished?: string
   dateModified?: string
   articleSection?: string
@@ -46,18 +48,26 @@ export default function ArticleSchema({
     url,
     ...(image && { image }),
     ...(author && {
-      author: {
-        '@type': 'Person',
-        name: author.name,
-        ...(author.url && { url: author.url })
-      }
+      author: typeof author === 'string'
+        ? { '@id': author }
+        : author.id
+        ? { '@id': author.id }
+        : {
+            '@type': 'Person',
+            name: author.name,
+            ...(author.url && { url: author.url })
+          }
     }),
     ...(publisher && {
-      publisher: {
-        '@type': 'Organization',
-        name: publisher.name,
-        ...(publisher.logo && { logo: publisher.logo })
-      }
+      publisher: typeof publisher === 'string'
+        ? { '@id': publisher }
+        : publisher.id
+        ? { '@id': publisher.id }
+        : {
+            '@type': 'Organization',
+            name: publisher.name,
+            ...(publisher.logo && { logo: publisher.logo })
+          }
     }),
     ...(datePublished && { datePublished }),
     ...(dateModified && { dateModified }),

@@ -13,7 +13,8 @@ import {
 } from 'lucide-react';
 import { supabase, cachedQuery } from '@/lib/supabase';
 import { BlogYazisi } from '@/types';
-import { BreadcrumbSchema, ArticleSchema } from '@/components/seo';
+import { BreadcrumbSchema, ArticleSchema, WebPageSchema } from '@/components/seo';
+import { BASE_URL, IDS } from '@/components/seo/constants';
 import TableOfContents from '@/components/blog/TableOfContents';
 import BlogMainContent from '@/components/blog/BlogMainContent';
 import Breadcrumb from '@/components/ui/Breadcrumb';
@@ -333,9 +334,9 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
     
     // Breadcrumb items
     const breadcrumbItems = [
-      { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' },
-      { name: 'Blog', url: 'https://www.ismailcavus.av.tr/blog' },
-      { name: blogYazisi.title, url: `https://www.ismailcavus.av.tr/${blogYazisi.slug}` }
+      { name: 'Ana Sayfa', url: BASE_URL },
+      { name: 'Blog', url: `${BASE_URL}/blog` },
+      { name: blogYazisi.title, url: `${BASE_URL}/${blogYazisi.slug}` }
     ];
 
     return (
@@ -345,26 +346,29 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         
 
         
-        {/* Breadcrumb Schema */}
+        {/* SEO Schemas */}
+        <WebPageSchema
+          title={blogYazisi.meta_title || blogYazisi.title}
+          description={blogYazisi.meta_description || blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
+          url={`${BASE_URL}/${blogYazisi.slug}`}
+          image={blogYazisi.image}
+          datePublished={blogYazisi.date}
+          dateModified={blogYazisi.date}
+        />
+
         <BreadcrumbSchema items={breadcrumbItems} />
         
-        {/* Article Schema */}
         <ArticleSchema
           title={blogYazisi.title}
           description={blogYazisi.meta_description || blogYazisi.excerpt || blogYazisi.content.substring(0, 160)}
-          author={{ 
-            name: blogYazisi.author,
-            url: 'https://www.ismailcavus.av.tr/ekip'
-          }}
+          author={IDS.person}
           datePublished={new Date(blogYazisi.date).toISOString()}
           dateModified={new Date(blogYazisi.date).toISOString()}
           image={blogYazisi.image}
-          url={`https://www.ismailcavus.av.tr/${blogYazisi.slug}`}
+          url={`${BASE_URL}/${blogYazisi.slug}`}
           keywords={blogYazisi.categories ? blogYazisi.categories.split(',').map((k: string) => k.trim()) : []}
-          publisher={{
-            name: 'Çavuş Hukuk Bürosu',
-            logo: 'https://www.ismailcavus.av.tr/images/cavus-hukuk-logo.png'
-          }}
+          articleSection={blogYazisi.categories?.split(',')[0]?.trim()}
+          publisher={IDS.local}
         />
         
         <div className="min-h-screen bg-white">

@@ -34,7 +34,29 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { hizmetler } from '@/data';
-import { OrganizationSchema, WebPageSchema } from '@/components/seo';
+import { 
+  OrganizationSchema, 
+  WebPageSchema, 
+  SearchActionSchema, 
+  LocalBusinessSchema, 
+  PersonSchema, 
+  ServiceCatalogSchema 
+} from '@/components/seo';
+import { 
+  BASE_URL, 
+  ORG_NAME, 
+  PERSON_NAME, 
+  PHONE, 
+  EMAIL, 
+  ADDRESS, 
+  GEO, 
+  MAP_URL, 
+  SOCIALS, 
+  KNOWS_ABOUT, 
+  IDS, 
+  LOGO_PATH, 
+  PERSON_IMG_PATH 
+} from '@/components/seo/constants';
 
 export const metadata: Metadata = {
   title: 'Av. İsmail Çavuş - Ankara Avukat',
@@ -435,55 +457,86 @@ const HomePage = React.memo(() => {
 
       <AIChatbot />
 
-      {/* SEO Schemas - Sadece ana sayfada */}
-      <OrganizationSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
-        url="https://www.ismailcavus.av.tr"
-        logo="https://www.ismailcavus.av.tr/logo-header.png"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06000",
-          addressCountry: "TR"
-        }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavushukuk"
-        ]}
-      />
-
-
-
+      {/* SEO Schemas - Ana sayfa */}
       <WebPageSchema
         title="Ankara Avukat - Çavuş Hukuk Bürosu"
         description="Ankara Avukat Av. İsmail Çavuş: Boşanma, ceza, ticaret, gayrimenkul hukuku alanlarında uzman hukuki danışmanlık ve avukatlık hizmetleri."
-        url="https://www.ismailcavus.av.tr"
-        image="https://www.ismailcavus.av.tr/og-image.jpg"
-        author={{
-          name: "Av. İsmail Çavuş"
-        }}
-        publisher={{
-          name: "Çavuş Hukuk Bürosu",
-          logo: "https://ismailcavus.av.tr/logo-header.png"
-        }}
+        url={BASE_URL}
+        image={`${BASE_URL}/og-image.jpg`}
         datePublished="2024-01-01"
         dateModified="2024-12-19"
         breadcrumb={[
-          { name: 'Ana Sayfa', url: 'https://www.ismailcavus.av.tr' }
+          { name: 'Ana Sayfa', url: BASE_URL }
         ]}
         isPartOf={{
-          name: 'Çavuş Hukuk Bürosu',
-          url: 'https://www.ismailcavus.av.tr'
+          name: ORG_NAME,
+          url: BASE_URL
+        }}
+      />
+
+      <SearchActionSchema
+        url={BASE_URL}
+        name={ORG_NAME}
+        description="Ankara avukat ve hukuki danışmanlık hizmetleri"
+        target={`${BASE_URL}/blog`}
+      />
+
+      <OrganizationSchema
+        name={ORG_NAME}
+        description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
+        url={BASE_URL}
+        logo={LOGO_PATH ? `${BASE_URL}${LOGO_PATH}` : undefined}
+        telephone={PHONE}
+        email={EMAIL}
+        address={ADDRESS}
+        geo={GEO}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        sameAs={SOCIALS}
+      />
+
+      <LocalBusinessSchema
+        name={ORG_NAME}
+        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
+        url={BASE_URL}
+        telephone={PHONE}
+        email={EMAIL}
+        address={ADDRESS}
+        geo={GEO}
+        openingHours="Mo-Fr 09:00-18:00"
+        priceRange="$$"
+        sameAs={SOCIALS}
+        serviceType="LegalService"
+      />
+
+      <PersonSchema
+        id={IDS.person}
+        name={PERSON_NAME}
+        jobTitle="Avukat"
+        image={PERSON_IMG_PATH ? `${BASE_URL}${PERSON_IMG_PATH}` : undefined}
+        worksFor={IDS.local}
+        address={{
+          addressLocality: ADDRESS.addressLocality,
+          addressCountry: ADDRESS.addressCountry
+        }}
+        knowsAbout={KNOWS_ABOUT}
+        sameAs={SOCIALS}
+      />
+
+      <ServiceCatalogSchema
+        name={`${ORG_NAME} Hizmet Kataloğu`}
+        description="Ankara'da sunulan hukuki hizmetler"
+        url={`${BASE_URL}/hizmetler`}
+        services={yeniHizmetler.map(hizmet => ({
+          '@type': 'Service' as const,
+          name: hizmet.baslik,
+          description: hizmet.aciklama,
+          url: `${BASE_URL}${hizmet.link}`,
+          serviceType: 'LegalService'
+        }))}
+        areaServed={{
+          '@type': 'City',
+          name: 'Ankara'
         }}
       />
     </>

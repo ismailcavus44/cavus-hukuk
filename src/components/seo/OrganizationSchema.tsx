@@ -45,7 +45,7 @@ const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
     "name": name,
     "description": description,
     "url": url,
-    "logo": logo,
+    ...(logo && { "logo": logo }),
     "telephone": telephone,
     "email": email,
     "address": {

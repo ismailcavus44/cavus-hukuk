@@ -10,7 +10,7 @@ interface PersonSchemaProps {
   worksFor?: {
     name: string
     type?: string
-  }
+  } | string
   alumniOf?: {
     name: string
     type?: string
@@ -20,19 +20,26 @@ interface PersonSchemaProps {
     addressCountry: string
   }
   knowsAbout?: string[]
+  id?: string
+  image?: string
+  sameAs?: string[]
 }
 
-export default function PersonSchema({ name, jobTitle, worksFor, alumniOf, address, knowsAbout }: PersonSchemaProps) {
+export default function PersonSchema({ name, jobTitle, worksFor, alumniOf, address, knowsAbout, id, image, sameAs }: PersonSchemaProps) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    ...(id && { '@id': id }),
     name,
     jobTitle,
+    ...(image && { image }),
     ...(worksFor && {
-      worksFor: {
-        '@type': worksFor.type || 'Organization',
-        name: worksFor.name
-      }
+      worksFor: typeof worksFor === 'string' 
+        ? { '@id': worksFor }
+        : {
+            '@type': worksFor.type || 'Organization',
+            name: worksFor.name
+          }
     }),
     ...(alumniOf && {
       alumniOf: {
@@ -46,7 +53,8 @@ export default function PersonSchema({ name, jobTitle, worksFor, alumniOf, addre
         ...address
       }
     }),
-    ...(knowsAbout && { knowsAbout })
+    ...(knowsAbout && { knowsAbout }),
+    ...(sameAs && { sameAs })
   }
   return <StructuredData data={data} />
 } 

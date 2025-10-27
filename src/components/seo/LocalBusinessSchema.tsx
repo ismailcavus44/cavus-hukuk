@@ -46,12 +46,13 @@ const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `${url}#localBusiness`,
+    "@id": `${url}#local`,
     "name": name,
     "description": description,
     "url": url,
     "telephone": telephone,
     "email": email,
+    "hasMap": `https://maps.app.goo.gl/Wf66FPCrdRhPqjXQ6`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": address.streetAddress,

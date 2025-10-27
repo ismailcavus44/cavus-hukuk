@@ -4,7 +4,8 @@ import React from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, AlertCircle, X, Navigation } from 'lucide-react';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import AIChatbot from '@/components/ui/AIChatbot';
-import { ContactPageSchema, LocalBusinessSchema } from '@/components/seo';
+import { WebPageSchema, BreadcrumbSchema, OrganizationSchema, LocalBusinessSchema } from '@/components/seo';
+import { BASE_URL, ORG_NAME, PHONE, EMAIL, ADDRESS, GEO, SOCIALS, IDS, LOGO_PATH } from '@/components/seo/constants';
 
 const IletisimPage = React.memo(() => {
   const [formData, setFormData] = React.useState({
@@ -84,36 +85,31 @@ const IletisimPage = React.memo(() => {
 
   return (
     <>
-      {/* ContactPage ve LocalBusiness Schema */}
-      <ContactPageSchema
-        url="https://ismailcavus.av.tr/iletisim"
-        name="İletişim - Çavuş Hukuk Bürosu"
+      {/* SEO Schemas */}
+      <WebPageSchema
+        title="İletişim - Çavuş Hukuk Bürosu"
         description="Çavuş Hukuk Bürosu ile iletişime geçin. Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Telefon, e-posta ve adres bilgileri."
+        url={`${BASE_URL}/iletisim`}
       />
-      
-      <LocalBusinessSchema
-        name="Çavuş Hukuk Bürosu"
-        description="Ankara'da hukuki danışmanlık ve avukatlık hizmetleri"
-        url="https://ismailcavus.av.tr"
-        telephone="+90 505 398 99 81"
-        email="info@ismailcavus.av.tr"
-        address={{
-          streetAddress: "Korkutreis Mahallesi Cihan Sokak No:12/8",
-          addressLocality: "Çankaya",
-          addressRegion: "Ankara",
-          postalCode: "06000",
-          addressCountry: "TR"
+
+      <BreadcrumbSchema items={[
+        { name: 'Ana Sayfa', url: BASE_URL },
+        { name: 'İletişim', url: `${BASE_URL}/iletisim` }
+      ]} />
+
+      {/* Sadece @id referansları - Ana sayfada tanımlı entity'leri referansla */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            url: `${BASE_URL}/iletisim`,
+            mainEntity: {
+              '@id': IDS.local
+            }
+          })
         }}
-        geo={{
-          latitude: "39.9334",
-          longitude: "32.8597"
-        }}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
-        sameAs={[
-          "https://www.facebook.com/cavushukuk",
-          "https://www.linkedin.com/company/cavushukuk"
-        ]}
       />
 
 

@@ -6,7 +6,8 @@ import { supabase } from '@/lib/supabase';
 import { BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
-import { SearchActionSchema } from '@/components/seo';
+import { WebPageSchema, BreadcrumbSchema, SearchActionSchema } from '@/components/seo';
+import { BASE_URL, IDS } from '@/components/seo/constants';
 
 // ISR ayarları - 1 saatte bir güncelleme
 export const revalidate = 3600;
@@ -108,13 +109,25 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
   return (
     <>
 
-      {/* SearchAction Schema - Arama özelliği için */}
+      {/* SEO Schemas */}
+      <WebPageSchema
+        title="Blog - Çavuş Hukuk Bürosu"
+        description="Hukuki konularda güncel yazılarımızı ve uzman görüşlerimizi keşfedin."
+        url={`${BASE_URL}/blog`}
+      />
+
+      <BreadcrumbSchema items={[
+        { name: 'Ana Sayfa', url: BASE_URL },
+        { name: 'Blog', url: `${BASE_URL}/blog` }
+      ]} />
+
       <SearchActionSchema
-        url="https://www.ismailcavus.av.tr/blog"
+        url={`${BASE_URL}/blog`}
         name="Çavuş Hukuk Bürosu Blog Arama"
         description="Blog yazılarında arama yapın"
-        target="https://www.ismailcavus.av.tr/blog"
+        target={`${BASE_URL}/blog`}
       />
+
       {/* ItemList Schema - Blog yazıları listesi için */}
       <script
         type="application/ld+json"
@@ -122,7 +135,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'ItemList',
-            '@id': 'https://www.ismailcavus.av.tr/blog#itemList',
+            '@id': `${BASE_URL}/blog#itemList`,
             name: 'Blog Yazıları Listesi',
             description: 'Çavuş Hukuk Bürosu blog yazıları listesi',
             numberOfItems: totalPosts,
@@ -131,19 +144,16 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
               position: offset + index + 1,
               item: {
                 '@type': 'BlogPosting',
-                '@id': `https://www.ismailcavus.av.tr/blog/${yazi.slug}`,
+                '@id': `${BASE_URL}/${yazi.slug}`,
                 headline: yazi.title,
                 description: yazi.excerpt || yazi.content.substring(0, 160),
                 author: {
-                  '@type': 'Person',
-                  name: yazi.author
+                  '@id': IDS.person
                 },
                 datePublished: yazi.date,
                 dateModified: yazi.date,
                 publisher: {
-                  '@type': 'Organization',
-                  name: 'Çavuş Hukuk Bürosu',
-                  url: 'https://www.ismailcavus.av.tr'
+                  '@id': IDS.local
                 },
                 ...(yazi.image && {
                   image: {
@@ -152,7 +162,7 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
                     alt: yazi.image_alt || yazi.title
                   }
                 }),
-                url: `https://www.ismailcavus.av.tr/blog/${yazi.slug}`
+                url: `${BASE_URL}/${yazi.slug}`
               }
             }))
           })
