@@ -6,8 +6,8 @@ import { supabase } from '@/lib/supabase';
 import { BlogYazisi } from '@/types/admin';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import OptimizedImage from '@/components/ui/OptimizedImage';
-import { WebPageSchema, BreadcrumbSchema, SearchActionSchema } from '@/components/seo';
-import { BASE_URL, IDS } from '@/components/seo/constants';
+import { WebPageSchema, BreadcrumbSchema, SearchActionSchema, BlogSchema } from '@/components/seo';
+import { BASE_URL, IDS, ORG_NAME } from '@/components/seo/constants';
 
 // ISR ayarları - 1 saatte bir güncelleme
 export const revalidate = 3600;
@@ -114,18 +114,31 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
         title="Blog - Çavuş Hukuk Bürosu"
         description="Hukuki konularda güncel yazılarımızı ve uzman görüşlerimizi keşfedin."
         url={`${BASE_URL}/blog`}
+        isPartOf={IDS.website}
+        about={IDS.organization}
+        breadcrumbId={`${BASE_URL}/blog#breadcrumb`}
       />
 
-      <BreadcrumbSchema items={[
-        { name: 'Ana Sayfa', url: BASE_URL },
-        { name: 'Blog', url: `${BASE_URL}/blog` }
-      ]} />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Ana Sayfa', url: BASE_URL },
+          { name: 'Blog', url: `${BASE_URL}/blog` }
+        ]}
+        url={`${BASE_URL}/blog`}
+      />
 
       <SearchActionSchema
         url={`${BASE_URL}/blog`}
         name="Çavuş Hukuk Bürosu Blog Arama"
         description="Blog yazılarında arama yapın"
         target={`${BASE_URL}/blog`}
+      />
+
+      <BlogSchema
+        url={`${BASE_URL}/blog`}
+        name="Çavuş Hukuk Bürosu Blog"
+        description="Hukuki konularda güncel yazılar ve uzman görüşleri"
+        publisherId={IDS.local}
       />
 
       {/* ItemList Schema - Blog yazıları listesi için */}

@@ -8,24 +8,19 @@ interface BlogSchemaProps {
   url: string
   name: string
   description: string
-  publisher: {
-    name: string
-    url: string
-  }
+  publisherId: string
 }
 
-export default function BlogSchema({ url, name, description, publisher }: BlogSchemaProps) {
+export default function BlogSchema({ url, name, description, publisherId }: BlogSchemaProps) {
   const data = {
     '@context': 'https://schema.org',
-    '@type': 'Blog',
+    '@type': 'CollectionPage',
     '@id': `${url}#blog`,
     url,
     name,
     description,
     publisher: {
-      '@type': 'Organization',
-      name: publisher.name,
-      url: publisher.url
+      '@id': publisherId
     }
   }
   return <StructuredData data={data} />

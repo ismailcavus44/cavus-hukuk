@@ -90,12 +90,18 @@ const IletisimPage = React.memo(() => {
         title="İletişim - Çavuş Hukuk Bürosu"
         description="Çavuş Hukuk Bürosu ile iletişime geçin. Ankara'da avukatlık ve hukuki danışmanlık hizmetleri. Telefon, e-posta ve adres bilgileri."
         url={`${BASE_URL}/iletisim`}
+        isPartOf={IDS.website}
+        about={IDS.organization}
+        breadcrumbId={`${BASE_URL}/iletisim#breadcrumb`}
       />
 
-      <BreadcrumbSchema items={[
-        { name: 'Ana Sayfa', url: BASE_URL },
-        { name: 'İletişim', url: `${BASE_URL}/iletisim` }
-      ]} />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Ana Sayfa', url: BASE_URL },
+          { name: 'İletişim', url: `${BASE_URL}/iletisim` }
+        ]}
+        url={`${BASE_URL}/iletisim`}
+      />
 
       {/* Sadece @id referansları - Ana sayfada tanımlı entity'leri referansla */}
       <script

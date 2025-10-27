@@ -15,14 +15,18 @@ export default function SearchActionSchema({ url, name, description, target }: S
   const data = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${url}#website`,
     url: url,
     name: name,
     description: description,
+    publisher: {
+      '@id': `${url}#organization`
+    },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${url}?search={search_term_string}`
+        urlTemplate: `${target}?q={search_term_string}`
       },
       'query-input': 'required name=search_term_string'
     }

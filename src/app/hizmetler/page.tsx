@@ -7,7 +7,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 import AIChatbot from '@/components/ui/AIChatbot';
 import { hizmetler } from '@/data';
 import { BreadcrumbSchema, WebPageSchema, ServiceCatalogSchema } from '@/components/seo';
-import { BASE_URL, ORG_NAME } from '@/components/seo/constants';
+import { BASE_URL, ORG_NAME, IDS } from '@/components/seo/constants';
 
 export const metadata: Metadata = {
   title: 'Hizmet Alanlarımız',
@@ -333,28 +333,57 @@ const HizmetlerPage = () => {
         title="Hizmet Alanlarımız"
         description="Avukat İsmail Çavuş tarafından sunulan ceza, boşanma, iş ve ticaret hukuku alanlarındaki profesyonel avukatlık hizmetlerini hemen inceleyin."
         url={`${BASE_URL}/hizmetler`}
+        isPartOf={IDS.website}
+        about={IDS.organization}
+        breadcrumbId={`${BASE_URL}/hizmetler#breadcrumb`}
       />
 
-      <BreadcrumbSchema items={[
-        { name: 'Ana Sayfa', url: BASE_URL },
-        { name: 'Hizmetler', url: `${BASE_URL}/hizmetler` }
-      ]} />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Ana Sayfa', url: BASE_URL },
+          { name: 'Hizmetler', url: `${BASE_URL}/hizmetler` }
+        ]}
+        url={`${BASE_URL}/hizmetler`}
+      />
 
       <ServiceCatalogSchema
         name={`${ORG_NAME} Hizmet Kataloğu`}
         description="Ankara'da sunulan hukuki hizmetler"
         url={`${BASE_URL}/hizmetler`}
-        services={hizmetler.map(hizmet => ({
-          '@type': 'Service' as const,
-          name: hizmet.baslik,
-          description: hizmet.aciklama,
-          url: `${BASE_URL}${hizmet.link}`,
-          serviceType: 'LegalService'
-        }))}
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
+        services={[
+          {
+            '@type': 'Service' as const,
+            name: 'Trafik Değer Kaybı',
+            description: 'Araç değer kaybı tazminatı ve sigorta tahkim süreçleri',
+            serviceType: 'Trafik Değer Kaybı',
+            alternateName: 'Araç değer kaybı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'Trafik Kazası Tazminat (Yaralamalı-Ölümlü)',
+            description: 'Yaralamalı ve ölümlü trafik kazası tazminat davaları',
+            serviceType: 'Trafik Kazası Tazminatı',
+            alternateName: 'Yaralamalı-Ölümlü Trafik Kazası Tazminatı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'İş Kazası',
+            description: 'İş kazası tazminatı ve SGK süreçleri',
+            serviceType: 'İş Kazası',
+            alternateName: 'İş Kazası Tazminatı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'Ceza Hukuku',
+            description: 'Soruşturma ve kovuşturma süreçlerinde savunma',
+            serviceType: 'Ceza Hukuku',
+            alternateName: 'Soruşturma/Kovuşturma Savunması',
+            providerId: IDS.local
+          }
+        ]}
       />
     </>
   );

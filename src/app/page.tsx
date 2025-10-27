@@ -465,20 +465,15 @@ const HomePage = React.memo(() => {
         image={`${BASE_URL}/og-image.jpg`}
         datePublished="2024-01-01"
         dateModified="2024-12-19"
-        breadcrumb={[
-          { name: 'Ana Sayfa', url: BASE_URL }
-        ]}
-        isPartOf={{
-          name: ORG_NAME,
-          url: BASE_URL
-        }}
+        isPartOf={IDS.website}
+        about={IDS.organization}
       />
 
       <SearchActionSchema
         url={BASE_URL}
         name={ORG_NAME}
         description="Ankara avukat ve hukuki danışmanlık hizmetleri"
-        target={`${BASE_URL}/blog`}
+        target={`${BASE_URL}/search`}
       />
 
       <OrganizationSchema
@@ -486,12 +481,6 @@ const HomePage = React.memo(() => {
         description="Ankara'da 20 yılı aşkın deneyimimizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık hizmeti sunuyoruz."
         url={BASE_URL}
         logo={LOGO_PATH ? `${BASE_URL}${LOGO_PATH}` : undefined}
-        telephone={PHONE}
-        email={EMAIL}
-        address={ADDRESS}
-        geo={GEO}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
         sameAs={SOCIALS}
       />
 
@@ -503,10 +492,8 @@ const HomePage = React.memo(() => {
         email={EMAIL}
         address={ADDRESS}
         geo={GEO}
-        openingHours="Mo-Fr 09:00-18:00"
-        priceRange="$$"
+        hasMap={MAP_URL}
         sameAs={SOCIALS}
-        serviceType="LegalService"
       />
 
       <PersonSchema
@@ -527,17 +514,40 @@ const HomePage = React.memo(() => {
         name={`${ORG_NAME} Hizmet Kataloğu`}
         description="Ankara'da sunulan hukuki hizmetler"
         url={`${BASE_URL}/hizmetler`}
-        services={yeniHizmetler.map(hizmet => ({
-          '@type': 'Service' as const,
-          name: hizmet.baslik,
-          description: hizmet.aciklama,
-          url: `${BASE_URL}${hizmet.link}`,
-          serviceType: 'LegalService'
-        }))}
-        areaServed={{
-          '@type': 'City',
-          name: 'Ankara'
-        }}
+        services={[
+          {
+            '@type': 'Service' as const,
+            name: 'Trafik Değer Kaybı',
+            description: 'Araç değer kaybı tazminatı ve sigorta tahkim süreçleri',
+            serviceType: 'Trafik Değer Kaybı',
+            alternateName: 'Araç değer kaybı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'Trafik Kazası Tazminat (Yaralamalı-Ölümlü)',
+            description: 'Yaralamalı ve ölümlü trafik kazası tazminat davaları',
+            serviceType: 'Trafik Kazası Tazminatı',
+            alternateName: 'Yaralamalı-Ölümlü Trafik Kazası Tazminatı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'İş Kazası',
+            description: 'İş kazası tazminatı ve SGK süreçleri',
+            serviceType: 'İş Kazası',
+            alternateName: 'İş Kazası Tazminatı',
+            providerId: IDS.local
+          },
+          {
+            '@type': 'Service' as const,
+            name: 'Ceza Hukuku',
+            description: 'Soruşturma ve kovuşturma süreçlerinde savunma',
+            serviceType: 'Ceza Hukuku',
+            alternateName: 'Soruşturma/Kovuşturma Savunması',
+            providerId: IDS.local
+          }
+        ]}
       />
     </>
   );

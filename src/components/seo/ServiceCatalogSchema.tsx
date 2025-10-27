@@ -7,8 +7,10 @@ interface ServiceItem {
   '@type': 'Service'
   name: string
   description: string
-  url: string
+  url?: string
   serviceType: string
+  alternateName?: string
+  providerId: string
 }
 
 interface ServiceCatalogSchemaProps {
@@ -16,41 +18,40 @@ interface ServiceCatalogSchemaProps {
   description: string
   url: string
   services: ServiceItem[]
-  areaServed?: {
-    '@type': string
-    name: string
-  }
 }
 
 export default function ServiceCatalogSchema({
   name,
   description,
   url,
-  services,
-  areaServed
+  services
 }: ServiceCatalogSchemaProps) {
   const serviceCatalogData = {
     '@context': 'https://schema.org',
-    '@type': 'ServiceCatalog',
+    '@type': 'ItemList',
     name,
     description,
     url,
-    ...(areaServed && { areaServed }),
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: `${name} Hizmet Kataloğu`,
-      itemListElement: services.map((service, index) => ({
-        '@type': 'Offer',
-        position: index + 1,
-        itemOffered: {
-          '@type': service['@type'],
-          name: service.name,
-          description: service.description,
-          url: service.url,
-          serviceType: service.serviceType
+    numberOfItems: services.length,
+    itemListElement: services.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.name,
+        description: service.description,
+        serviceType: service.serviceType,
+        ...(service.alternateName && { alternateName: service.alternateName }),
+        ...(service.url && { url: service.url }),
+        provider: {
+          '@id': service.providerId
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'Türkiye'
         }
-      }))
-    }
+      }
+    }))
   }
 
   return <StructuredData data={serviceCatalogData} />

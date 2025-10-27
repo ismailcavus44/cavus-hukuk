@@ -7,21 +7,6 @@ interface OrganizationSchemaProps {
   description: string;
   url: string;
   logo?: string;
-  telephone: string;
-  email: string;
-  address: {
-    streetAddress: string;
-    addressLocality: string;
-    addressRegion: string;
-    postalCode: string;
-    addressCountry: string;
-  };
-  geo: {
-    latitude: string;
-    longitude: string;
-  };
-  openingHours?: string;
-  priceRange?: string;
   sameAs?: string[];
 }
 
@@ -30,12 +15,6 @@ const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   description,
   url,
   logo,
-  telephone,
-  email,
-  address,
-  geo,
-  openingHours,
-  priceRange,
   sameAs
 }) => {
   const schema = {
@@ -46,26 +25,6 @@ const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
     "description": description,
     "url": url,
     ...(logo && { "logo": logo }),
-    "telephone": telephone,
-    "email": email,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": address.streetAddress,
-      "addressLocality": address.addressLocality,
-      "addressRegion": address.addressRegion,
-      "postalCode": address.postalCode,
-      "addressCountry": {
-        "@type": "Country",
-        "name": address.addressCountry
-      }
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": geo.latitude,
-      "longitude": geo.longitude
-    },
-    ...(openingHours && { "openingHours": openingHours }),
-    ...(priceRange && { "priceRange": priceRange }),
     ...(sameAs && { "sameAs": sameAs })
   };
 

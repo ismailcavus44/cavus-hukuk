@@ -42,10 +42,14 @@ export default function ArticleSchema({
 }: ArticleSchemaProps) {
   const articleData = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: title,
     description,
     url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${url}#webpage`
+    },
     ...(image && { image }),
     ...(author && {
       author: typeof author === 'string'

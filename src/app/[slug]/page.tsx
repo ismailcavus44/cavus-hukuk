@@ -354,9 +354,15 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           image={blogYazisi.image}
           datePublished={blogYazisi.date}
           dateModified={blogYazisi.date}
+          isPartOf={IDS.website}
+          about={IDS.organization}
+          breadcrumbId={`${BASE_URL}/${blogYazisi.slug}#breadcrumb`}
         />
 
-        <BreadcrumbSchema items={breadcrumbItems} />
+        <BreadcrumbSchema 
+          items={breadcrumbItems}
+          url={`${BASE_URL}/${blogYazisi.slug}`}
+        />
         
         <ArticleSchema
           title={blogYazisi.title}

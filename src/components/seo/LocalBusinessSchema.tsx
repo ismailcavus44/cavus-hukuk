@@ -19,14 +19,8 @@ interface LocalBusinessSchemaProps {
     latitude: string;
     longitude: string;
   };
-  openingHours?: string;
-  priceRange?: string;
+  hasMap: string;
   sameAs?: string[];
-  areaServed?: {
-    '@type': string;
-    name: string;
-  };
-  serviceType?: string;
 }
 
 const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
@@ -37,22 +31,19 @@ const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
   email,
   address,
   geo,
-  openingHours,
-  priceRange,
-  sameAs,
-  areaServed,
-  serviceType
+  hasMap,
+  sameAs
 }) => {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "LegalService",
     "@id": `${url}#local`,
     "name": name,
     "description": description,
     "url": url,
     "telephone": telephone,
     "email": email,
-    "hasMap": `https://maps.app.goo.gl/Wf66FPCrdRhPqjXQ6`,
+    "hasMap": hasMap,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": address.streetAddress,
@@ -69,11 +60,19 @@ const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
       "latitude": geo.latitude,
       "longitude": geo.longitude
     },
-    ...(openingHours && { "openingHours": openingHours }),
-    ...(priceRange && { "priceRange": priceRange }),
-    ...(sameAs && { "sameAs": sameAs }),
-    ...(areaServed && { "areaServed": areaServed }),
-    ...(serviceType && { "serviceType": serviceType })
+    "areaServed": {
+      "@type": "Country",
+      "name": "Türkiye"
+    },
+    "parentOrganization": {
+      "@id": `${url}#organization`
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": telephone,
+      "contactType": "customer service"
+    },
+    ...(sameAs && { "sameAs": sameAs })
   };
 
   return (

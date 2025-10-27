@@ -8,25 +8,11 @@ interface WebPageSchemaProps {
   description: string
   url: string
   image?: string
-  author?: {
-    name: string
-    url?: string
-  }
-  publisher?: {
-    name: string
-    logo?: string
-  }
   datePublished?: string
   dateModified?: string
-  breadcrumb?: Array<{
-    name: string
-    url: string
-  }>
-  mainEntity?: any
-  isPartOf?: {
-    name: string
-    url: string
-  }
+  isPartOf?: string
+  about?: string
+  breadcrumbId?: string
 }
 
 export default function WebPageSchema({
@@ -34,54 +20,35 @@ export default function WebPageSchema({
   description,
   url,
   image,
-  author,
-  publisher,
   datePublished,
   dateModified,
-  breadcrumb,
-  mainEntity,
-  isPartOf
+  isPartOf,
+  about,
+  breadcrumbId
 }: WebPageSchemaProps) {
   const webPageData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
+    '@id': `${url}#webpage`,
     name: title,
     description,
     url,
     ...(image && { image }),
-    ...(author && {
-      author: {
-        '@type': 'Person',
-        name: author.name,
-        ...(author.url && { url: author.url })
-      }
-    }),
-    ...(publisher && {
-      publisher: {
-        '@type': 'Organization',
-        name: publisher.name,
-        ...(publisher.logo && { logo: publisher.logo })
-      }
-    }),
     ...(datePublished && { datePublished }),
     ...(dateModified && { dateModified }),
-    ...(breadcrumb && {
-      breadcrumb: {
-        '@type': 'BreadcrumbList',
-        itemListElement: breadcrumb.map((item, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: item.name,
-          item: item.url
-        }))
-      }
-    }),
-    ...(mainEntity && { mainEntity }),
     ...(isPartOf && {
       isPartOf: {
-        '@type': 'WebSite',
-        name: isPartOf.name,
-        url: isPartOf.url
+        '@id': isPartOf
+      }
+    }),
+    ...(about && {
+      about: {
+        '@id': about
+      }
+    }),
+    ...(breadcrumbId && {
+      breadcrumb: {
+        '@id': breadcrumbId
       }
     })
   }
