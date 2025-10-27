@@ -12,18 +12,6 @@ const clientSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true
-  },
-  // Connection pooling ve cache ayarları
-  global: {
-    headers: {
-      'Cache-Control': 'public, max-age=300, s-maxage=600' // 5-10 dakika cache
-    }
-  },
-  // Real-time bağlantıları kapat (performans için)
-  realtime: {
-    params: {
-      eventsPerSecond: 10
-    }
   }
 });
 
