@@ -9,6 +9,8 @@ interface ServiceSchemaProps {
   serviceType: string;
   providerId: string;
   alternateName?: string;
+  areaServed?: string | { "@type": string; name: string };
+  audience?: string;
 }
 
 const ServiceSchema: React.FC<ServiceSchemaProps> = ({
@@ -17,7 +19,9 @@ const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   url,
   serviceType,
   providerId,
-  alternateName
+  alternateName,
+  areaServed,
+  audience
 }) => {
   const schema = {
     "@context": "https://schema.org",
@@ -30,10 +34,19 @@ const ServiceSchema: React.FC<ServiceSchemaProps> = ({
     "provider": {
       "@id": providerId
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Türkiye"
-    }
+    ...(areaServed
+      ? {
+          "areaServed": typeof areaServed === 'string'
+            ? areaServed
+            : areaServed
+        }
+      : {
+          "areaServed": {
+            "@type": "City",
+            "name": "Ankara"
+          }
+        }),
+    ...(audience && { "audience": audience })
   };
 
   return (
