@@ -13,6 +13,7 @@ interface WebPageSchemaProps {
   isPartOf?: string
   about?: string
   breadcrumbId?: string
+  mentions?: string
 }
 
 export default function WebPageSchema({
@@ -24,7 +25,8 @@ export default function WebPageSchema({
   dateModified,
   isPartOf,
   about,
-  breadcrumbId
+  breadcrumbId,
+  mentions
 }: WebPageSchemaProps) {
   const webPageData = {
     '@context': 'https://schema.org',
@@ -49,6 +51,11 @@ export default function WebPageSchema({
     ...(breadcrumbId && {
       breadcrumb: {
         '@id': breadcrumbId
+      }
+    }),
+    ...(mentions && {
+      mentions: {
+        '@id': mentions
       }
     })
   }

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Phone, Mail, MapPin, ChevronRight } from 'lucide-react';
+import { Phone, Mail, Clock, ChevronRight } from 'lucide-react';
 
 interface SidebarCTAProps {
   ctaTitle: string;
@@ -14,37 +14,45 @@ const SidebarCTA: React.FC<SidebarCTAProps> = ({
   ctaDescription 
 }) => {
   return (
-    <div className="hidden lg:block lg:col-span-1">
+    <div className="hidden lg:block">
       <div className="sticky top-32">
         {/* İletişim CTA */}
-        <div className="bg-red-600 text-white rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">{ctaTitle}</h3>
-          <p className="text-sm mb-4">
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">{ctaTitle}</h3>
+          <p className="text-sm text-gray-600 mb-4">
             {ctaDescription}
           </p>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center space-x-2">
-              <Phone size={16} />
-              <a href="tel:+905053989981" className="hover:underline">
-                +90 505 398 9981
-              </a>
+          
+          {/* İletişim Bilgileri */}
+          <div className="space-y-3 mb-6 pt-4 border-t border-gray-100">
+            <a 
+              href="tel:+905053989981" 
+              className="flex items-center text-sm text-gray-700 hover:text-red-600 transition-colors"
+            >
+              <Phone size={16} className="mr-2 text-red-600" />
+              <span>+90 505 398 99 81</span>
+            </a>
+            <a 
+              href="mailto:av.ismailcavuss@gmail.com" 
+              className="flex items-center text-sm text-gray-700 hover:text-red-600 transition-colors"
+            >
+              <Mail size={16} className="mr-2 text-red-600" />
+              <span>av.ismailcavuss@gmail.com</span>
+            </a>
+            <div className="flex items-start text-sm text-gray-700">
+              <Clock size={16} className="mr-2 text-red-600 mt-0.5" />
+              <div>
+                <p className="font-medium">Çalışma Saatleri</p>
+                <p className="text-gray-600">Pazartesi - Cuma: 09:00 - 18:00</p>
             </div>
-            <div className="flex items-center space-x-2">
-              <Mail size={16} />
-              <a href="mailto:info@ismailcavus.av.tr" className="hover:underline">
-                info@ismailcavus.av.tr
-              </a>
-            </div>
-            <div className="flex items-center space-x-2">
-              <MapPin size={16} />
-              <span>Çankaya/Ankara</span>
             </div>
           </div>
+
           <Link
             href="/iletisim"
-            className="inline-flex items-center justify-center w-full mt-4 px-4 py-2 bg-white text-red-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center justify-center w-full px-4 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
           >
-            Randevu Al
+            İletişime Geç
             <ChevronRight size={16} className="ml-2" />
           </Link>
         </div>

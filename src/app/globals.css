@@ -118,3 +118,34 @@ html {
   font-weight: 600;
   margin: 1.5rem 0 0.75rem;
 }
+
+/* Ankara Ceza Avukatı sayfası için özel stil */
+.ankara-ceza-avukati {
+  width: 100% !important;
+  max-width: 660px !important;
+}
+@media (min-width: 1024px) {
+  .ankara-ceza-avukati {
+    width: 660px !important;
+    max-width: 660px !important;
+  }
+}
+.ankara-ceza-avukati p {
+  font-size: 16px !important;
+  text-align: justify !important;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+.ankara-ceza-avukati h2 {
+  font-size: 26px !important;
+}
+.ankara-ceza-avukati h3 {
+  font-size: 22px !important;
+}
+.ankara-ceza-avukati ul,
+.ankara-ceza-avukati ol {
+  text-align: justify !important;
+}
+.ankara-ceza-avukati li {
+  text-align: justify !important;
+}

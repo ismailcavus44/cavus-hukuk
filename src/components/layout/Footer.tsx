@@ -130,14 +130,14 @@ const Footer = () => {
                 <MapPin size={16} className="text-slate-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <a 
-                    href="https://maps.app.goo.gl/Wf66FPCrdRhPqjXQ6" 
+                    href="https://maps.app.goo.gl/Vfj8y6sUFKdHJxB57" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-slate-300 hover:text-white transition-colors"
                     aria-label="Google Maps'te ofisimizi görüntüle"
                   >
-                    <p>Korkutreis Mahallesi</p>
-                    <p>Cihan Sokak No:12/8</p>
+                    <p>Mustafa Kemal Maha.</p>
+                    <p>Dumlupınar Blv. No:274 C/47</p>
                     <p>Çankaya/Ankara</p>
                   </a>
                 </div>
@@ -150,8 +150,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-slate-400" />
-                <a href="mailto:info@ismailcavus.av.tr" className="text-slate-300 hover:text-white transition-colors" aria-label="Avukat ile e-posta iletişimi başlat - info@ismailcavus.av.tr">
-                  info@ismailcavus.av.tr
+                <a href="mailto:av.ismailcavuss@gmail.com" className="text-slate-300 hover:text-white transition-colors" aria-label="Avukat ile e-posta iletişimi başlat - info@ismailcavus.av.tr">
+                av.ismailcavuss@gmail.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
