@@ -34,7 +34,7 @@ const IletisimPage = React.memo(() => {
   const iletisimBilgileri = {
     telefon: '+90 505 398 99 81',
     email: 'av.ismailcavuss@gmail.com',
-    adres: 'Korkutreis Mahallesi, Cihan Sokak No:12/8, Çankaya/Ankara',
+    adres: 'Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C Blok 8 Kat No:47 Çankaya/Ankara',
     calismaSaatleri: 'Pazartesi - Cumartesi: 09:00 - 18:00'
   };
 
@@ -349,7 +349,7 @@ const IletisimPage = React.memo(() => {
                   <div className="relative w-full h-80 lg:h-[400px] bg-gray-100 rounded-2xl overflow-hidden group cursor-pointer">
                     <img 
                       src="/images/street-map.png"
-                      alt="Çavuş Hukuk Bürosu - Korkutreis Mahallesi, Çankaya/Ankara"
+                      alt="Çavuş Hukuk Bürosu - Mustafa Kemal Mah. Dumlupınar Blv. No: 274, Çankaya/Ankara"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         // Fallback if image doesn't exist
@@ -368,7 +368,7 @@ const IletisimPage = React.memo(() => {
                           <MapPin size={32} className="text-white" />
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">Çavuş Hukuk Bürosu</h3>
-                        <p className="text-gray-600 mb-4">Korkutreis Mahallesi, Çankaya</p>
+                        <p className="text-gray-600 mb-4">Mustafa Kemal Mah. Dumlupınar Blv., Çankaya</p>
                         <div className="space-y-2 text-sm text-gray-500">
                           <p>📍 Merkezi konum</p>
                           <p>🚇 Metro ve otobüs ulaşımı</p>
@@ -405,7 +405,7 @@ const IletisimPage = React.memo(() => {
                     
                     {/* Click to open map */}
                     <a 
-                      href="https://maps.app.goo.gl/Wf66FPCrdRhPqjXQ6"
+                      href="https://maps.app.goo.gl/mFjwC581kVdCnmVm9"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors duration-300 flex items-center justify-center"
@@ -433,11 +433,11 @@ const IletisimPage = React.memo(() => {
                   <div className="space-y-3 text-gray-600">
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <span>Metro: Sıhhiye Metro İstasyonu</span>
+                      <span>Metro: Tarım Bakanlığı Metro</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <span>Otobüs: Sıhhiye Otobüs Durağı</span>
+                      <span>Otobüs: Tarım Bakanlığı Otobüs Durağı</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-red-500 rounded-full"></div>

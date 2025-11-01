@@ -288,42 +288,6 @@ const HizmetlerPage = () => {
           </div>
         </section>
 
-        {/* Neden Biz Section */}
-        <section aria-labelledby="neden-biz-baslik" className="bg-gradient-to-r from-red-50 via-white to-red-50 rounded-none p-0 py-16">
-          <div className="max-w-6xl mx-auto px-4">
-            <header className="text-center mb-8">
-                              <h2 id="neden-biz-baslik" className="text-3xl font-bold text-red-600 mb-4">Neden Çavuş Hukuk Bürosu?</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Deneyimli ve uzman avukatlarımızla hukuki sorunlarınıza profesyonel çözümler üretiyoruz.
-              </p>
-            </header>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <article className="text-center">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <Users size={24} className="text-red-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Deneyimli Ekip</h3>
-                <p className="text-gray-600">Hukuki sorunlarınıza spesifik çözümler üretiyoruz.</p>
-              </article>
-              <article className="text-center">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <Award size={24} className="text-red-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Uzman Avukatlar</h3>
-                <p className="text-gray-600">Her alanda uzmanlaşmış avukatlarımızla hizmet veriyoruz.</p>
-              </article>
-              <article className="text-center">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                  <Clock size={24} className="text-red-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Etkili Çözüm</h3>
-                <p className="text-gray-600">Etkili ve güvenilir çözümlerle müvekkillerimizin yanındayız.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-
       </main>
 
       <AIChatbot />
